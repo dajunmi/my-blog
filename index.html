@@ -1,939 +1,875 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人博客</title>
-    <style>
-        /* 全局变量（用于一键切换夜间模式） */
-        :root {
-            --bg-color: #f7f9fa;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --text-muted: #7f8c8d;
-            --primary-color: #3498db;
-            --primary-hover: #2980b9;
-            --header-bg: #ffffff;
-            --border-color: #ecf0f1;
-            --secret-color: #9b59b6;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <style>
+        /* 全局变量（用于一键切换夜间模式） */
+        :root {
+            --bg-color: #f7f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #7f8c8d;
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+            --header-bg: #ffffff;
+            --border-color: #ecf0f1;
+            --secret-color: #9b59b6;
+        }
 
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --text-color: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --primary-color: #5dade2;
-            --primary-hover: #3498db;
-            --header-bg: #252525;
-            --border-color: #404040;
-        }
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --primary-color: #5dade2;
+            --primary-hover: #3498db;
+            --header-bg: #252525;
+            --border-color: #404040;
+        }
 
-        /* 全局基础样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        /* 全局基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            font-size: 16px;
-        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            font-size: 16px;
+        }
 
-        a {
-            color: var(--text-color);
-            text-decoration: none;
-        }
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
 
-        /* 顶部工具栏 */
-        .top-tools {
-            background: #2c3e50;
-            padding: 5px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        /* 顶部工具栏 */
+        .top-tools {
+            background: #2c3e50;
+            padding: 5px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
 
-        .user-status {
-            color: #fff;
-            font-size: 0.85rem;
-            margin-right: auto;
-        }
+        .user-status {
+            color: #fff;
+            font-size: 0.85rem;
+            margin-right: auto;
+        }
 
-        .tool-btn {
-            background: transparent;
-            border: 1px solid #ffffff55;
-            color: white;
-            padding: 3px 8px;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        .tool-btn {
+            background: transparent;
+            border: 1px solid #ffffff55;
+            color: white;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-        .tool-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .tool-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
 
-        .login-btn {
-            background-color: var(--primary-color);
-            border: none;
-        }
+        .login-btn {
+            background-color: var(--primary-color);
+            border: none;
+        }
 
-        .secret-config-btn {
-            background-color: var(--secret-color);
-            border: none;
-            display: none; /* 仅在登录后显示 */
-        }
+        .secret-config-btn {
+            background-color: var(--secret-color);
+            border: none;
+            display: none; /* 仅在登录后显示 */
+        }
 
-        /* 导航栏 */
-        header {
-            background-color: var(--header-bg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* 导航栏 */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
 
-        .nav-links li a {
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .nav-links li a {
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-        .nav-links li a.active {
-            background-color: var(--primary-color);
-            color: #ffffff;
-        }
+        .nav-links li a.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
 
-        /* 页面显示切换 */
-        .page-content {
-            display: none;
-        }
-        
-        .page-content.active {
-            display: block;
-        }
+        /* 页面显示切换 */
+        .page-content {
+            display: none;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
 
-        /* 主体布局 */
-        .main-container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            gap: 30px;
-            transition: grid-template-columns 0.3s;
-        }
+        /* 主体布局 */
+        .main-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+            transition: grid-template-columns 0.3s;
+        }
 
-        .main-container.hide-sidebar {
-            grid-template-columns: 1fr;
-        }
+        .main-container.hide-sidebar {
+            grid-template-columns: 1fr;
+        }
 
-        /* 文章卡片 */
-        .posts-section {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            }
+        /* 文章卡片 */
+        .posts-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
 
-        .post-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-color);
-        }
+        .post-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
 
-        /* 秘密区域卡片样式 */
-        .secret-card {
-            border: 2px dashed var(--secret-color) !important;
-            background: linear-gradient(145deg, var(--card-bg), rgba(155, 89, 182, 0.05));
-            display: none; 
-        }
+        /* 秘密区域卡片样式 */
+        .secret-card {
+            border: 2px dashed var(--secret-color) !important;
+            background: linear-gradient(145deg, var(--card-bg), rgba(155, 89, 182, 0.05));
+            display: none; 
+        }
 
-        .post-meta {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
 
-        .post-title {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
+        .post-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
 
-        .post-excerpt {
-            color: var(--text-color);
-            opacity: 0.85;
-            margin-bottom: 20px;
-        }
+        .post-excerpt {
+            color: var(--text-color);
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
 
-        /* 交互按钮组 */
-        .post-actions {
-            display: flex;
-            gap: 15px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-        }
+        /* 交互按钮组 */
+        .post-actions {
+            display: flex;
+            gap: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
 
-        .action-btn {
-            background: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 6px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-        }
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
 
-        .action-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
 
-        .action-btn.liked {
-            background: #e74c3c;
-            border-color: #e74c3c;
-            color: white;
-        }
+        .action-btn.liked {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+        }
 
-        /* 侧边栏 */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
+        /* 侧边栏 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
 
-        .main-container.hide-sidebar .sidebar {
-            display: none;
-        }
+        .main-container.hide-sidebar .sidebar {
+            display: none;
+        }
 
-        .widget {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-color);
-        }
+        .widget {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
 
-        .widget-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid var(--primary-color);
-        }
+        .widget-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--primary-color);
+        }
 
-        .widget-title.secret-title {
-            border-bottom-color: var(--secret-color);
-        }
+        .widget-title.secret-title {
+            border-bottom-color: var(--secret-color);
+        }
 
-        .black-avatar {
-            width: 90px;
-            height: 90px;
-            background-color: #000000;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid var(--primary-color);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+        .black-avatar {
+            width: 90px;
+            height: 90px;
+            background-color: #000000;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
 
-        .tags-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            list-style: none;
-        }
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
 
-        .tag {
-            background: var(--bg-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-        }
+        .tag {
+            background: var(--bg-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
 
-        .tag.active-tag {
-            background-color: var(--primary-color);
-            color: white;
-        }
+        .tag.active-tag {
+            background-color: var(--primary-color);
+            color: white;
+        }
 
-        /* 独立页面卡片 */
-        .standalone-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-color);
-        }
+        /* 独立页面卡片 */
+        .standalone-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
 
-        .page-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
+        .page-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
 
-        /* 表单样式 */
-        .message-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+        /* 表单样式 */
+        .message-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
 
-        .form-group {
-            position: relative;
-            display: flex;
-            gap: 10px;
-        }
+        .form-group {
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
-        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+        }
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--primary-color);
-        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
 
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-        .submit-btn:hover {
-            background-color: var(--primary-hover);
-        }
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
 
-        .secret-btn-style {
-            background-color: var(--secret-color) !important;
-            width: 100%;
-            margin-top: 5px;
-        }
-        .secret-btn-style:hover {
-            background-color: #8e44ad !important;
-        }
+        .secret-btn-style {
+            background-color: var(--secret-color) !important;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .secret-btn-style:hover {
+            background-color: #8e44ad !important;
+        }
 
-        /* 弹窗核心样式 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        /* 弹窗核心样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active {
+            display: flex;
+        }
 
-        .modal-content {
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 40px;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-        }
+        .modal-content {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
 
-        .login-modal-content {
-            max-width: 400px;
-        }
+        .login-modal-content {
+            max-width: 400px;
+        }
 
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
 
-        .close-modal:hover {
-            color: #e74c3c;
-        }
+        .close-modal:hover {
+            color: #e74c3c;
+        }
 
-        /* 留言板卡片内部微调 */
-        .message-item {
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 0;
-        }
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-        }
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
 
-        /* 页脚 */
-        footer {
-            background: #2c3e50;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            font-size: 0.9rem;
-        }
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr !important;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr !important;
-            }
-            .nav-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <div class="top-tools">
-        <div class="user-status" id="user-display">👤 访客身份 (未登录)</div>
-        <button class="tool-btn secret-config-btn" onclick="openSecretConfigModal()" id="secret-set-btn">⚙️ 设置秘密系统密码</button>
-        <button class="tool-btn login-btn" onclick="openLoginModal()" id="login-nav-btn">🔐 登录账号</button>
-        <button class="tool-btn" onclick="toggleTheme()" id="theme-btn">🌙 夜间模式</button>
-        <button class="tool-btn" onclick="changeFontSize(1)">➕ 放大字号</button>
-        <button class="tool-btn" onclick="changeFontSize(-1)">➖ 缩小字号</button>
-        <button class="tool-btn" onclick="toggleSidebar()" id="sidebar-btn">🚫 隐藏侧边栏</button>
-    </div>
+    <div class="top-tools">
+        <div class="user-status" id="user-display">👤 访客身份 (未登录)</div>
+        <button class="tool-btn secret-config-btn" onclick="openSecretConfigModal()" id="secret-set-btn">⚙️ 设置秘密系统密码</button>
+        <button class="tool-btn login-btn" onclick="openLoginModal()" id="login-nav-btn">🔐 登录账号</button>
+        <button class="tool-btn" onclick="toggleTheme()" id="theme-btn">🌙 夜间模式</button>
+        <button class="tool-btn" onclick="changeFontSize(1)">➕ 放大字号</button>
+        <button class="tool-btn" onclick="changeFontSize(-1)">➖ 缩小字号</button>
+        <button class="tool-btn" onclick="toggleSidebar()" id="sidebar-btn">🚫 隐藏侧边栏</button>
+    </div>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo" onclick="switchPage('home')">✨ 灵感空间</div>
-            <ul class="nav-links">
-                <li><a id="nav-home" class="active" onclick="switchPage('home')">首页</a></li>
-                <li><a id="nav-about" onclick="switchPage('about')">关于我</a></li>
-                <li><a id="nav-messages" onclick="switchPage('messages')">留言板</a></li>
-            </ul>
-        </div>
-    </header>
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="switchPage('home')">✨ 灵感空间</div>
+            <ul class="nav-links">
+                <li><a id="nav-home" class="active" onclick="switchPage('home')">首页</a></li>
+                <li><a id="nav-about" onclick="switchPage('about')">关于我</a></li>
+                <li><a id="nav-messages" onclick="switchPage('messages')">留言板</a></li>
+            </ul>
+        </div>
+    </header>
 
-    <div class="main-container" id="main-layout">
-        
-        <main>
-            
-            <div id="page-home" class="page-content active">
-                <section class="posts-section">
-                    
-                    <article class="post-card secret-card" id="hidden-secret-zone">
-                        <div class="post-meta" style="color: var(--secret-color); font-weight: bold;">🔒 欢迎进入博主的秘密地下室</div>
-                        <h2 class="post-title" style="color: var(--secret-color);">这里有一份未公开的绝密日记</h2>
-                        <p class="post-excerpt" style="font-style: italic;">“2026年6月20日：今天终于通过代码给博客设置了一道防火墙和密码，普通的访问者是看不到这里的。能来到这里的人，说明你已经拿到了正确的通关暗号。感谢你对这个数字基地的深度探索！”</p>
-                        <div class="post-actions">
-                            <button class="action-btn" style="border-color: var(--secret-color); color: var(--secret-color);" onclick="alert('恭喜你解锁终极彩蛋！')">🎉 解锁专属成就</button>
-                            <button class="action-btn" onclick="lockSecretZone()">🔏 再次锁上</button>
-                        </div>
-                    </article>
+    <div class="main-container" id="main-layout">
+        
+        <main>
+            
+            <div id="page-home" class="page-content active">
+                <section class="posts-section">
+                    
+                    <article class="post-card secret-card" id="hidden-secret-zone">
+                        <div class="post-meta" style="color: var(--secret-color); font-weight: bold;">🔒 欢迎进入博主的秘密地下室</div>
+                        <h2 class="post-title" style="color: var(--secret-color);">这里有一份未公开的绝密日记</h2>
+                        <p class="post-excerpt" style="font-style: italic;">“2026年6月20日：今天终于通过代码给博客设置了一道防火墙和密码，普通的访问者是看不到这里的。能来到这里的人，说明你已经拿到了正确的通关暗号。感谢你对这个数字基地的深度探索！”</p>
+                        <div class="post-actions">
+                            <button class="action-btn" style="border-color: var(--secret-color); color: var(--secret-color);" onclick="alert('恭喜你解锁终极彩蛋！')">🎉 解锁专属成就</button>
+                            <button class="action-btn" onclick="lockSecretZone()">🔏 再次锁上</button>
+                        </div>
+                    </article>
 
-                    <article class="post-card" data-tag="逻辑学">
-                        <div class="post-meta">发布于 2026年6月20日 · 分类: 学术研究</div>
-                        <h2 class="post-title">从形式逻辑到现代逻辑思维：演变及其在AI时代的价值</h2>
-                        <p class="post-excerpt">逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑到现代计算逻辑的演变。在人工智能大语言模型飞速发展的今天，传统逻辑思维正面临着全新的应用与挑战...</p>
-                        <div class="post-actions">
-                            <button class="action-btn" onclick="openModal()">📖 阅读完整论文</button>
-                            <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">12</span>)</button>
-                        </div>
-                    </article>
+                    <article class="post-card" data-tag="逻辑学">
+                        <div class="post-meta">发布于 2026年6月20日 · 分类: 学术研究</div>
+                        <h2 class="post-title">从形式逻辑到现代逻辑思维：演变及其在AI时代的价值</h2>
+                        <p class="post-excerpt">逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑到现代计算逻辑的演变。在人工智能大语言模型飞速发展的今天，传统逻辑思维正面临着全新的应用与挑战...</p>
+                        <div class="post-actions">
+                            <button class="action-btn" onclick="openModal()">📖 阅读完整论文</button>
+                            <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">12</span>)</button>
+                        </div>
+                    </article>
 
-                    <article class="post-card" data-tag="生活">
-                        <div class="post-meta">发布于 2026年6月15日 · 分类: 生活随笔</div>
-                        <h2 class="post-title">夏日午后的咖啡馆与一本书</h2>
-                        <p class="post-excerpt">在这个喧嚣的城市里，找到一个安静的角落并不容易。今天下午，我带着一本喜欢的小说走进了一条小巷子里的咖啡馆，静静享受了两个小时的阳光与咖啡香...</p>
-                        <div class="post-actions">
-                            <button class="action-btn" onclick="alert('这篇短文内容已全部显示在简介中啦！')">📄 已是全文</button>
-                            <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">8</span>)</button>
-                        </div>
-                    </article>
+                    <article class="post-card" data-tag="生活">
+                        <div class="post-meta">发布于 2026年6月15日 · 分类: 生活随笔</div>
+                        <h2 class="post-title">夏日午后的咖啡馆与一本书</h2>
+                        <p class="post-excerpt">在这个喧嚣的城市里，找到一个安静的角落并不容易。今天下午，我带着一本喜欢的小说走进了一条小巷子里的咖啡馆，静静享受了两个小时的阳光与咖啡香...</p>
+                        <div class="post-actions">
+                            <button class="action-btn" onclick="alert('这篇短文内容已全部显示在简介中啦！')">📄 已是全文</button>
+                            <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">8</span>)</button>
+                        </div>
+                    </article>
 
-                </section>
-            </div>
+                </section>
+            </div>
 
-            <div id="page-about" class="page-content">
-                <div class="standalone-card">
-                    <h2 class="page-title">关于我 👨‍💻</h2>
-                    <p style="margin-bottom: 15px;">欢迎来到我的数字基地！我是一个热爱生活、喜欢折腾技术的网页创作者。</p>
-                    <p style="margin-bottom: 15px;">这里是我用来记录灵感、存放代码以及沉淀思考的地方。我相信代码不仅能改变生活，也能让有趣的思想被更多人看见。</p>
-                    <button class="submit-btn" onclick="alert('感谢点击！我的邮箱是：blogger@example.com')">📫 点击获取我的联系方式</button>
-                </div>
-            </div>
+            <div id="page-about" class="page-content">
+                <div class="standalone-card">
+                    <h2 class="page-title">关于我 👨‍💻</h2>
+                    <p style="margin-bottom: 15px;">欢迎来到我的数字基地！我是一个热爱生活、喜欢折腾技术的网页创作者。</p>
+                    <p style="margin-bottom: 15px;">这里是我用来记录灵感、存放代码以及沉淀思考的地方。我相信代码不仅能改变生活，也能让有趣的思想被更多人看见。</p>
+                    <button class="submit-btn" onclick="alert('感谢点击！我的邮箱是：blogger@example.com')">📫 点击获取我的联系方式</button>
+                </div>
+            </div>
 
-            <div id="page-messages" class="page-content">
-                <div class="standalone-card">
-                    <h2 class="page-title">访客留言板 💬</h2>
-                    <form class="message-form" onsubmit="addMessage(event)">
-                        <div class="form-group">
-                            <input type="text" id="msg-nickname" placeholder="您的昵称" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="msg-content" rows="4" placeholder="说点什么吧..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">🚀 提交留言</button>
-                    </form>
+            <div id="page-messages" class="page-content">
+                <div class="standalone-card">
+                    <h2 class="page-title">访客留言板 💬</h2>
+                    <form class="message-form" onsubmit="addMessage(event)">
+                        <div class="form-group">
+                            <input type="text" id="msg-nickname" placeholder="您的昵称" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="msg-content" rows="4" placeholder="说点什么吧..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">🚀 提交留言</button>
+                    </form>
 
-                    <div class="message-list" id="message-list-container">
-                        <div class="message-item">
-                            <div class="message-header">
-                                <span style="font-weight:bold;">🌟 博客小助手</span>
-                                <span>2026-06-20</span>
-                            </div>
-                            <div>正在从云端加载留言板，请稍候...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <div class="message-list" id="message-list-container">
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span style="font-weight:bold;">🌟 博客小助手</span>
+                                <span>2026-06-20</span>
+                            </div>
+                            <div>欢迎来到互动留言板！在这里提交的留言会立刻显示在下方噢！</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        </main>
+        </main>
 
-        <aside class="sidebar">
-            <div class="widget about-me-widget">
-                <h3 class="widget-title">关于博主</h3>
-                <div class="black-avatar"></div>
-                <p>嗨！我是大君米。这里是我记录生活和阅读思考的秘密基地。</p>
-            </div>
+        <aside class="sidebar">
+            <div class="widget about-me-widget">
+                <h3 class="widget-title">关于博主</h3>
+                <div class="black-avatar"></div>
+                <p>嗨！我是大君米。这里是我记录生活和阅读思考的秘密基地。</p>
+            </div>
 
-            <div class="widget" style="border-color: var(--secret-color);">
-                <h3 class="widget-title secret-title" style="color: var(--secret-color);">🕵️‍♂️ 秘密基地探险</h3>
-                <p style="font-size: 0.85rem; margin-bottom: 10px; opacity: 0.8;">博主在这里埋藏了一个隐藏的秘密系统，需要解开特制密码才能访问。</p>
-                <button class="submit-btn secret-btn-style" onclick="verifySecretCode()">⚡ 输入密码解密</button>
-            </div>
+            <div class="widget" style="border-color: var(--secret-color);">
+                <h3 class="widget-title secret-title" style="color: var(--secret-color);">🕵️‍♂️ 秘密基地探险</h3>
+                <p style="font-size: 0.85rem; margin-bottom: 10px; opacity: 0.8;">博主在这里埋藏了一个隐藏的秘密系统，需要解开特制密码才能访问。</p>
+                <button class="submit-btn secret-btn-style" onclick="verifySecretCode()">⚡ 输入密码解密</button>
+            </div>
 
-            <div class="widget">
-                <h3 class="widget-title">分类标签动态筛选</h3>
-                <ul class="tags-list">
-                    <li class="tag" onclick="filterTags('全部', this)">显示全部</li>
-                    <li class="tag" onclick="filterTags('逻辑学', this)">逻辑学</li>
-                    <li class="tag" onclick="filterTags('生活', this)">生活</li>
-                </ul>
-            </div>
-        </aside>
+            <div class="widget">
+                <h3 class="widget-title">分类标签动态筛选</h3>
+                <ul class="tags-list">
+                    <li class="tag" onclick="filterTags('全部', this)">显示全部</li>
+                    <li class="tag" onclick="filterTags('逻辑学', this)">逻辑学</li>
+                    <li class="tag" onclick="filterTags('生活', this)">生活</li>
+                </ul>
+            </div>
+        </aside>
 
-    </div>
+    </div>
 
-    <div class="modal" id="paper-modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 style="margin-bottom: 20px; color: var(--primary-color);">论文：从形式逻辑到现代逻辑思维</h2>
-            <div style="font-size: 1rem; line-height: 1.8; opacity: 0.9;">
-                <p><b>摘要：</b>逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑、近现代数理逻辑到如今计算逻辑的演变。</p>
-            </div>
-        </div>
-    </div>
+    <div class="modal" id="paper-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 20px; color: var(--primary-color);">论文：从形式逻辑到现代逻辑思维</h2>
+            <div style="font-size: 1rem; line-height: 1.8; opacity: 0.9;">
+                <p><b>摘要：</b>逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑、近现代数理逻辑到如今计算逻辑的演变。</p>
+            </div>
+        </div>
+    </div>
 
-    <div class="modal" id="login-modal">
-        <div class="modal-content login-modal-content">
-            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">📨 邮箱验证码登录 / 注册</h3>
-            <p style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-bottom: 20px;">
-                输入邮箱获取 6 位数字验证码进行验证登录。
-            </p>
-            
-            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
-                <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
-                    <input type="email" id="login-email" placeholder="请输入您的电子邮箱" required>
-                    <button type="button" id="send-otp-btn" onclick="sendEmailOTP()" style="width: 130px; font-size: 0.8rem; padding: 12px 5px;" class="submit-btn">获取验证码</button>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="login-otp" placeholder="请输入 6 位数字验证码" required maxlength="6">
-                </div>
-                <button type="submit" class="submit-btn" style="width: 100%;">确认验证登录</button>
-            </form>
-        </div>
-    </div>
+    <div class="modal" id="login-modal">
+        <div class="modal-content login-modal-content">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">📨 邮箱验证码登录 / 注册</h3>
+            <p style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-bottom: 20px;">
+                输入邮箱获取 6 位数字验证码进行验证登录。
+            </p>
+            
+            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="email" id="login-email" placeholder="请输入您的电子邮箱" required>
+                    <button type="button" id="send-otp-btn" onclick="sendEmailOTP()" style="width: 130px; font-size: 0.8rem; padding: 12px 5px;" class="submit-btn">获取验证码</button>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="login-otp" placeholder="请输入 6 位数字验证码" required maxlength="6">
+                </div>
+                <button type="submit" class="submit-btn" style="width: 100%;">确认验证登录</button>
+            </form>
+        </div>
+    </div>
 
-    <div class="modal" id="secret-config-modal">
-        <div class="modal-content login-modal-content" style="border: 2px solid var(--secret-color);">
-            <span class="close-modal" onclick="closeSecretConfigModal()">&times;</span>
-            <h3 style="margin-bottom: 20px; text-align: center; color: var(--secret-color);">⚙️ 设置秘密系统密码</h3>
-            <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">重设秘密房间的解密暗号。修改后，访问探险入口时需要输入该新密码。</p>
-            
-            <form onsubmit="saveNewSecretPassword(event)" style="display: flex; flex-direction: column; gap: 15px;">
-                <div class="form-group">
-                    <input type="password" id="new-secret-pwd" placeholder="输入你想自定义的新密码" required>
-                </div>
-                <button type="submit" class="submit-btn secret-btn-style" style="width: 100%;">保存新密码</button>
-            </form>
-        </div>
-    </div>
+    <div class="modal" id="secret-config-modal">
+        <div class="modal-content login-modal-content" style="border: 2px solid var(--secret-color);">
+            <span class="close-modal" onclick="closeSecretConfigModal()">&times;</span>
+            <h3 style="margin-bottom: 20px; text-align: center; color: var(--secret-color);">⚙️ 设置秘密系统密码</h3>
+            <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">重设秘密房间的解密暗号。修改后，访问探险入口时需要输入该新密码。</p>
+            
+            <form onsubmit="saveNewSecretPassword(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="form-group">
+                    <input type="password" id="new-secret-pwd" placeholder="输入你想自定义的新密码" required>
+                </div>
+                <button type="submit" class="submit-btn secret-btn-style" style="width: 100%;">保存新密码</button>
+            </form>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 我的个人博客. Built with ❤️ and Code.</p>
-    </footer>
+    <footer>
+        <p>&copy; 2026 我的个人博客. Built with ❤️ and Code.</p>
+    </footer>
 
-    <script>
-        /* ☁️==================== Supabase 真实的客户端配置初始化 ==================== */
-        const SUPABASE_URL = "https://oihgebrafviplvgjxgsl.supabase.co"; // 修正为了标准的 supabase.co 域名
-        const SUPABASE_ANON_KEY = "sb_publishable_uHseH0RAVAq-TvrRxOjG6w_f_E6wH7E"; 
-        
-        // 声明初始化云连接对象
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <script>
+        /* ☁️==================== Supabase 真实的客户端配置初始化 ==================== */
+        const SUPABASE_URL = "https://oihgebrafviplvgjxgsl.supabase.co"; // ⬅️ 请替换成你的项目 URL
+        const SUPABASE_ANON_KEY = "sb_publishable_uHseH0RAVAq-TvrRxOjG6w_f_E6wH7E"; // ⬅️ 请替换成你的【可发布密钥】
+        
+        // 声明初始化云连接对象
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 其他本地功能变量
-        let currentSecretPassword = "666"; 
-        let isLoggedIn = false;
-        let smsCountdown = 60;
 
-        // 页面无刷新切换
-        function switchPage(pageName) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-links li a').forEach(l => l.classList.remove('active'));
-            document.getElementById('page-' + pageName).classList.add('active');
-            if(document.getElementById('nav-' + pageName)) {
-                document.getElementById('nav-' + pageName).classList.add('active');
-            }
-        }
+        // 其他本地功能变量
+        let currentSecretPassword = "666"; 
+        let isLoggedIn = false;
+        let smsCountdown = 60;
 
-        // 点赞交互
-        function likePost(button) {
-            const countSpan = button.querySelector('.like-count');
-            let currentLikes = parseInt(countSpan.innerText);
-            if(!button.classList.contains('liked')) {
-                button.classList.add('liked');
-                countSpan.innerText = currentLikes + 1;
-                button.innerHTML = `❤️ 已赞 (<span class="like-count">${currentLikes + 1}</span>)`;
-            } else {
-                button.classList.remove('liked');
-                countSpan.innerText = currentLikes - 1;
-                button.innerHTML = `❤️ 点赞 (<span class="like-count">${currentLikes - 1}</span>)`;
-            }
-        }
+        // 页面无刷新切换
+        function switchPage(pageName) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links li a').forEach(l => l.classList.remove('active'));
+            document.getElementById('page-' + pageName).classList.add('active');
+            if(document.getElementById('nav-' + pageName)) {
+                document.getElementById('nav-' + pageName).classList.add('active');
+            }
+        }
 
-        // 夜间模式切换
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const themeBtn = document.getElementById('theme-btn');
-            if (currentTheme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-                themeBtn.innerText = "🌙 夜间模式";
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeBtn.innerText = "☀️ 日间模式";
-            }
-        }
+        // 点赞交互
+        function likePost(button) {
+            const countSpan = button.querySelector('.like-count');
+            let currentLikes = parseInt(countSpan.innerText);
+            if(!button.classList.contains('liked')) {
+                button.classList.add('liked');
+                countSpan.innerText = currentLikes + 1;
+                button.innerHTML = `❤️ 已赞 (<span class="like-count">${currentLikes + 1}</span>)`;
+            } else {
+                button.classList.remove('liked');
+                countSpan.innerText = currentLikes - 1;
+                button.innerHTML = `❤️ 点赞 (<span class="like-count">${currentLikes - 1}</span>)`;
+            }
+        }
 
-        // 调节字号
-        let currentSize = 16;
-        function changeFontSize(direction) {
-            currentSize += direction * 2;
-            if(currentSize < 12) currentSize = 12;
-            if(currentSize > 24) currentSize = 24;
-            document.body.style.fontSize = currentSize + 'px';
-        }
+        // 夜间模式切换
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const themeBtn = document.getElementById('theme-btn');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.innerText = "🌙 夜间模式";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = "☀️ 日间模式";
+            }
+        }
 
-        // 隐藏/展现侧边栏
-        function toggleSidebar() {
-            const layout = document.getElementById('main-layout');
-            const btn = document.getElementById('sidebar-btn');
-            layout.classList.toggle('hide-sidebar');
-            btn.innerText = layout.classList.contains('hide-sidebar') ? "👁️ 展开侧边栏" : "🚫 隐藏侧边栏";
-        }
+        // 调节字号
+        let currentSize = 16;
+        function changeFontSize(direction) {
+            currentSize += direction * 2;
+            if(currentSize < 12) currentSize = 12;
+            if(currentSize > 24) currentSize = 24;
+            document.body.style.fontSize = currentSize + 'px';
+        }
 
-        // 标签筛选
-        function filterTags(tagName, tagElement) {
-            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active-tag'));
-            if(tagElement) tagElement.classList.add('active-tag');
-            document.querySelectorAll('.post-card').forEach(card => {
-                card.style.display = (tagName === '全部' || card.getAttribute('data-tag') === tagName) ? 'block' : 'none';
-            });
-        }
+        // 隐藏/展现侧边栏
+        function toggleSidebar() {
+            const layout = document.getElementById('main-layout');
+            const btn = document.getElementById('sidebar-btn');
+            layout.classList.toggle('hide-sidebar');
+            btn.innerText = layout.classList.contains('hide-sidebar') ? "👁️ 展开侧边栏" : "🚫 隐藏侧边栏";
+        }
 
-        // 论文弹窗控制
-        function openModal() { document.getElementById('paper-modal').classList.add('active'); }
-        function closeModal() { document.getElementById('paper-modal').classList.remove('active'); }
+        // 标签筛选
+        function filterTags(tagName, tagElement) {
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active-tag'));
+            if(tagElement) tagElement.classList.add('active-tag');
+            document.querySelectorAll('.post-card').forEach(card => {
+                card.style.display = (tagName === '全部' || card.getAttribute('data-tag') === tagName) ? 'block' : 'none';
+            });
+        }
 
-        /* 💾 核心：从 Supabase 云端拉取留言并渲染 */
-        async function loadMessages() {
-            const container = document.getElementById('message-list-container');
-            if (!container) return;
-            
-            try {
-                const { data: messages, error } = await supabaseClient
-                    .from('messages')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+        // 论文弹窗控制
+        function openModal() { document.getElementById('paper-modal').classList.add('active'); }
+        function closeModal() { document.getElementById('paper-modal').classList.remove('active'); }
 
-                if (error) throw error;
+        // 留言板留言提交
+        function addMessage(event) {
+            event.preventDefault();
+            const nickname = document.getElementById('msg-nickname').value;
+            const content = document.getElementById('msg-content').value;
+            const container = document.getElementById('message-list-container');
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-                container.innerHTML = ''; 
+            const item = document.createElement('div');
+            item.className = 'message-item';
+            item.innerHTML = `<div class="message-header"><span style="font-weight:bold;">👤 ${nickname}</span><span>${timeStr}</span></div><div>${content}</div>`;
+            container.insertBefore(item, container.firstChild);
+            document.getElementById('msg-nickname').value = '';
+            document.getElementById('msg-content').value = '';
+        }
 
-                if (!messages || messages.length === 0) {
-                    container.innerHTML = `<div class="message-item"><div class="message-header"><span style="font-weight:bold;">🌟 博客小助手</span></div><div>暂无留言，快来抢沙发吧！</div></div>`;
-                    return;
-                }
+        /* 🔐 Supabase 真实邮箱验证码（OTP）服务逻辑 */
+        
+        // 1. 发送验证码
+        async function sendEmailOTP() {
+            const emailInput = document.getElementById('login-email').value.trim();
+            if(!emailInput || !emailInput.includes('@')) {
+                alert("请输入格式正确的邮箱地址！");
+                return;
+            }
 
-                messages.forEach(msg => {
-                    const now = new Date(msg.created_at);
-                    const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-                    
-                    const item = document.createElement('div');
-                    item.className = 'message-item';
-                    item.innerHTML = `
-                        <div class="message-header">
-                            <span style="font-weight:bold;">👤 ${msg.nickname}</span>
-                            <span>${timeStr}</span>
-                        </div>
-                        <div>${msg.content}</div>
-                    `;
-                    container.appendChild(item);
-                });
-            } catch (err) {
-                console.error("加载留言失败:", err.message);
-                container.innerHTML = `<div class="message-item">❌ 从云端拉取留言失败，请检查连接或配置。</div>`;
-            }
-        }
+            const sendBtn = document.getElementById('send-otp-btn');
+            
+            try {
+                // 调用 Supabase 验证码发信接口
+                const { error } = await supabaseClient.auth.signInWithOtp({
+                    email: emailInput,
+                    options: {
+                        shouldCreateUser: true // 允许新邮箱自动注册
+                    }
+                });
 
-        /* 🚀 核心：将新留言提交存储到云端 */
-        async function addMessage(event) {
-            event.preventDefault();
-            const nicknameInput = document.getElementById('msg-nickname');
-            const contentInput = document.getElementById('msg-content');
-            
-            const nickname = nicknameInput.value.trim();
-            const content = contentInput.value.trim();
+                if (error) {
+                    alert("❌ 验证码发送失败: " + error.message);
+                    return;
+                }
 
-            if(!nickname || !content) return;
+                alert(`📬 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码（或登录凭证）。`);
 
-            try {
-                const { error } = await supabaseClient
-                    .from('messages')
-                    .insert([{ nickname: nickname, content: content }]);
+                // 按钮启动 60 秒倒计时
+                sendBtn.disabled = true;
+                let timer = setInterval(() => {
+                    smsCountdown--;
+                    sendBtn.innerText = `${smsCountdown}s`;
+                    if(smsCountdown <= 0) {
+                        clearInterval(timer);
+                        sendBtn.disabled = false;
+                        sendBtn.innerText = "获取验证码";
+                        smsCountdown = 60;
+                    }
+                }, 1000);
 
-                if (error) {
-                    alert("❌ 留言失败: " + error.message);
-                    return;
-                }
+            } catch (err) {
+                alert("发送异常: " + err.message);
+            }
+        }
 
-                contentInput.value = '';
-                await loadMessages(); 
-                
-            } catch (err) {
-                alert("提交异常: " + err.message);
-            }
-        }
+        // 2. 校验验证码进行登录
+        async function handleLoginSubmit(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('login-email').value.trim();
+            const tokenInput = document.getElementById('login-otp').value.trim();
 
-        /* 🔐 Supabase 真实邮箱验证码（OTP）服务逻辑 */
-        async function sendEmailOTP() {
-            const emailInput = document.getElementById('login-email').value.trim();
-            if(!emailInput || !emailInput.includes('@')) {
-                alert("请输入格式正确的邮箱地址！");
-                return;
-            }
+            if (tokenInput.length < 4) {
+                alert("请输入正确的验证码！");
+                return;
+            }
 
-            const sendBtn = document.getElementById('send-otp-btn');
-            
-            try {
-                const { error } = await supabaseClient.auth.signInWithOtp({
-                    email: emailInput,
-                    options: {
-                        shouldCreateUser: true 
-                    }
-                });
+            try {
+                // 🚀 核心：通过输入框中的 token 进行云端 OTP 校验
+                const { data, error } = await supabaseClient.auth.verifyOtp({
+                    email: emailInput,
+                    token: tokenInput,
+                    type: 'email'
+                });
 
-                if (error) {
-                    alert("❌ 验证码发送失败: " + error.message);
-                    return;
-                }
+                if (error) {
+                    alert("❌ 验证失败（可能输入有误或已过期）: " + error.message);
+                    return;
+                }
 
-                alert(`📬 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码。`);
+                // 验证成功
+                isLoggedIn = true;
+                const userEmail = data.user.email;
+                alert(`🎉 验证登录成功！已成功同步云端会话，欢迎：[${userEmail}]`);
+                
+                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                
+                // 联动留言板昵称
+                if(document.getElementById('msg-nickname')) {
+                    document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                }
+                closeLoginModal();
 
-                sendBtn.disabled = true;
-                let timer = setInterval(() => {
-                    smsCountdown--;
-                    sendBtn.innerText = `${smsCountdown}s`;
-                    if(smsCountdown <= 0) {
-                        clearInterval(timer);
-                        sendBtn.disabled = false;
-                        sendBtn.innerText = "获取验证码";
-                        smsCountdown = 60;
-                    }
-                }, 1000);
+            } catch (err) {
+                alert("登录验证发生错误: " + err.message);
+            }
+        }
 
-            } catch (err) {
-                alert("发送异常: " + err.message);
-            }
-        }
+        async function openLoginModal() {
+            if(isLoggedIn) {
+                if(confirm("确定要退出当前账号吗？")) {
+                    await supabaseClient.auth.signOut();
+                    isLoggedIn = false;
+                    document.getElementById('user-display').innerText = "👤 访客身份 (未登录)";
+                    document.getElementById('login-nav-btn').innerText = "🔐 登录账号";
+                    document.getElementById('secret-set-btn').style.display = "none"; 
+                    if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = "";
+                    lockSecretZone();
+                }
+            } else {
+                document.getElementById('login-modal').classList.add('active');
+            }
+        }
 
-        async function handleLoginSubmit(event) {
-            event.preventDefault();
-            const emailInput = document.getElementById('login-email').value.trim();
-            const tokenInput = document.getElementById('login-otp').value.trim();
+        function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
 
-            if (tokenInput.length < 4) {
-                alert("请输入正确的验证码！");
-                return;
-            }
+        // 页面装载自动同步已有 Session 状态
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && session.user) {
+                isLoggedIn = true;
+                const userEmail = session.user.email;
+                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+            }
+        });
 
-            try {
-                const { data, error } = await supabaseClient.auth.verifyOtp({
-                    email: emailInput,
-                    token: tokenInput,
-                    type: 'email'
-                });
+        /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
+        function verifySecretCode() {
+            const userPasswordInput = prompt("请输入博主的地下室特制通行密码（默认初始密码是 666）：");
+            if(userPasswordInput === null) return; 
+            
+            if(userPasswordInput.trim() === currentSecretPassword) {
+                alert("🔓 密码验证正确！隐藏的秘密区域已成功解锁呈现！");
+                switchPage('home'); 
+                document.getElementById('hidden-secret-zone').style.display = 'block'; 
+                document.getElementById('hidden-secret-zone').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("❌ 密码错误！无法窥探秘密基地。");
+            }
+        }
 
-                if (error) {
-                    alert("❌ 验证失败（可能输入有误或已过期）: " + error.message);
-                    return;
-                }
+        function lockSecretZone() {
+            document.getElementById('hidden-secret-zone').style.display = 'none';
+        }
 
-                isLoggedIn = true;
-                const userEmail = data.user.email;
-                alert(`🎉 验证登录成功！已成功同步云端会话，欢迎：[${userEmail}]`);
-                
-                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
-                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-                document.getElementById('secret-set-btn').style.display = "inline-block"; 
-                
-                if(document.getElementById('msg-nickname')) {
-                    document.getElementById('msg-nickname').value = userEmail.split('@')[0];
-                }
-                closeLoginModal();
+        function openSecretConfigModal() {
+            if(!isLoggedIn) {
+                alert("❌ 只有已登录的用户才能配置此特权选项！");
+                return;
+            }
+            document.getElementById('secret-config-modal').classList.add('active');
+        }
 
-            } catch (err) {
-                alert("登录验证发生错误: " + err.message);
-            }
-        }
+        function closeSecretConfigModal() { document.getElementById('secret-config-modal').classList.remove('active'); }
 
-        async function openLoginModal() {
-            if(isLoggedIn) {
-                if(confirm("确定要退出当前账号吗？")) {
-                    await supabaseClient.auth.signOut();
-                    isLoggedIn = false;
-                    document.getElementById('user-display').innerText = "👤 访客身份 (未登录)";
-                    document.getElementById('login-nav-btn').innerText = "🔐 登录账号";
-                    document.getElementById('secret-set-btn').style.display = "none"; 
-                    if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = "";
-                    lockSecretZone();
-                }
-            } else {
-                document.getElementById('login-modal').classList.add('active');
-            }
-        }
-
-        function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
-
-        /* ⏳ 初始化装载：同步已登录Session，并从云端加载留言 */
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session && session.user) {
-                    isLoggedIn = true;
-                    const userEmail = session.user.email;
-                    document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
-                    document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-                    document.getElementById('secret-set-btn').style.display = "inline-block"; 
-                    if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
-                }
-            } catch(e) {
-                console.log("Session状态同步失败，可能网络未连接");
-            }
-            
-            // 触发加载云端留言
-            await loadMessages();
-        });
-
-        /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
-        function verifySecretCode() {
-            const userPasswordInput = prompt("请输入博主的地下室特制通行密码（默认初始密码是 666）：");
-            if(userPasswordInput === null) return; 
-            
-            if(userPasswordInput.trim() === currentSecretPassword) {
-                alert("🔓 密码验证正确！隐藏的秘密区域已成功解锁呈现！");
-                switchPage('home'); 
-                document.getElementById('hidden-secret-zone').style.display = 'block'; 
-                document.getElementById('hidden-secret-zone').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert("❌ 密码错误！无法窥探秘密基地。");
-            }
-        }
-
-        function lockSecretZone() {
-            document.getElementById('hidden-secret-zone').style.display = 'none';
-        }
-
-        function openSecretConfigModal() {
-            if(!isLoggedIn) {
-                alert("❌ 只有已登录的用户才能配置此特权选项！");
-                return;
-            }
-            document.getElementById('secret-config-modal').classList.add('active');
-        }
-
-        function closeSecretConfigModal() { document.getElementById('secret-config-modal').classList.remove('active'); }
-
-        function saveNewSecretPassword(event) {
-            event.preventDefault();
-            const newPwdValue = document.getElementById('new-secret-pwd').value.trim();
-            if(newPwdValue.length < 1) {
-                alert("❌ 密码不能为空！");
-                return;
-            }
-            currentSecretPassword = newPwdValue; 
-            alert(`⚙️ 设置成功！秘密基地的通行暗号已被重设为：[ ${newPwdValue} ]`);
-            document.getElementById('new-secret-pwd').value = ""; 
-            closeSecretConfigModal(); 
-        }
-    </script>
+        function saveNewSecretPassword(event) {
+            event.preventDefault();
+            const newPwdValue = document.getElementById('new-secret-pwd').value.trim();
+            if(newPwdValue.length < 1) {
+                alert("❌ 密码不能为空！");
+                return;
+            }
+            currentSecretPassword = newPwdValue; 
+            alert(`⚙️ 设置成功！秘密基地的通行暗号已被重设为：[ ${newPwdValue} ]`);
+            document.getElementById('new-secret-pwd').value = ""; 
+            closeSecretConfigModal(); 
+        }
+    </script>
 </body>
 </html>
