@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f7f9fa;
+        }
+
+        a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 主体布局 */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        /* 文章列表区域 */
+        .posts-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .post-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .post-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .post-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .widget {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3498db;
+            color: #2c3e50;
+        }
+
+        .about-me img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .tag:hover {
+            background: #3498db;
+            color: #fff;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计（手机端优美化） */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">✨ 灵感空间</div>
+            <ul class="nav-links">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">文章</a></li>
+                <li><a href="#">关于我</a></li>
+                <li><a href="#">留言板</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="posts-section">
+            
+            <article class="post-card">
+                <div class="post-meta">发布于 2026年6月20日 · 分类: 技术探索</div>
+                <h2 class="post-title"><a href="#">如何从零开始搭建一个属于自己的网站？</a></h2>
+                <p class="post-excerpt">搭建网站其实并没有想象中那么复杂。本文将带你了解 HTML、CSS 的基础知识，并一步步教你如何编写代码，把你的想法变成一个可以在浏览器中运行的网页...</p>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+
+            <article class="post-card">
+                <div class="post-meta">发布于 2026年6月15日 · 分类: 生活随笔</div>
+                <h2 class="post-title"><a href="#">夏日午后的咖啡馆与一本书</a></h2>
+                <p class="post-excerpt">在这个喧嚣的城市里，找到一个安静的角落并不容易。今天下午，我带着一本喜欢的小说走进了一条小巷子里的咖啡馆，静静享受了两个小时的阳光与咖啡香...</p>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+
+            <article class="post-card">
+                <div class="post-meta">发布于 2026年6月01日 · 分类: 读书笔记</div>
+                <h2 class="post-title"><a href="#">读《自控力》：如何掌控自己的人生</a></h2>
+                <p class="post-excerpt">我们常常因为意志力不足而自责，但书里告诉我们，自控力其实就像肌肉一样，是可以被训练和提升的。在这里分享几个对我影响最深的实用小技巧...</p>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+
+        </section>
+
+        <aside class="sidebar">
+            
+            <div class="widget about-me">
+                <h3 class="widget-title">关于博主</h3>
+                <img src="https://via.placeholder.com/100" alt="头像">
+                <p>嗨！我是博主。这里是我记录生活、分享技术和阅读思考的秘密基地。欢迎来到我的数字世界！</p>
+            </div>
+
+            <div class="widget">
+                <h3 class="widget-title">热门标签</h3>
+                <ul class="tags-list">
+                    <li><a href="#" class="tag">HTML</a></li>
+                    <li><a href="#" class="tag">CSS</a></li>
+                    <li><a href="#" class="tag">读书笔记</a></li>
+                    <li><a href="#" class="tag">生活</a></li>
+                    <li><a href="#" class="tag">旅行</a></li>
+                    <li><a href="#" class="tag">摄影</a></li>
+                </ul>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 我的个人博客. Built with ❤️ and Code.</p>
+    </footer>
+
+</body>
+</html>
