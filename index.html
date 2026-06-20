@@ -41,7 +41,7 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
-            font-size: 16px; /* 基础字号 */
+            font-size: 16px;
         }
 
         a {
@@ -233,13 +233,15 @@
             border-bottom: 2px solid var(--primary-color);
         }
 
-        .about-me-widget img {
+        /* 纯黑头像样式 */
+        .black-avatar {
             width: 90px;
             height: 90px;
+            background-color: #000000;
             border-radius: 50%;
             margin-bottom: 15px;
-            object-fit: cover;
             border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .tags-list {
@@ -493,7 +495,7 @@
         <aside class="sidebar">
             <div class="widget about-me-widget">
                 <h3 class="widget-title">关于博主</h3>
-                <img src="avatar.jpg" alt="我的头像" onerror="this.src='https://via.placeholder.com/90'">
+                <div class="black-avatar"></div>
                 <p>嗨！我是大君米。这里是我记录生活和阅读思考的秘密基地。</p>
             </div>
 
@@ -542,7 +544,7 @@
             }
         }
 
-        // 按钮交互 1：文章异步独立点赞功能
+        // 文章点赞
         function likePost(button) {
             const countSpan = button.querySelector('.like-count');
             let currentLikes = parseInt(countSpan.innerText);
@@ -558,7 +560,7 @@
             }
         }
 
-        // 按钮交互 2：一键深色/夜间模式切换
+        // 深色/夜间模式切换
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const themeBtn = document.getElementById('theme-btn');
@@ -571,7 +573,7 @@
             }
         }
 
-        // 按钮交互 3：动态调节全站系统字号
+        // 动态调节系统字号
         let currentSize = 16;
         function changeFontSize(direction) {
             currentSize += direction * 2;
@@ -580,7 +582,7 @@
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // 按钮交互 4：侧边栏无视屏幕动态隐藏/展现
+        // 隐藏/展现侧边栏
         function toggleSidebar() {
             const layout = document.getElementById('main-layout');
             const btn = document.getElementById('sidebar-btn');
@@ -592,7 +594,7 @@
             }
         }
 
-        // 按钮交互 5：标签云文章动态分类过滤筛选
+        // 标签筛选
         function filterTags(tagName, tagElement) {
             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active-tag'));
             if(tagElement) tagElement.classList.add('active-tag');
@@ -606,7 +608,7 @@
             });
         }
 
-        // 按钮交互 6：大论文弹窗显示与关闭
+        // 论文弹窗
         function openModal() {
             document.getElementById('paper-modal').classList.add('active');
         }
@@ -614,7 +616,7 @@
             document.getElementById('paper-modal').classList.remove('active');
         }
 
-        // 按钮交互 7：留言板本地无刷新实时插队显示
+        // 留言板实时插队
         function addMessage(event) {
             event.preventDefault();
             const nickname = document.getElementById('msg-nickname').value;
