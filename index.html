@@ -435,6 +435,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+    <link rel="preconnect" href="https://challenges.cloudflare.com" />
+    <script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
 <body>
 
     <div class="top-tools">
@@ -579,6 +585,14 @@
             
             <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
                 <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
+                    <div class="cf-turnstile" data-sitekey="<0x4AAAAAADoPJQLHZti_T_Eu>"></div>
+                    <div
+  class="cf-turnstile"
+  data-sitekey="<YOUR-SITE-KEY>"
+  data-theme="light"
+  data-size="normal"
+  data-callback="onSuccess"
+></div>
                     <input type="email" id="login-email" placeholder="请输入您的电子邮箱" required>
                     <button type="button" id="send-otp-btn" onclick="sendEmailOTP()" style="width: 130px; font-size: 0.8rem; padding: 12px 5px;" class="submit-btn">获取验证码</button>
                 </div>
