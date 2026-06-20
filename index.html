@@ -723,16 +723,37 @@
             const sendBtn = document.getElementById('send-otp-btn');
             
             try {
-                // 调用 Supabase 验证码发信接口
-                const { error } = await supabaseClient.auth.signInWithOtp({
-                    email: emailInput,
-                    options: {
-                        shouldCreateUser: true // 允许新邮箱自动注册
-                    }
-                });
+        // 1. 获取 Cloudflare Turnstile 验证通过后的 Token
+        const token = turnstile.getResponse();
+        
+        // 2. 如果用户没有点击/通过人机验证，直接拦截并提示
+        if (!token) {
+            alert("❌ 请先完成人机验证！");
+            return; // 终止函数
+        }
 
-                if (error) {
-                    alert("❌ 验证码发送失败: " + error.message);
+        // 3. 调用 Supabase 验证码发信接口，并带上 Token
+        const { error } = await supabaseClient.auth.signInWithOtp({
+            email: emailInput,
+            options: {
+                shouldCreateUser: true, // 允许新邮箱自动注册
+                captchaToken: token     // 将拿到的验证 Token 传给 Supabase 后端
+            }
+        });
+
+        // 4. 处理发送结果
+        if (error) {
+            alert("❌ 验证码发送失败：" + error.message);
+            turnstile.reset(); // 失败时重置验证码框
+            return;
+        }
+
+        alert(`📩 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码（或登录凭证）。`);
+
+    } catch (catchError) {
+        alert("❌ 发生未知错误：" + catchError.message);
+        turnstile.reset();
+    }
                     return;
                 }
 
