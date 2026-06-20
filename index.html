@@ -432,6 +432,8 @@
             }
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -570,14 +572,14 @@
     <div class="modal" id="login-modal">
         <div class="modal-content login-modal-content">
             <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">🔑 账号密码登录</h3>
+            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">🔑 真实云账户登录</h3>
             <p style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-bottom: 20px;">
-                💡 初始内置账号：<b style="color:var(--primary-color);">admin</b> 密码：<b style="color:var(--primary-color);">123456</b>
+                请输入您在 Supabase 注册激活过的电子邮箱和密码
             </p>
             
             <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
                 <div class="form-group">
-                    <input type="text" id="login-account" placeholder="请输入您的账号名 / 邮箱" required>
+                    <input type="email" id="login-account" placeholder="请输入您的邮箱地址 (必填)" required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="login-password" placeholder="请输入您的登录密码" required>
@@ -607,9 +609,15 @@
     </footer>
 
     <script>
-        // 全局动态账密与秘密暗号配置（前端仿真存储）
-        let systemUsername = "admin";
-        let systemPassword = "123456";
+        /* ☁️==================== Supabase 真实的客户端配置初始化 ==================== */
+        const SUPABASE_URL = "https://oihgebrafviplvgjxgsl.supabase.co"; // ⬅️ 请替换成你在 Supabase 后台 API 复制的真实 URL
+        const SUPABASE_ANON_KEY = "sb_publishable_uHseH0RAVAq-TvrRxOjG6w_f_E6wH7E"; // ⬅️ 请替换成你在 Supabase 后台 API 复制的那个极长长长的 anon key
+        
+        // 声明初始化云连接对象
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+        // 其他本地基础功能变量
         let currentSecretPassword = "666"; 
         let isLoggedIn = false;
 
@@ -698,10 +706,13 @@
             document.getElementById('msg-content').value = '';
         }
 
-        /* 🔐 账号与传统密码系统校验逻辑 */
-        function openLoginModal() {
+        /* 🔐 真实的 Supabase 账户系统控制与校验逻辑 */
+        async function openLoginModal() {
             if(isLoggedIn) {
                 if(confirm("确定要退出当前账号吗？")) {
+                    // 调用 Supabase 真实的注销方法
+                    await supabaseClient.auth.signOut();
+                    
                     isLoggedIn = false;
                     document.getElementById('user-display').innerText = "👤 访客身份 (未登录)";
                     document.getElementById('login-nav-btn').innerText = "🔐 登录账号";
@@ -716,27 +727,41 @@
 
         function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
 
-        // 提交账号名和密码的登录校验
-        function handleLoginSubmit(event) {
+        // 🌟【异步真实请求】向 Supabase 服务器提交账号密码验证
+        async function handleLoginSubmit(event) {
             event.preventDefault();
-            const accountInput = document.getElementById('login-account').value.trim();
+            const emailInput = document.getElementById('login-account').value.trim();
             const passwordInput = document.getElementById('login-password').value.trim();
 
-            // 双重条件验证（匹配前端定义的 systemUsername 和 systemPassword）
-            if (accountInput !== systemUsername || passwordInput !== systemPassword) {
-                alert("❌ 账号名或密码错误！请检查后重试。\n（提示：使用初始账号 admin 和密码 123456 进行测试）");
-                return;
-            }
+            try {
+                // 使用 SDK 封装的 signInWithPassword 方法连接真实的云后端
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: emailInput,
+                    password: passwordInput,
+                });
 
-            isLoggedIn = true;
-            alert(`🎉 欢迎回来，[${accountInput}] 登录成功！特权管理功能已同步开启。`);
-            
-            document.getElementById('user-display').innerText = `👤 已登录: ${accountInput}`;
-            document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-            document.getElementById('secret-set-btn').style.display = "inline-block"; 
-            
-            document.getElementById('msg-nickname').value = accountInput;
-            closeLoginModal();
+                // 如果服务器报错（如密码不匹配、用户不存在）
+                if (error) {
+                    alert("❌ 登录失败: " + error.message);
+                    return;
+                }
+
+                // 成功从后端拿到 User 身份响应数据
+                isLoggedIn = true;
+                const userEmail = data.user.email;
+                alert(`🎉 登录成功！欢迎回来，真实的 Supabase 会员 [${userEmail}]`);
+                
+                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                
+                // 联动留言板昵称
+                document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                closeLoginModal();
+
+            } catch (err) {
+                alert("❗ 系统异常，请检查配置参数：" + err.message);
+            }
         }
 
         /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
@@ -756,12 +781,11 @@
 
         function lockSecretZone() {
             document.getElementById('hidden-secret-zone').style.display = 'none';
-            alert("🔏 隐藏房间已重新关闭并安全加锁！");
         }
 
         function openSecretConfigModal() {
             if(!isLoggedIn) {
-                alert("❌ 只有登录用户才能配置此选项！");
+                alert("❌ 只有已登录的用户才能配置此特权选项！");
                 return;
             }
             document.getElementById('secret-config-modal').classList.add('active');
