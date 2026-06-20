@@ -478,7 +478,7 @@
                     <article class="post-card" data-tag="逻辑学">
                         <div class="post-meta">发布于 2026年6月20日 · 分类: 学术研究</div>
                         <h2 class="post-title">从形式逻辑到现代逻辑思维：演变及其在AI时代的价值</h2>
-                        <p class="post-excerpt">逻辑思想作为人类理性思维的核心，经历了从亚里士东德形式逻辑到现代计算逻辑的演变。在人工智能大语言模型飞速发展的今天，传统逻辑思维正面临着全新的应用与挑战...</p>
+                        <p class="post-excerpt">逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑到现代计算逻辑的演变。在人工智能大语言模型飞速发展的今天，传统逻辑思维正面临着全新的应用与挑战...</p>
                         <div class="post-actions">
                             <button class="action-btn" onclick="openModal()">📖 阅读完整论文</button>
                             <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">12</span>)</button>
@@ -572,20 +572,20 @@
     <div class="modal" id="login-modal">
         <div class="modal-content login-modal-content">
             <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">📨 邮箱无密码登录 / 注册</h3>
+            <h3 style="margin-bottom: 10px; text-align: center; color: var(--primary-color);">📨 邮箱验证码登录 / 注册</h3>
             <p style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-bottom: 20px;">
-                输入你的真实邮箱获取登录免密链接，点击邮件内链接直接秒登！
+                输入邮箱获取 6 位数字验证码进行验证登录。
             </p>
             
-            <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 15px;">
+            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
                 <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
                     <input type="email" id="login-email" placeholder="请输入您的电子邮箱" required>
-                    <button type="button" id="send-otp-btn" onclick="sendEmailOTP()" style="width: 130px; font-size: 0.8rem; padding: 12px 5px;" class="submit-btn">获取登录链接</button>
+                    <button type="button" id="send-otp-btn" onclick="sendEmailOTP()" style="width: 130px; font-size: 0.8rem; padding: 12px 5px;" class="submit-btn">获取验证码</button>
                 </div>
-                <div id="login-otp-wrapper" style="display: none;" class="form-group">
-                    <input type="text" id="login-otp" placeholder="无需输入">
+                <div class="form-group">
+                    <input type="text" id="login-otp" placeholder="请输入 6 位数字验证码" required maxlength="6">
                 </div>
-                <button type="button" id="submit-status-btn" class="submit-btn" style="width: 100%; background: #95a5a6; cursor: default;">💡 提示：输入邮箱并点击发送按钮</button>
+                <button type="submit" class="submit-btn" style="width: 100%;">确认验证登录</button>
             </form>
         </div>
     </div>
@@ -708,9 +708,9 @@
             document.getElementById('msg-content').value = '';
         }
 
-        /* 🔐 Supabase 真实邮箱魔术链接（Magic Link）服务逻辑 */
+        /* 🔐 Supabase 真实邮箱验证码（OTP）服务逻辑 */
         
-        // 1. 发送免密登录/注册魔术链接
+        // 1. 发送验证码
         async function sendEmailOTP() {
             const emailInput = document.getElementById('login-email').value.trim();
             if(!emailInput || !emailInput.includes('@')) {
@@ -719,31 +719,24 @@
             }
 
             const sendBtn = document.getElementById('send-otp-btn');
-            const statusBtn = document.getElementById('submit-status-btn');
             
             try {
-                // 调用 Supabase 官方发送魔术链接接口
+                // 调用 Supabase 验证码发信接口
                 const { error } = await supabaseClient.auth.signInWithOtp({
                     email: emailInput,
                     options: {
-                        shouldCreateUser: true, // 允许新邮箱自动注册
-                        emailRedirectTo: window.location.href // 点击邮件内跳转按钮时，自动重定向跳回你当前的博客网页
+                        shouldCreateUser: true // 允许新邮箱自动注册
                     }
                 });
 
                 if (error) {
-                    alert("❌ 邮件发送失败: " + error.message);
+                    alert("❌ 验证码发送失败: " + error.message);
                     return;
                 }
 
-                alert(`📬 登录链接已发出！请检查邮箱 [ ${emailInput} ]，点击邮件中的【登入/Sign In】即可直接登录博客！`);
-                
-                if (statusBtn) {
-                    statusBtn.innerText = "👉 请前往邮箱查收邮件并点击登录链接";
-                    statusBtn.style.background = "#e67e22";
-                }
+                alert(`📬 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码（或登录凭证）。`);
 
-                // 发送按钮启动 60 秒倒计时防止频繁点击
+                // 按钮启动 60 秒倒计时
                 sendBtn.disabled = true;
                 let timer = setInterval(() => {
                     smsCountdown--;
@@ -751,7 +744,7 @@
                     if(smsCountdown <= 0) {
                         clearInterval(timer);
                         sendBtn.disabled = false;
-                        sendBtn.innerText = "获取登录链接";
+                        sendBtn.innerText = "获取验证码";
                         smsCountdown = 60;
                     }
                 }, 1000);
@@ -761,35 +754,50 @@
             }
         }
 
-        // 2. 核心：在页面加载时自动监听从邮件跳转回来的登录会话状态
-        async function checkUserSession() {
-            try {
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
-                if (error) return;
+        // 2. 校验验证码进行登录
+        async function handleLoginSubmit(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('login-email').value.trim();
+            const tokenInput = document.getElementById('login-otp').value.trim();
 
-                // 如果检查到 URL 带有授权令牌，且成功拿到了 Session 对象，说明用户刚刚点击了邮箱登录！
-                if (session && session.user) {
-                    isLoggedIn = true;
-                    const userEmail = session.user.email;
-                    
-                    alert(`🎉 登录成功！已安全通过云端验证，欢迎回来，博友：[${userEmail}]`);
-                    
-                    document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
-                    document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-                    document.getElementById('secret-set-btn').style.display = "inline-block"; 
-                    
-                    // 自动同步联动留言板的默认昵称
-                    if(document.getElementById('msg-nickname')) {
-                        document.getElementById('msg-nickname').value = userEmail.split('@')[0];
-                    }
-                    closeLoginModal();
+            if (tokenInput.length < 4) {
+                alert("请输入正确的验证码！");
+                return;
+            }
+
+            try {
+                // 🚀 核心：通过输入框中的 token 进行云端 OTP 校验
+                const { data, error } = await supabaseClient.auth.verifyOtp({
+                    email: emailInput,
+                    token: tokenInput,
+                    type: 'email'
+                });
+
+                if (error) {
+                    alert("❌ 验证失败（可能输入有误或已过期）: " + error.message);
+                    return;
                 }
+
+                // 验证成功
+                isLoggedIn = true;
+                const userEmail = data.user.email;
+                alert(`🎉 验证登录成功！已成功同步云端会话，欢迎：[${userEmail}]`);
+                
+                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                
+                // 联动留言板昵称
+                if(document.getElementById('msg-nickname')) {
+                    document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                }
+                closeLoginModal();
+
             } catch (err) {
-                console.log("检测登录状态失败:", err);
+                alert("登录验证发生错误: " + err.message);
             }
         }
 
-        // 3. 打开或关闭登录弹窗
         async function openLoginModal() {
             if(isLoggedIn) {
                 if(confirm("确定要退出当前账号吗？")) {
@@ -798,7 +806,7 @@
                     document.getElementById('user-display').innerText = "👤 访客身份 (未登录)";
                     document.getElementById('login-nav-btn').innerText = "🔐 登录账号";
                     document.getElementById('secret-set-btn').style.display = "none"; 
-                    document.getElementById('msg-nickname').value = "";
+                    if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = "";
                     lockSecretZone();
                 }
             } else {
@@ -808,11 +816,18 @@
 
         function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
 
-        // 4. 页面首次装载完毕后，触发登录状态审查
-        window.addEventListener('DOMContentLoaded', () => {
-            checkUserSession();
+        // 页面装载自动同步已有 Session 状态
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && session.user) {
+                isLoggedIn = true;
+                const userEmail = session.user.email;
+                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+            }
         });
-
 
         /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
         function verifySecretCode() {
