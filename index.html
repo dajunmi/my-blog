@@ -412,6 +412,19 @@
             color: #e74c3c;
         }
 
+        /* 留言板卡片内部微调 */
+        .message-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
         /* 页脚 */
         footer {
             background: #2c3e50;
@@ -526,7 +539,7 @@
                                 <span style="font-weight:bold;">🌟 博客小助手</span>
                                 <span>2026-06-20</span>
                             </div>
-                            <div>欢迎来到互动留言板！在这里提交的留言会立刻显示在下方噢！</div>
+                            <div>正在从云端加载留言板，请稍候...</div>
                         </div>
                     </div>
                 </div>
@@ -611,12 +624,11 @@
 
     <script>
         /* ☁️==================== Supabase 真实的客户端配置初始化 ==================== */
-        const SUPABASE_URL = "https://oihgebrafviplvgjxgsl.supabase.co"; // ⬅️ 请替换成你的项目 URL
-        const SUPABASE_ANON_KEY = "sb_publishable_uHseH0RAVAq-TvrRxOjG6w_f_E6wH7E"; // ⬅️ 请替换成你的【可发布密钥】
+        const SUPABASE_URL = "https://oihgebrafviplvgjxgsl.co"; // 已修正域名后缀
+        const SUPABASE_ANON_KEY = "sb_publishable_uHseH0RAVAq-TvrRxOjG6w_f_E6wH7E"; 
         
         // 声明初始化云连接对象
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 
         // 其他本地功能变量
         let currentSecretPassword = "666"; 
@@ -691,27 +703,78 @@
         function openModal() { document.getElementById('paper-modal').classList.add('active'); }
         function closeModal() { document.getElementById('paper-modal').classList.remove('active'); }
 
-        // 留言板留言提交
-        function addMessage(event) {
-            event.preventDefault();
-            const nickname = document.getElementById('msg-nickname').value;
-            const content = document.getElementById('msg-content').value;
+        /* 💾 核心：从 Supabase 云端拉取留言并渲染 */
+        async loadMessages() {
             const container = document.getElementById('message-list-container');
-            const now = new Date();
-            const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+            if (!container) return;
+            
+            try {
+                const { data: messages, error } = await supabaseClient
+                    .from('messages')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-            const item = document.createElement('div');
-            item.className = 'message-item';
-            item.innerHTML = `<div class="message-header"><span style="font-weight:bold;">👤 ${nickname}</span><span>${timeStr}</span></div><div>${content}</div>`;
-            container.insertBefore(item, container.firstChild);
-            document.getElementById('msg-nickname').value = '';
-            document.getElementById('msg-content').value = '';
+                if (error) throw error;
+
+                container.innerHTML = ''; 
+
+                if (!messages || messages.length === 0) {
+                    container.innerHTML = `<div class="message-item"><div class="message-header"><span style="font-weight:bold;">🌟 博客小助手</span></div><div>暂无留言，快来抢沙发吧！</div></div>`;
+                    return;
+                }
+
+                messages.forEach(msg => {
+                    const now = new Date(msg.created_at);
+                    const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+                    
+                    const item = document.createElement('div');
+                    item.className = 'message-item';
+                    item.innerHTML = `
+                        <div class="message-header">
+                            <span style="font-weight:bold;">👤 ${msg.nickname}</span>
+                            <span>${timeStr}</span>
+                        </div>
+                        <div>${msg.content}</div>
+                    `;
+                    container.appendChild(item);
+                });
+            } catch (err) {
+                console.error("加载留言失败:", err.message);
+                container.innerHTML = `<div class="message-item">❌ 从云端拉取留言失败，请检查连接或配置。</div>`;
+            }
+        }
+
+        /* 🚀 核心：将新留言提交存储到云端 */
+        async addMessage(event) {
+            event.preventDefault();
+            const nicknameInput = document.getElementById('msg-nickname');
+            const contentInput = document.getElementById('msg-content');
+            
+            const nickname = nicknameInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if(!nickname || !content) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('messages')
+                    .insert([{ nickname: nickname, content: content }]);
+
+                if (error) {
+                    alert("❌ 留言失败: " + error.message);
+                    return;
+                }
+
+                contentInput.value = '';
+                await loadMessages(); 
+                
+            } catch (err) {
+                alert("提交异常: " + err.message);
+            }
         }
 
         /* 🔐 Supabase 真实邮箱验证码（OTP）服务逻辑 */
-        
-        // 1. 发送验证码
-        async function sendEmailOTP() {
+        async sendEmailOTP() {
             const emailInput = document.getElementById('login-email').value.trim();
             if(!emailInput || !emailInput.includes('@')) {
                 alert("请输入格式正确的邮箱地址！");
@@ -721,11 +784,10 @@
             const sendBtn = document.getElementById('send-otp-btn');
             
             try {
-                // 调用 Supabase 验证码发信接口
                 const { error } = await supabaseClient.auth.signInWithOtp({
                     email: emailInput,
                     options: {
-                        shouldCreateUser: true // 允许新邮箱自动注册
+                        shouldCreateUser: true 
                     }
                 });
 
@@ -734,9 +796,8 @@
                     return;
                 }
 
-                alert(`📬 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码（或登录凭证）。`);
+                alert(`📬 验证码发送成功！请查看您的邮箱 [ ${emailInput} ] 获取数字验证码。`);
 
-                // 按钮启动 60 秒倒计时
                 sendBtn.disabled = true;
                 let timer = setInterval(() => {
                     smsCountdown--;
@@ -754,8 +815,7 @@
             }
         }
 
-        // 2. 校验验证码进行登录
-        async function handleLoginSubmit(event) {
+        async handleLoginSubmit(event) {
             event.preventDefault();
             const emailInput = document.getElementById('login-email').value.trim();
             const tokenInput = document.getElementById('login-otp').value.trim();
@@ -766,7 +826,6 @@
             }
 
             try {
-                // 🚀 核心：通过输入框中的 token 进行云端 OTP 校验
                 const { data, error } = await supabaseClient.auth.verifyOtp({
                     email: emailInput,
                     token: tokenInput,
@@ -778,7 +837,6 @@
                     return;
                 }
 
-                // 验证成功
                 isLoggedIn = true;
                 const userEmail = data.user.email;
                 alert(`🎉 验证登录成功！已成功同步云端会话，欢迎：[${userEmail}]`);
@@ -787,7 +845,6 @@
                 document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
                 document.getElementById('secret-set-btn').style.display = "inline-block"; 
                 
-                // 联动留言板昵称
                 if(document.getElementById('msg-nickname')) {
                     document.getElementById('msg-nickname').value = userEmail.split('@')[0];
                 }
@@ -798,7 +855,7 @@
             }
         }
 
-        async function openLoginModal() {
+        async openLoginModal() {
             if(isLoggedIn) {
                 if(confirm("确定要退出当前账号吗？")) {
                     await supabaseClient.auth.signOut();
@@ -816,17 +873,24 @@
 
         function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
 
-        // 页面装载自动同步已有 Session 状态
+        /* ⏳ 初始化装载：同步已登录Session，并从云端加载留言 */
         window.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session && session.user) {
-                isLoggedIn = true;
-                const userEmail = session.user.email;
-                document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
-                document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-                document.getElementById('secret-set-btn').style.display = "inline-block"; 
-                if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session && session.user) {
+                    isLoggedIn = true;
+                    const userEmail = session.user.email;
+                    document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
+                    document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
+                    document.getElementById('secret-set-btn').style.display = "inline-block"; 
+                    if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                }
+            } catch(e) {
+                console.log("Session状态同步失败，可能网络未连接");
             }
+            
+            // 🚀 触发加载云端留言
+            await loadMessages();
         });
 
         /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
