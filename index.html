@@ -159,11 +159,21 @@
             grid-template-columns: 1fr;
         }
 
-        /* 文章卡片 */
+        /* 文章卡片区域 - 默认不登录时隐藏 */
         .posts-section {
-            display: flex;
+            display: none; 
             flex-direction: column;
             gap: 25px;
+        }
+
+        /* 未登录时显示的提示卡片 */
+        .login-prompt-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            text-align: center;
         }
 
         .post-card {
@@ -463,7 +473,13 @@
         <main>
             
             <div id="page-home" class="page-content active">
-                <section class="posts-section">
+                <div class="login-prompt-card" id="login-prompt-zone">
+                    <h2 style="margin-bottom: 15px; color: var(--primary-color);">🔒 内容已被锁定</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">本站文章内容仅对登录会员公开，请先登录账号后再浏览。</p>
+                    <button class="submit-btn" onclick="openLoginModal()">🔐 立即登录 / 注册</button>
+                </div>
+
+                <section class="posts-section" id="blog-posts-zone">
                     
                     <article class="post-card secret-card" id="hidden-secret-zone">
                         <div class="post-meta" style="color: var(--secret-color); font-weight: bold;">🔒 欢迎进入博主的秘密地下室</div>
@@ -511,7 +527,7 @@
 加了好友后，我们每天放学回家都会在微信上聊天。四年级的作业虽然不算特别多，但我们总能聊上很久。聊天的内容基本上都是今天遇到了什么好玩的事、哪个同学在课上丢了人，或者互相问对方某道数学附加题是怎么写的。每天晚上聊天成了我们的一种习惯。
 
 三、 笨拙的表白
-这样聊了一个多月后，赶上学校办元旦联欢会。那天下午放学特别早，她约我去学校旁边的小公园。我们在长椅上坐着，她看起来特别紧张，深吸了一口气对我说：“我期末考试想和你考到一个班……不对，我是说我喜欢你，你能当我男朋友吗？” 因为太紧张她舌头都打结了，听完后我笑了一下，冲她点了点头。
+这样聊了一个多月后，赶上学校办元旦联欢会。那天下午放学特别早，她约我去学校旁边的小公园。我们在长椅上坐着，她看起来特别紧张，深吸了一口气对我说：“我期末考试想和你考到一个班……不对，我是说我喜欢你，你能当我男朋友吗？” 因为太紧张她舌头都打结了，听完后我笑了一下，冲纹点了点头。
 
 四、 淡化的感情
 在一起之后的前两周挺开心的，但后面感觉就变淡了。到了下半学期，老师和家长都管得越来越严，我们能聊天的时间越来越少。在学校里碰面，大家也因为不好意思，只是看对方一眼就走过去了。微信上的聊天也变得越来越敷衍，经常是发个表情包就不知道该说什么了。
@@ -654,6 +670,19 @@
         let currentSecretPassword = "666"; 
         let isLoggedIn = false;
         let smsCountdown = 60;
+
+        // 辅助更新文章可见性的函数
+        function updateContentVisibility() {
+            const postsZone = document.getElementById('blog-posts-zone');
+            const promptZone = document.getElementById('login-prompt-zone');
+            if (isLoggedIn) {
+                if(postsZone) postsZone.style.display = 'flex';
+                if(promptZone) promptZone.style.display = 'none';
+            } else {
+                if(postsZone) postsZone.style.display = 'none';
+                if(promptZone) promptZone.style.display = 'block';
+            }
+        }
 
         // 页面无刷新切换
         function switchPage(pageName) {
@@ -823,6 +852,7 @@
                 if(document.getElementById('msg-nickname')) {
                     document.getElementById('msg-nickname').value = userEmail.split('@')[0];
                 }
+                updateContentVisibility();
                 closeLoginModal();
 
             } catch (err) {
@@ -840,6 +870,7 @@
                     document.getElementById('secret-set-btn').style.display = "none"; 
                     if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = "";
                     lockSecretZone();
+                    updateContentVisibility();
                 }
             } else {
                 document.getElementById('login-modal').classList.add('active');
@@ -859,10 +890,16 @@
                 document.getElementById('secret-set-btn').style.display = "inline-block"; 
                 if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
             }
+            updateContentVisibility();
         });
 
         /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
         function verifySecretCode() {
+            if (!isLoggedIn) {
+                alert("❌ 请先登录网站会员，再尝试进入秘密基地！");
+                openLoginModal();
+                return;
+            }
             const userPasswordInput = prompt("请输入博主的地下室特制通行密码（默认初始密码是 666）：");
             if(userPasswordInput === null) return; 
             
@@ -887,21 +924,8 @@
             }
             document.getElementById('secret-config-modal').classList.add('active');
         }
-
         function closeSecretConfigModal() { document.getElementById('secret-config-modal').classList.remove('active'); }
-
-        function saveNewSecretPassword(event) {
-            event.preventDefault();
-            const newPwdValue = document.getElementById('new-secret-pwd').value.trim();
-            if(newPwdValue.length < 1) {
-                alert("❌ 密码不能为空！");
-                return;
-            }
-            currentSecretPassword = newPwdValue; 
-            alert(`⚙️ 设置成功！秘密基地的通行暗号已被重设为：[ ${newPwdValue} ]`);
-            document.getElementById('new-secret-pwd').value = ""; 
-            closeSecretConfigModal(); 
-        }
+        function saveNewSecretPassword(e) { e.preventDefault(); currentSecretPassword = document.getElementById('new-secret-pwd').value; alert('密码修改成功！'); closeSecretConfigModal(); }
     </script>
 </body>
 </html>
