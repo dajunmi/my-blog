@@ -206,6 +206,7 @@
             color: var(--text-color);
             opacity: 0.85;
             margin-bottom: 20px;
+            white-space: pre-wrap; /* 保持原文本段落换行 */
         }
 
         /* 交互按钮组 */
@@ -214,6 +215,7 @@
             gap: 15px;
             border-top: 1px solid var(--border-color);
             padding-top: 15px;
+            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -441,6 +443,17 @@
                 gap: 15px;
             }
         }
+
+        /* 管理员控制按钮专用样式 */
+        .admin-edit-btn {
+            border-color: #e67e22 !important;
+            color: #e67e22 !important;
+            display: none; /* 默认隐藏，登录后显示 */
+        }
+        .admin-edit-btn:hover {
+            background: #e67e22 !important;
+            color: white !important;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -491,10 +504,10 @@
                         </div>
                     </article>
 
-                    <article class="post-card" data-tag="逻辑学">
+                    <article class="post-card" data-tag="逻辑学" id="post-1">
                         <div class="post-meta">发布于 2026年6月20日 · 分类: 爱情故事</div>
-                        <h2 class="post-title">爱情故事</h2>
-                        <p class="post-excerpt">、 意外的相识
+                        <h2 class="post-title" id="post-title-1">爱情故事</h2>
+                        <p class="post-excerpt" id="post-content-1">、 意外的相识
 我和她的相识非常偶然。那天放学的时候下着暴雨，她没带伞，只能站在教学楼门口发呆。正当我准备回家时，看到了她。她是隔壁班的，我手里刚好拿着一把大黑伞。我走了过去，把伞往她手里一递，说：“你用吧，我跑回去就行。” 还没等她反应过来，我就冲进了雨幕里。第二天她把伞还给我，我们就这样认识了。
 
 二、 暧昧的聊天
@@ -507,20 +520,21 @@
 刚在一起的时候确实很甜蜜，但时间一长，新鲜感好像就慢慢消失了。随着下半学期课业越来越紧，我们能一起聊天的时间越来越少。平时在走廊上遇到，也只是匆匆打个招呼。不知道从什么时候开始，手机上的聊天记录变成了简单的“早安”和“晚安”，以前分享生活的热情一下子就消失了。
 
 五、 矛盾的爆发
-矛盾终于在一次期末复习周爆发了。那天她和班里的几个男同学一起在教室讨论英语小组作业，大家有说有笑的。我刚好从窗外路过，看到后心里很不舒服。晚上我就在微信上质问她，怪她不该和其他男生走得那么近。她觉得我莫名其妙，说只是正常的写作业，觉得我不信任她。我们在手机里大吵了一架，谁也不肯让步。
+矛盾终于在一次期末复习周爆发了。那天她和班里的几个男同学一起在教室讨论英语小组作业，大家有说有笑的。我刚好从窗外路过，看到后心里很不舒服。晚上我就在微信上质问她，怪她不该和其他男生走得那么近。她觉得我莫名奇妙，说只是正常的写作业，觉得我不信任她。我们在手机里大吵了一架，谁也不肯让步。
 
 六、 最后的和平分手
 冷战了三天后，我们约在学校附近的奶茶店见面。我们面对面坐着，面朝窗外。最后是我先开口的，我说：“我们好像都变了，在一起挺累的。” 她看着窗外，回答说：“好，那祝你以后都好。” 我们没有争吵，各自结了账，朝着不同的方向走回家。</p>
                         <div class="post-actions">
                             <button class="action-btn" onclick="openModal()">📖 阅读完整论文</button>
                             <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">12</span>)</button>
+                            <button class="action-btn admin-edit-btn" onclick="openAdminEditModal('1')">📝 编辑文章</button>
                         </div>
                     </article>
 
-                    <article class="post-card" data-tag="爱情">
+                    <article class="post-card" data-tag="爱情" id="post-2">
                         <div class="post-meta">发布于 2026年6月15日 · 分类: 生活随笔</div>
-                        <h2 class="post-title">2</h2>
-                        <p class="post-excerpt">一、 意外的相识
+                        <h2 class="post-title" id="post-title-2">2</h2>
+                        <p class="post-excerpt" id="post-content-2">一、 意外的相识
 我和她的相识是在学校的体育课上。她是我们班的，只不过平时很少说话。那天我们上体育自由活动，踢足球的时候，我一脚把球踢飞了，刚好滚到她脚边。她把球捡起来丢给我，还顺口夸了我一句踢得挺远。我走过去和她说了谢谢，放学后我们互相加了好友。
 
 二、 暧昧的聊天
@@ -540,6 +554,7 @@
                         <div class="post-actions">
                             <button class="action-btn" onclick="alert('这篇短文内容已全部显示在简介中啦！')">📄 已是全文</button>
                             <button class="action-btn" onclick="likePost(this)">❤️ 点赞 (<span class="like-count">8</span>)</button>
+                            <button class="action-btn admin-edit-btn" onclick="openAdminEditModal('2')">📝 编辑文章</button>
                         </div>
                     </article>
 
@@ -595,6 +610,12 @@
                 <button class="submit-btn secret-btn-style" onclick="verifySecretCode()">⚡ 输入密码解密</button>
             </div>
 
+            <div class="widget" style="border-color: #e67e22;">
+                <h3 class="widget-title" style="color: #e67e22; border-bottom-color: #e67e22;">🛠️ 管理员控制台</h3>
+                <p id="admin-status-text" style="font-size: 0.85rem; margin-bottom: 10px; opacity: 0.8;">当前状态：未获得编辑权限。</p>
+                <button id="admin-login-btn" class="submit-btn" style="background-color: #e67e22; width: 100%;" onclick="toggleAdminLogin()">🔐 登录管理员身份</button>
+            </div>
+
             <div class="widget">
                 <h3 class="widget-title">分类标签动态筛选</h3>
                 <ul class="tags-list">
@@ -610,7 +631,7 @@
     <div class="modal" id="paper-modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 style="margin-bottom: 20px; color: var(--primary-color);">论文：从形式逻辑到现代逻辑思维</h2>
+            <h2 style="margin-bottom: 20px; color: var(--primary-color);">论文：从形式逻辑到现代 logic 思维</h2>
             <div style="font-size: 1rem; line-height: 1.8; opacity: 0.9;">
                 <p><b>摘要：</b>逻辑思想作为人类理性思维的核心，经历了从亚里士多德形式逻辑、近现代数理逻辑到如今计算逻辑的演变。</p>
             </div>
@@ -653,6 +674,23 @@
         </div>
     </div>
 
+    <div class="modal" id="admin-edit-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAdminEditModal()">&times;</span>
+            <h2 style="margin-bottom: 20px; color: #e67e22;">📝 编辑博客文章</h2>
+            <div class="message-form">
+                <input type="hidden" id="edit-post-id">
+                <div class="form-group">
+                    <input type="text" id="edit-post-title" placeholder="文章标题" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="edit-post-content" rows="12" placeholder="文章正文内容..." required></textarea>
+                </div>
+                <button class="submit-btn" style="background-color: #e67e22;" onclick="saveEditedPost()">💾 保存修改并发布</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 我的个人博客. Built with ❤️ and Code.</p>
     </footer>
@@ -665,11 +703,14 @@
         // 声明初始化云连接对象
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
         // 其他本地功能变量
         let currentSecretPassword = "666"; 
         let isLoggedIn = false;
         let smsCountdown = 60;
+
+        /* 🛠️ 管理员核心逻辑变量 */
+        const ADMIN_PASSWORD = "admin123"; // ⬅️ 你可以在这里修改你的管理员密码
+        let isAdminLoggedIn = false;
 
         // 辅助更新文章可见性的函数
         function updateContentVisibility() {
@@ -706,6 +747,11 @@
                 button.classList.remove('liked');
                 countSpan.innerText = currentLikes - 1;
                 button.innerHTML = `❤️ 点赞 (<span class="like-count">${currentLikes - 1}</span>)`;
+            }
+            // 登录了管理员后保持编辑按钮不被覆盖掉
+            if(isAdminLoggedIn) {
+                const editBtn = button.parentElement.querySelector('.admin-edit-btn');
+                if(editBtn) editBtn.style.display = 'flex';
             }
         }
 
@@ -768,6 +814,86 @@
             document.getElementById('msg-nickname').value = '';
             document.getElementById('msg-content').value = '';
         }
+
+        /* 🕵️‍♂️ 秘密基地相关函数 */
+        function verifySecretCode() {
+            const pwd = prompt("请输入秘密基地的访问密码：");
+            if(pwd === currentSecretPassword) {
+                alert("🔓 密码正确！秘密房间已为你开启。");
+                document.getElementById('hidden-secret-zone').style.display = 'block';
+            } else {
+                alert("❌ 密码错误，无法进入！");
+            }
+        }
+        function lockSecretZone() {
+            document.getElementById('hidden-secret-zone').style.display = 'none';
+        }
+        function openSecretConfigModal() { document.getElementById('secret-config-modal').classList.add('active'); }
+        function closeSecretConfigModal() { document.getElementById('secret-config-modal').classList.remove('active'); }
+        function saveNewSecretPassword(event) {
+            event.preventDefault();
+            currentSecretPassword = document.getElementById('new-secret-pwd').value;
+            alert("密码更新成功！新密码为：" + currentSecretPassword);
+            closeSecretConfigModal();
+        }
+
+        /* 🛠️ 新增管理员独立控制函数 */
+        function toggleAdminLogin() {
+            if (isAdminLoggedIn) {
+                // 退出登录
+                isAdminLoggedIn = false;
+                document.getElementById('admin-status-text').innerText = "当前状态：未获得编辑权限。";
+                document.getElementById('admin-login-btn').innerText = "🔐 登录管理员身份";
+                document.querySelectorAll('.admin-edit-btn').forEach(btn => btn.style.display = 'none');
+                alert("管理员身份已退出。");
+            } else {
+                // 登录验证
+                const inputPwd = prompt("请输入管理员密码：");
+                if (inputPwd === ADMIN_PASSWORD) {
+                    isAdminLoggedIn = true;
+                    document.getElementById('admin-status-text').innerText = "当前状态：⭐ 尊贵的管理员大君米";
+                    document.getElementById('admin-login-btn').innerText = "🚪 退出管理员身份";
+                    document.querySelectorAll('.admin-edit-btn').forEach(btn => btn.style.display = 'flex');
+                    alert("登录成功！您现在可以自由编辑首页的文章了。");
+                } else if (inputPwd !== null) {
+                    alert("❌ 密码错误，拒绝访问！");
+                }
+            }
+        }
+
+        function openAdminEditModal(postId) {
+            const title = document.getElementById(`post-title-${postId}`).innerText;
+            const content = document.getElementById(`post-content-${postId}`).innerText;
+            
+            document.getElementById('edit-post-id').value = postId;
+            document.getElementById('edit-post-title').value = title;
+            document.getElementById('edit-post-content').value = content;
+            
+            document.getElementById('admin-edit-modal').classList.add('active');
+        }
+
+        function closeAdminEditModal() {
+            document.getElementById('admin-edit-modal').classList.remove('active');
+        }
+
+        function saveEditedPost() {
+            const postId = document.getElementById('edit-post-id').value;
+            const newTitle = document.getElementById('edit-post-title').value;
+            const newContent = document.getElementById('edit-post-content').value;
+
+            if(!newTitle || !newContent) {
+                alert("标题或内容不能为空！");
+                return;
+            }
+
+            // 更新 HTML 视图内容
+            document.getElementById(`post-title-${postId}`).innerText = newTitle;
+            document.getElementById(`post-content-${postId}`).innerText = newContent;
+
+            alert("🎉 文章内容已成功更新！");
+            closeAdminEditModal();
+        }
+
 
         /* 🔐 Supabase 真实邮箱验证码（OTP）服务逻辑 */
         
@@ -887,45 +1013,13 @@
                 const userEmail = session.user.email;
                 document.getElementById('user-display').innerText = `👤 会员: ${userEmail}`;
                 document.getElementById('login-nav-btn').innerText = "🚪 退出登录";
-                document.getElementById('secret-set-btn').style.display = "inline-block"; 
-                if(document.getElementById('msg-nickname')) document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                document.getElementById('secret-set-btn').style.display = "inline-block";
+                if(document.getElementById('msg-nickname')) {
+                    document.getElementById('msg-nickname').value = userEmail.split('@')[0];
+                }
+                updateContentVisibility();
             }
-            updateContentVisibility();
         });
-
-        /* 🕵️‍♂️ 专属秘密空间交互逻辑 */
-        function verifySecretCode() {
-            if (!isLoggedIn) {
-                alert("❌ 请先登录网站会员，再尝试进入秘密基地！");
-                openLoginModal();
-                return;
-            }
-            const userPasswordInput = prompt("请输入博主的地下室特制通行密码（默认初始密码是 666）：");
-            if(userPasswordInput === null) return; 
-            
-            if(userPasswordInput.trim() === currentSecretPassword) {
-                alert("🔓 密码验证正确！隐藏的秘密区域已成功解锁呈现！");
-                switchPage('home'); 
-                document.getElementById('hidden-secret-zone').style.display = 'block'; 
-                document.getElementById('hidden-secret-zone').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert("❌ 密码错误！无法窥探秘密基地。");
-            }
-        }
-
-        function lockSecretZone() {
-            document.getElementById('hidden-secret-zone').style.display = 'none';
-        }
-
-        function openSecretConfigModal() {
-            if(!isLoggedIn) {
-                alert("❌ 只有已登录的用户才能配置此特权选项！");
-                return;
-            }
-            document.getElementById('secret-config-modal').classList.add('active');
-        }
-        function closeSecretConfigModal() { document.getElementById('secret-config-modal').classList.remove('active'); }
-        function saveNewSecretPassword(e) { e.preventDefault(); currentSecretPassword = document.getElementById('new-secret-pwd').value; alert('密码修改成功！'); closeSecretConfigModal(); }
     </script>
 </body>
 </html>
