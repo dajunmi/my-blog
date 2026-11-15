@@ -3,63 +3,312 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10182d">
+<meta name="theme-color" content="#000000">
 <title>2025届七年级二班大事年表</title>
 <style>
-:root{--ink:#f5f7ff;--muted:#b8c2dc;--line:rgba(255,255,255,.16)}
+:root{
+  --ink:#f5f7ff;
+  --muted:#a6b2ce;
+  --line:rgba(255,255,255,.15);
+  --accent:#8bd5ff;
+  --gold:#ffd666;
+  --silver:#e2e8f0;
+  --bronze:#f5a673;
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:var(--ink);font-family:Inter,"Microsoft YaHei","PingFang SC",sans-serif;background:#10182d;overflow-x:hidden}
-body:before,body:after{content:"";position:fixed;z-index:-2;border-radius:50%;filter:blur(2px);pointer-events:none}
-body:before{width:560px;height:560px;left:-170px;top:-170px;background:radial-gradient(circle,rgba(80,145,255,.65),transparent 68%);animation:floatA 15s ease-in-out infinite alternate}
-body:after{width:650px;height:650px;right:-190px;bottom:-260px;background:radial-gradient(circle,rgba(168,105,255,.48),transparent 68%);animation:floatB 18s ease-in-out infinite alternate}
-.bg-glow{position:fixed;z-index:-1;inset:0;background:radial-gradient(ellipse at 50% 15%,rgba(36,75,130,.4),transparent 55%),linear-gradient(135deg,#10182d 0%,#172541 52%,#111a32 100%)}
-.wrap{width:min(1000px,calc(100% - 36px));margin:0 auto;padding:72px 0 56px}
-.hero{text-align:center;margin-bottom:38px;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.07);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:#d9e4ff;font-size:12px;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 8px 30px #050b1b33}
-.dot{width:7px;height:7px;border-radius:50%;background:#8bd5ff;box-shadow:0 0 14px #8bd5ff}
-h1{font-size:clamp(30px,5vw,54px);line-height:1.18;letter-spacing:.025em;margin:22px 0 12px;font-weight:750;text-shadow:0 8px 35px #0005}
-.subtitle{margin:0;color:var(--muted);font-size:14px;letter-spacing:.08em}
-.panel{position:relative;border:1px solid rgba(255,255,255,.2);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.055));backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);box-shadow:0 24px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);overflow:hidden}
-.panel:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent)}
-.panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line)}
-.panel-label{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:650;letter-spacing:.08em}
-.icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font-size:16px}
-.count{font-size:12px;color:#d1dcf5;padding:7px 11px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
-.table-wrap{padding:10px 18px 20px}
-table{width:100%;border-collapse:separate;border-spacing:0 9px;table-layout:fixed}
-thead th{padding:12px 18px;color:#b9c8e8;text-align:left;font-size:12px;font-weight:600;letter-spacing:.16em}
-thead th:first-child{width:27%}
-tbody tr{background:rgba(255,255,255,.065);transition:transform .28s ease,background .28s ease,box-shadow .28s ease}
-tbody tr:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);box-shadow:0 10px 24px rgba(0,0,0,.12)}
-tbody td{padding:18px;color:#edf2ff;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.65;overflow-wrap:anywhere}
-tbody td:first-child{border-left:1px solid rgba(255,255,255,.08);border-radius:13px 0 0 13px;color:#c9dcff;font-variant-numeric:tabular-nums}
-tbody td:last-child{border-right:1px solid rgba(255,255,255,.08);border-radius:0 13px 13px 0}
-.footer{text-align:center;color:#8291b2;font-size:11px;letter-spacing:.12em;margin-top:22px}
-.gate-wrap{width:min(650px,100%);margin:0 auto 28px;animation:rise .85s .08s cubic-bezier(.2,.8,.2,1) both}
-.gate{padding:28px}
-.gate-title{text-align:center;margin:0 0 8px;font-size:clamp(22px,4vw,30px);letter-spacing:.02em}
-.gate-desc{text-align:center;color:var(--muted);font-size:13px;margin:0 0 25px;line-height:1.7}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:Inter,"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#000000;
+  overflow-x:hidden;
+}
+#particles-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+.wrap{
+  position:relative;
+  z-index:1;
+  width:min(1060px,calc(100% - 32px));
+  margin:0 auto;
+  padding:68px 0 56px;
+}
+.hero{text-align:center;margin-bottom:36px;animation:rise .85s cubic-bezier(.2,.8,.2,1) both}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 15px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:99px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  color:#e6eeff;
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#ffffff;box-shadow:0 0 12px #ffffff,0 0 22px #8bd5ff}
+h1{
+  font-size:clamp(30px,5vw,52px);
+  line-height:1.18;
+  letter-spacing:.03em;
+  margin:20px 0 12px;
+  font-weight:750;
+  color:#ffffff;
+  text-shadow:0 0 32px rgba(255,255,255,.25);
+}
+.subtitle{margin:0;color:var(--muted);font-size:14px;letter-spacing:.1em}
+
+.panel{
+  position:relative;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:24px;
+  background:rgba(12,14,20,.78);
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  box-shadow:0 24px 80px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.18);
+  overflow:hidden;
+  margin-bottom:28px;
+}
+.panel:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+}
+.panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px;
+  padding:20px 26px;
+  border-bottom:1px solid var(--line);
+}
+.panel-label{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:650;letter-spacing:.08em;color:#fff}
+.icon{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);
+  font-size:16px;
+}
+.head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.count{
+  font-size:12px;
+  color:#dce6ff;
+  padding:7px 12px;
+  border-radius:99px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--line);
+}
+.btn-ghost{
+  padding:7px 13px;
+  border-radius:99px;
+  border:1px solid rgba(255,255,255,.24);
+  background:rgba(255,255,255,.08);
+  color:#ffffff;
+  font-size:12px;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45)}
+
+/* Gate */
+.gate-wrap{width:min(640px,100%);margin:0 auto 28px;animation:rise .85s .08s cubic-bezier(.2,.8,.2,1) both}
+.gate{padding:30px}
+.gate-title{text-align:center;margin:0 0 8px;font-size:clamp(22px,4vw,29px);letter-spacing:.02em;color:#fff}
+.gate-desc{text-align:center;color:var(--muted);font-size:13px;margin:0 0 24px;line-height:1.7}
 .question{margin:18px 0}
 .question label{display:block;font-size:14px;font-weight:600;margin-bottom:9px;color:#edf2ff}
-.question input{width:100%;padding:14px 15px;border:1px solid rgba(255,255,255,.2);border-radius:13px;background:rgba(8,17,37,.38);color:white;font-size:15px;outline:none;transition:border .2s,box-shadow .2s}
-.question input::placeholder{color:#8796b6}
-.question input:focus{border-color:#8bd5ff;box-shadow:0 0 0 3px rgba(139,213,255,.12)}
-.submit{width:100%;margin-top:8px;padding:14px 18px;border:1px solid rgba(255,255,255,.3);border-radius:14px;color:#10203b;font-size:15px;font-weight:750;letter-spacing:.08em;cursor:pointer;background:linear-gradient(120deg,#d7f0ff,#a8caff 55%,#d9c7ff);box-shadow:0 10px 28px rgba(95,147,255,.2);transition:transform .2s,filter .2s}
+.question input{
+  width:100%;
+  padding:14px 15px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:13px;
+  background:rgba(255,255,255,.05);
+  color:#ffffff;
+  font-size:15px;
+  outline:none;
+  transition:border .2s,box-shadow .2s;
+}
+.question input::placeholder{color:#7c88a4}
+.question input:focus{border-color:#ffffff;box-shadow:0 0 0 3px rgba(255,255,255,.14)}
+.submit{
+  width:100%;
+  margin-top:10px;
+  padding:14px 18px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:14px;
+  color:#080c14;
+  font-size:15px;
+  font-weight:750;
+  letter-spacing:.08em;
+  cursor:pointer;
+  background:linear-gradient(120deg,#ffffff,#d6e8ff 55%,#e8dcff);
+  box-shadow:0 10px 28px rgba(255,255,255,.16);
+  transition:transform .2s,filter .2s;
+}
 .submit:hover{transform:translateY(-2px);filter:brightness(1.06)}
-.feedback{min-height:22px;margin:12px 0 0;text-align:center;font-size:13px;color:#ffb9c2}
-#timeline{display:none;animation:rise .65s ease both}
-#timeline.visible{display:block}
+.feedback{min-height:22px;margin:12px 0 0;text-align:center;font-size:13px;color:#ff9aa8}
+
+/* Content container */
+#content-area{display:none;animation:rise .65s ease both}
+#content-area.visible{display:block}
 .gate-hidden{display:none}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-@keyframes floatA{to{transform:translate(100px,80px) scale(1.15)}}
-@keyframes floatB{to{transform:translate(-90px,-70px) scale(1.12)}}
-@media(max-width:600px){.wrap{padding:48px 0 36px}.panel{border-radius:20px}.panel-head{padding:17px 18px}.table-wrap{padding:7px 10px 14px}thead th{padding:10px 12px}tbody td{padding:14px 12px;font-size:13px}thead th:first-child{width:31%}.gate{padding:22px 18px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+/* Leaderboard */
+.rank-body{padding:20px 24px 24px}
+.rank-tip{font-size:12px;color:var(--muted);margin:0 0 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.rank-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:12px;
+}
+.rank-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px 16px;
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  transition:transform .22s ease,background .22s ease,border-color .22s ease;
+}
+.rank-card:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.3);
+}
+.rank-card.active{
+  background:rgba(139,213,255,.16);
+  border-color:#8bd5ff;
+  box-shadow:0 0 20px rgba(139,213,255,.2);
+}
+.rank-badge{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:14px;
+  flex-shrink:0;
+  background:rgba(255,255,255,.08);
+  color:#dce6ff;
+  border:1px solid rgba(255,255,255,.14);
+}
+.rank-1 .rank-badge{background:linear-gradient(135deg,#ffe58f,#faad14);color:#2b1d00;border:none;box-shadow:0 0 16px rgba(250,173,20,.45)}
+.rank-2 .rank-badge{background:linear-gradient(135deg,#f8fafc,#94a3b8);color:#0f172a;border:none;box-shadow:0 0 14px rgba(226,232,240,.35)}
+.rank-3 .rank-badge{background:linear-gradient(135deg,#ffd8bf,#d46b08);color:#2b1100;border:none;box-shadow:0 0 14px rgba(212,107,8,.35)}
+
+.rank-info{flex:1;min-width:0}
+.rank-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:7px}
+.rank-name{font-size:15px;font-weight:700;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-score{font-size:13px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;flex-shrink:0}
+.rank-1 .rank-score{color:var(--gold)}
+.rank-2 .rank-score{color:var(--silver)}
+.rank-3 .rank-score{color:var(--bronze)}
+
+.bar-track{width:100%;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7dd3fc,#ffffff);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.rank-1 .bar-fill{background:linear-gradient(90deg,#faad14,#fff1b8)}
+.rank-2 .bar-fill{background:linear-gradient(90deg,#94a3b8,#ffffff)}
+.rank-3 .bar-fill{background:linear-gradient(90deg,#d46b08,#ffd8bf)}
+
+/* Filter bar */
+.filter-banner{
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 20px;
+  margin:14px 18px 0;
+  border-radius:12px;
+  background:rgba(139,213,255,.14);
+  border:1px solid rgba(139,213,255,.4);
+  font-size:13px;
+  color:#eef7ff;
+}
+.filter-banner.show{display:flex}
+
+/* Table */
+.table-wrap{padding:10px 18px 20px}
+table{width:100%;border-collapse:separate;border-spacing:0 9px;table-layout:fixed}
+thead th{padding:12px 16px;color:#b9c8e8;text-align:left;font-size:12px;font-weight:600;letter-spacing:.14em}
+thead th:nth-child(1){width:16%}
+thead th:nth-child(2){width:44%}
+thead th:nth-child(3){width:40%}
+tbody tr{background:rgba(255,255,255,.05);transition:transform .24s ease,background .24s ease}
+tbody tr:hover{transform:translateY(-2px);background:rgba(255,255,255,.11)}
+tbody td{
+  padding:16px;
+  color:#f1f5ff;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  font-size:14px;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+tbody td:first-child{
+  border-left:1px solid rgba(255,255,255,.08);
+  border-radius:13px 0 0 13px;
+  color:#9ec5ff;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+tbody td:last-child{
+  border-right:1px solid rgba(255,255,255,.08);
+  border-radius:0 13px 13px 0;
+}
+.person-tag{
+  display:inline-block;
+  padding:3px 10px;
+  margin:2px 4px 2px 0;
+  border-radius:8px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.15);
+  color:#e2ecff;
+  font-size:12.5px;
+}
+
+.footer{text-align:center;color:#7d8ba8;font-size:11px;letter-spacing:.14em;margin-top:24px}
+
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:680px){
+  .wrap{padding:44px 0 36px}
+  .panel{border-radius:18px}
+  .panel-head{padding:16px 18px}
+  .table-wrap{padding:6px 10px 14px}
+  thead th{padding:10px 10px}
+  tbody td{padding:13px 10px;font-size:13px}
+  thead th:nth-child(1){width:18%}
+  thead th:nth-child(2){width:42%}
+  thead th:nth-child(3){width:40%}
+  .rank-body{padding:16px}
+  .rank-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<div class="bg-glow"></div>
+<canvas id="particles-canvas"></canvas>
+
 <main class="wrap">
   <header class="hero">
     <div class="eyebrow"><span class="dot"></span> CLASS CHRONICLE · 2025</div>
@@ -86,127 +335,215 @@ tbody td:last-child{border-right:1px solid rgba(255,255,255,.08);border-radius:0
     </div>
   </section>
 
-  <section class="panel" id="timeline" aria-label="班级大事年表">
-    <div class="panel-head">
-      <div class="panel-label"><span class="icon">✦</span> 班级事件记录</div>
-      <span class="count">102 条记录</span>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th scope="col">时间</th><th scope="col">事件</th></tr></thead>
-        <tbody>
-          <tr><td>七上</td><td>老班外号事件</td></tr>
-<tr><td>七上</td><td>道歉事件</td></tr>
-<tr><td>七上</td><td>大蒜事件</td></tr>
-<tr><td>七上</td><td>魔丸事件</td></tr>
-<tr><td>七上</td><td>双班聚众事件</td></tr>
-<tr><td>七上</td><td>彭先生僵尸事件</td></tr>
-<tr><td>七上</td><td>眼镜事件</td></tr>
-<tr><td>七上</td><td>召唤西施事件</td></tr>
-<tr><td>七上</td><td>午休锤魔丸事件</td></tr>
-<tr><td>七上</td><td>午休陷阱事件</td></tr>
-<tr><td>七上</td><td>yes sir 事件</td></tr>
-<tr><td>七上</td><td>大蒜事件</td></tr>
-<tr><td>七上</td><td>胡彭狗友事件</td></tr>
-<tr><td>七上</td><td>自习课事件</td></tr>
-<tr><td>七上</td><td>骂老师事件</td></tr>
-<tr><td>七上</td><td>撕试卷时间</td></tr>
-<tr><td>七上</td><td>圈画事件</td></tr>
-<tr><td>七上</td><td>江先生烧卖事件</td></tr>
-<tr><td>七上</td><td>陈先生老母上树事件</td></tr>
-<tr><td>七上</td><td>第一学期末记录片事件</td></tr>
-<tr><td>七上</td><td>火鸡面事件</td></tr>
-<tr><td>七上</td><td>彭江厕所事件</td></tr>
-<tr><td>七上</td><td>报告厅屏幕事件</td></tr>
-<tr><td>七上</td><td>合班教室杨先生写字事件</td></tr>
-<tr><td>七上</td><td>合班教室抽屉事件</td></tr>
-<tr><td>七下</td><td>饮料事件</td></tr>
-<tr><td>七下</td><td>直呼老师大名事件</td></tr>
-<tr><td>七下</td><td>李彭家长会事件</td></tr>
-<tr><td>七下</td><td>研学事件</td></tr>
-<tr><td>七下</td><td>头发事件</td></tr>
-<tr><td>七下</td><td>早上补作业事件</td></tr>
-<tr><td>七下</td><td>唱歌事件</td></tr>
-<tr><td>七下</td><td>扎辫子事件</td></tr>
-<tr><td>七下</td><td>开局一脚事件</td></tr>
-<tr><td>七下</td><td>陈先生传教事件</td></tr>
-<tr><td>七下</td><td>夏先生邪教事件</td></tr>
-<tr><td>七下</td><td>周末出去玩事件</td></tr>
-<tr><td>七下</td><td>晚自习碎玻璃事件</td></tr>
-<tr><td>七下</td><td>彭先生被串死事件</td></tr>
-<tr><td>七下</td><td>彭黄决裂事件</td></tr>
-<tr><td>七下</td><td>叠纸抛事件</td></tr>
-<tr><td>七下</td><td>上课睡觉事件</td></tr>
-<tr><td>七下</td><td>其实事件</td></tr>
-<tr><td>七下</td><td>早餐事件</td></tr>
-<tr><td>七下</td><td>小说事件</td></tr>
-<tr><td>七下</td><td>跨学期事件</td></tr>
-<tr><td>七下</td><td>杨先生熬夜事件</td></tr>
-<tr><td>七下</td><td>江先生事件</td></tr>
-<tr><td>七下</td><td>彭先生春游事件</td></tr>
-<tr><td>七下</td><td>彭先生串班事件</td></tr>
-<tr><td>七下</td><td>砸水杯事件</td></tr>
-<tr><td>七下</td><td>蚊子事件</td></tr>
-<tr><td>七下</td><td>家长来学校事件</td></tr>
-<tr><td>七下</td><td>晚自习抄作业事件</td></tr>
-<tr><td>七下</td><td>胡彭狗友事件2</td></tr>
-<tr><td>七下</td><td>刘彭事件</td></tr>
-<tr><td>七下</td><td>徐小姐朋友圈骂人事件</td></tr>
-<tr><td>七下</td><td>零食事件</td></tr>
-<tr><td>七下</td><td>潘邢事件</td></tr>
-<tr><td>七下</td><td>杨毛事件</td></tr>
-<tr><td>七下</td><td>晚自习小学事件</td></tr>
-<tr><td>七下</td><td>扔拖把事件</td></tr>
-<tr><td>七下</td><td>历史集体罚抄事件</td></tr>
-<tr><td>七下</td><td>厕所搞水事件</td></tr>
-<tr><td>七下</td><td>手串事件</td></tr>
-<tr><td>七下</td><td>4.3正确率事件</td></tr>
-<tr><td>七下</td><td>LJJ转钱事件</td></tr>
-<tr><td>七下</td><td>杨先生名刀司命事件</td></tr>
-<tr><td>七下</td><td>女生宿舍午休事件</td></tr>
-<tr><td>七下</td><td>掀桌子事件</td></tr>
-<tr><td>七下</td><td>陈先生调虎离山事件</td></tr>
-<tr><td>七下</td><td>跳长绳事件</td></tr>
-<tr><td>七下</td><td>语文课丢橡皮事件</td></tr>
-<tr><td>八上</td><td>打老师事件</td></tr>
-<tr><td>八上</td><td>泼水事件</td></tr>
-<tr><td>八上</td><td>陈先生不写作业事件</td></tr>
-<tr><td>八上</td><td>跨年级打入事件</td></tr>
-<tr><td>八上</td><td>跨班打人事件</td></tr>
-<tr><td>八上</td><td>体育课事件</td></tr>
-<tr><td>八上</td><td>何向东生病事件</td></tr>
-<tr><td>八上</td><td>龚发火事件</td></tr>
-<tr><td>八上</td><td>合唱事件</td></tr>
-<tr><td>八上</td><td>陈江踢腿事件</td></tr>
-<tr><td>八上</td><td>徐小姐当班主任事件</td></tr>
-<tr><td>八上</td><td>监控事件</td></tr>
-<tr><td>八上</td><td>火龙果事件</td></tr>
-<tr><td>八上</td><td>厕所门口打架事件</td></tr>
-<tr><td>八上</td><td>晚自习铁棒事件</td></tr>
-<tr><td>八上</td><td>轮椅事件</td></tr>
-<tr><td>八上</td><td>观察语文事件</td></tr>
-<tr><td>八上</td><td>心理串子事件</td></tr>
-<tr><td>八上</td><td>杨先生生气事件</td></tr>
-<tr><td>八上</td><td>物理成绩事件</td></tr>
-<tr><td>八上</td><td>陈先生初一骂人事件</td></tr>
-<tr><td>八上</td><td>长江中下游事件</td></tr>
-<tr><td>八上</td><td>LJJ 骑车事件</td></tr>
-<tr><td>八上</td><td>陈先生霸总LJJ事件</td></tr>
-<tr><td>八上</td><td>晚自习下楼事件</td></tr>
-<tr><td>八上</td><td>合班教室脱裤子事件</td></tr>
-<tr><td>八上</td><td>江先生照片事件</td></tr>
-<tr><td>八上</td><td>冻鸡小胸事件</td></tr>
-<tr><td>八上</td><td>物理课鬼扯事件</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+  <div id="content-area">
+    <!-- 排行榜系统 -->
+    <section class="panel" id="leaderboard-panel" aria-label="涉案人员排行榜">
+      <div class="panel-head">
+        <div class="panel-label"><span class="icon">🏆</span> 涉案人员风云排行榜</div>
+        <div class="head-actions">
+          <span class="count" id="rank-summary">共 21 位上榜人物</span>
+          <button type="button" class="btn-ghost" id="toggle-rank-btn">展开全部 (21人)</button>
+        </div>
+      </div>
+      <div class="rank-body">
+        <p class="rank-tip">
+          <span>按个人在年表中被记录的涉案次数从高到低统计（点击任意人物卡片可筛选其涉案事件）</span>
+          <span id="filter-status-hint"></span>
+        </p>
+        <div class="rank-grid" id="rank-grid"></div>
+      </div>
+    </section>
+
+    <!-- 班级事件记录 -->
+    <section class="panel" id="timeline" aria-label="班级大事年表">
+      <div class="panel-head">
+        <div class="panel-label"><span class="icon">✦</span> 班级事件记录</div>
+        <div class="head-actions">
+          <span class="count" id="event-count">102 条记录</span>
+        </div>
+      </div>
+
+      <div class="filter-banner" id="filter-banner">
+        <span id="filter-banner-text">当前正在查看相关事件</span>
+        <button type="button" class="btn-ghost" id="clear-filter-btn">显示全部事件</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">时间</th>
+              <th scope="col">事件</th>
+              <th scope="col">涉案人员</th>
+            </tr>
+          </thead>
+          <tbody id="events-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
   <footer class="footer">MADE OF OUR DAYS · CLASS 7-2</footer>
 </main>
+
 <script>
+const EVENTS_DATA = [{"time": "七上", "event": "老班外号事件", "people": "黄先生"}, {"time": "七上", "event": "道歉事件", "people": "陈先生"}, {"time": "七上", "event": "大蒜事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "魔丸事件", "people": "陈先生，张先生，等"}, {"time": "七上", "event": "双班聚众事件", "people": "双班同学"}, {"time": "七上", "event": "彭先生僵尸事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "眼镜事件", "people": "Geography"}, {"time": "七上", "event": "召唤西施事件", "people": "Geography"}, {"time": "七上", "event": "午休锤魔丸事件", "people": "黄先生，彭先生"}, {"time": "七上", "event": "午休陷阱事件", "people": "张先生，陈先生等"}, {"time": "七上", "event": "yes sir 事件", "people": "彭先生，黄先生等"}, {"time": "七上", "event": "吸气事件", "people": "张先生，彭先生等"}, {"time": "七上", "event": "胡彭狗友事件", "people": "HJY 彭先生"}, {"time": "七上", "event": "自习课事件", "people": "全班"}, {"time": "七上", "event": "骂老师事件", "people": "秦先生"}, {"time": "七上", "event": "撕试卷时间", "people": "秦先生"}, {"time": "七上", "event": "圈画事件", "people": "全班"}, {"time": "七上", "event": "江先生烧卖事件", "people": "江先生"}, {"time": "七上", "event": "陈先生老母上树事件", "people": "陈先生"}, {"time": "七上", "event": "第一学期末记录片事件", "people": "黄先生，杨先生等"}, {"time": "七上", "event": "火鸡面事件", "people": "陈先生，彭先生"}, {"time": "七上", "event": "彭江厕所事件", "people": "彭先生，江先生"}, {"time": "七上", "event": "报告厅屏幕事件", "people": "彭先生"}, {"time": "七上", "event": "合班教室杨先生写字事件", "people": "杨先生"}, {"time": "七上", "event": "合班教室抽屉事件", "people": "彭先生"}, {"time": "七下", "event": "饮料事件", "people": "杨先生，彭先生"}, {"time": "七下", "event": "直呼老师大名事件", "people": "彭先生"}, {"time": "七下", "event": "李彭家长会事件", "people": "李先生，彭先生"}, {"time": "七下", "event": "研学事件", "people": "杨先生，彭先生，徐小姐等"}, {"time": "七下", "event": "头发事件", "people": "杨先生，黄先生，彭先生，等"}, {"time": "七下", "event": "早上补作业事件", "people": "陈先生，杨先生"}, {"time": "七下", "event": "唱歌事件", "people": "彭先生，江先生等"}, {"time": "七下", "event": "扎辫子事件", "people": "彭先生，黄先生等"}, {"time": "七下", "event": "开局一脚事件", "people": "彭先生，陈先生，江先生"}, {"time": "七下", "event": "陈先生传教事件", "people": "陈先生"}, {"time": "七下", "event": "夏先生邪教事件", "people": "夏先生"}, {"time": "七下", "event": "周末出去玩事件", "people": "杨先生，陈先生"}, {"time": "七下", "event": "晚自习碎玻璃事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生被串死事件", "people": "彭先生"}, {"time": "七下", "event": "彭黄决裂事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "叠纸炮事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "上课睡觉事件", "people": "彭先生，杨先生"}, {"time": "七下", "event": "其实事件", "people": "彭先生，江先生"}, {"time": "七下", "event": "早餐事件", "people": "彭先生"}, {"time": "七下", "event": "小说事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "跨学期事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "杨先生熬夜事件", "people": "杨先生"}, {"time": "七下", "event": "江先生事件", "people": "江先生"}, {"time": "七下", "event": "彭先生春游事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生串班事件", "people": "彭先生"}, {"time": "七下", "event": "砸水杯事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "蚊子事件", "people": "陈先生"}, {"time": "七下", "event": "家长来学校事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "晚自习抄作业事件", "people": "大部分"}, {"time": "七下", "event": "胡彭狗友事件2", "people": "HJY,彭先生"}, {"time": "七下", "event": "刘彭事件", "people": "刘SK，彭先生"}, {"time": "七下", "event": "徐小姐朋友圈骂人事件", "people": "徐小姐"}, {"time": "七下", "event": "零食事件", "people": "彭先生"}, {"time": "七下", "event": "潘邢事件", "people": "潘先生，邢小姐"}, {"time": "七下", "event": "杨毛事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "晚自习小学事件", "people": "彭先生，李先生"}, {"time": "七下", "event": "扔拖把事件", "people": "朱先生，彭先生"}, {"time": "七下", "event": "历史集体罚抄事件", "people": "全班"}, {"time": "七下", "event": "厕所搞水事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "手串事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "4.3正确率事件", "people": "陈先生"}, {"time": "七下", "event": "LJJ转钱事件", "people": "李先生"}, {"time": "七下", "event": "杨先生名刀司命事件", "people": "杨先生"}, {"time": "七下", "event": "女生宿舍午休事件", "people": "女生"}, {"time": "七下", "event": "掀桌子事件", "people": "陈先生，彭先生"}, {"time": "七下", "event": "陈先生调虎离山事件", "people": "陈先生"}, {"time": "七下", "event": "跳长绳事件", "people": "全班"}, {"time": "七下", "event": "语文课丢橡皮事件", "people": "陈先生，彭先生"}, {"time": "八上", "event": "打老师事件", "people": "彭先生"}, {"time": "八上", "event": "泼水事件", "people": "彭先生，陈先生，黄先生等"}, {"time": "八上", "event": "陈先生不写作业事件", "people": "陈先生"}, {"time": "八上", "event": "跨年级打人事件", "people": "秦先生"}, {"time": "八上", "event": "跨班打人事件", "people": "杜先生"}, {"time": "八上", "event": "体育课事件", "people": "全年级"}, {"time": "八上", "event": "何向东生病事件", "people": "杨先生2，潘先生"}, {"time": "八上", "event": "龚发火事件", "people": "龚先生"}, {"time": "八上", "event": "合唱事件", "people": "杨先生，毛先生，齐刘海"}, {"time": "八上", "event": "陈江踢腿事件", "people": "陈先生，江先生"}, {"time": "八上", "event": "徐小姐当班主任事件", "people": "徐小姐"}, {"time": "八上", "event": "监控事件", "people": "全班"}, {"time": "八上", "event": "火龙果事件", "people": "彭先生"}, {"time": "八上", "event": "厕所门口打架事件", "people": "彭先生，陈先生"}, {"time": "八上", "event": "晚自习铁棒事件", "people": "陈先生"}, {"time": "八上", "event": "轮椅事件", "people": "彭先生，江先生"}, {"time": "八上", "event": "观察语文事件", "people": "江先生，李先生等"}, {"time": "八上", "event": "心理串子事件", "people": "彭先生，李先生"}, {"time": "八上", "event": "杨先生生气事件", "people": "杨先生"}, {"time": "八上", "event": "物理成绩事件", "people": "大部分"}, {"time": "八上", "event": "陈先生初一骂人事件", "people": "陈先生"}, {"time": "八上", "event": "长江中下游事件", "people": "杨先生"}, {"time": "八上", "event": "LJJ 骑车事件", "people": "李先生"}, {"time": "八上", "event": "陈先生霸总LJJ事件", "people": "陈先生"}, {"time": "八上", "event": "晚自习下楼事件", "people": "陈先生，彭先生等"}, {"time": "八上", "event": "合班教室脱裤子事件", "people": "龚先生"}, {"time": "八上", "event": "江先生照片事件", "people": "江先生，陈先生"}, {"time": "八上", "event": "冻鸡小胸事件", "people": "陈先生，杨先生，彭先生"}, {"time": "八上", "event": "物理课鬼扯事件", "people": "彭先生"}];
+
+// 集体或非具体个人词汇（不计入个人排行榜）
+const COLLECTIVE_LABELS = new Set(['全班', '全年级', '双班同学', '大部分', '女生', 'Geography']);
+
+function extractPeople(rawStr) {
+  if (!rawStr) return [];
+  const parts = rawStr.split(/[，,\s]+/).map(s => s.trim()).filter(Boolean);
+  const result = [];
+  for (let p of parts) {
+    if (p === '等') continue;
+    if (p.endsWith('等') && p.length > 1) {
+      p = p.slice(0, -1);
+    }
+    if (!COLLECTIVE_LABELS.has(p)) {
+      result.push(p);
+    }
+  }
+  return result;
+}
+
+// 统计涉案次数并排序
+function buildRanking(data) {
+  const counts = new Map();
+  data.forEach(item => {
+    const people = extractPeople(item.people);
+    // 同一事件若重复出现同一人去重计数
+    const uniqueInEvent = new Set(people);
+    uniqueInEvent.forEach(person => {
+      counts.set(person, (counts.get(person) || 0) + 1);
+    });
+  });
+
+  const sorted = Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'zh-CN'));
+
+  // 计算并列排名
+  let currentRank = 1;
+  sorted.forEach((item, idx) => {
+    if (idx > 0 && item.count < sorted[idx - 1].count) {
+      currentRank = idx + 1;
+    }
+    item.rank = currentRank;
+  });
+  return sorted;
+}
+
+const RANKING_DATA = buildRanking(EVENTS_DATA);
+const MAX_COUNT = RANKING_DATA.length ? RANKING_DATA[0].count : 1;
+
+let showAllRanks = false;
+let selectedPerson = null;
+
+const rankGrid = document.getElementById('rank-grid');
+const toggleRankBtn = document.getElementById('toggle-rank-btn');
+const eventsTbody = document.getElementById('events-tbody');
+const eventCountEl = document.getElementById('event-count');
+const filterBanner = document.getElementById('filter-banner');
+const filterBannerText = document.getElementById('filter-banner-text');
+const clearFilterBtn = document.getElementById('clear-filter-btn');
+
+function renderRanking() {
+  const list = showAllRanks ? RANKING_DATA : RANKING_DATA.slice(0, 10);
+  rankGrid.innerHTML = '';
+
+  list.forEach(item => {
+    const card = document.createElement('div');
+    const topClass = item.rank <= 3 ? ` rank-${item.rank}` : '';
+    const activeClass = selectedPerson === item.name ? ' active' : '';
+    card.className = `rank-card${topClass}${activeClass}`;
+
+    const medal = item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : item.rank === 3 ? '🥉' : item.rank;
+    const pct = Math.max(8, Math.round((item.count / MAX_COUNT) * 100));
+
+    card.innerHTML = `
+      <div class="rank-badge">${medal}</div>
+      <div class="rank-info">
+        <div class="rank-top">
+          <span class="rank-name">${item.name}</span>
+          <span class="rank-score">${item.count} 次</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      if (selectedPerson === item.name) {
+        selectedPerson = null;
+      } else {
+        selectedPerson = item.name;
+      }
+      renderRanking();
+      renderEvents();
+    });
+
+    rankGrid.appendChild(card);
+  });
+
+  toggleRankBtn.textContent = showAllRanks
+    ? '收起至前 10 名'
+    : `展开全部 (${RANKING_DATA.length}人)`;
+}
+
+function formatPeopleTags(rawStr) {
+  if (!rawStr) return '<span class="person-tag">未知</span>';
+  const tokens = rawStr.split(/[，,]+/).map(s => s.trim()).filter(Boolean);
+  return tokens.map(t => `<span class="person-tag">${t}</span>`).join('');
+}
+
+function renderEvents() {
+  const filtered = selectedPerson
+    ? EVENTS_DATA.filter(item => extractPeople(item.people).includes(selectedPerson))
+    : EVENTS_DATA;
+
+  eventsTbody.innerHTML = '';
+  filtered.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${item.time}</td>
+      <td>${item.event}</td>
+      <td>${formatPeopleTags(item.people)}</td>
+    `;
+    eventsTbody.appendChild(tr);
+  });
+
+  eventCountEl.textContent = `${filtered.length} 条记录`;
+
+  if (selectedPerson) {
+    filterBanner.classList.add('show');
+    filterBannerText.textContent = `当前筛选涉案人员：「${selectedPerson}」（共 ${filtered.length} 起事件）`;
+  } else {
+    filterBanner.classList.remove('show');
+  }
+}
+
+toggleRankBtn.addEventListener('click', () => {
+  showAllRanks = !showAllRanks;
+  renderRanking();
+});
+
+clearFilterBtn.addEventListener('click', () => {
+  selectedPerson = null;
+  renderRanking();
+  renderEvents();
+});
+
+// 初始化数据渲染
+renderRanking();
+renderEvents();
+
+// 身份验证逻辑（保留原有逻辑）
 const form = document.getElementById('quiz');
 const gate = document.getElementById('gate');
-const timeline = document.getElementById('timeline');
+const contentArea = document.getElementById('content-area');
 const feedback = document.getElementById('feedback');
 
 form.addEventListener('submit', function(event) {
@@ -216,14 +553,114 @@ form.addEventListener('submit', function(event) {
 
   if (first === '王璐' && second === '否') {
     gate.classList.add('gate-hidden');
-    timeline.classList.add('visible');
+    contentArea.classList.add('visible');
     window.scrollTo({top: 0, behavior: 'smooth'});
   } else {
     feedback.textContent = '答案不正确，请重新检查后再试。';
-    timeline.classList.remove('visible');
+    contentArea.classList.remove('visible');
     gate.classList.remove('gate-hidden');
   }
 });
+
+// 高辨识度纯黑背景白色粒子动效
+(function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  const mouse = { x: null, y: null, radius: 150 };
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    createParticles();
+  });
+
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  let particles = [];
+
+  function createParticles() {
+    const count = Math.min(130, Math.max(65, Math.floor((width * height) / 11000)));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      const radius = Math.random() * 2.6 + 1.4; // 1.4px ~ 4.0px 明显大小
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.15,
+        vy: (Math.random() - 0.5) * 1.15,
+        radius: radius,
+        alpha: Math.random() * 0.45 + 0.55 // 0.55 ~ 1.0 高亮度
+      });
+    }
+  }
+
+  createParticles();
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      // 鼠标排斥/互动微调
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < mouse.radius && dist > 0) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          p.x += (dx / dist) * force * 2.2;
+          p.y += (dy / dist) * force * 2.2;
+        }
+      }
+
+      // 绘制发光白色粒子
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.restore();
+
+      // 粒子间白色连线增强动效层次
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+        if (dist < 135) {
+          const lineAlpha = (1 - dist / 135) * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
+          ctx.lineWidth = 0.9;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
 </script>
 </body>
 </html>
