@@ -11,6 +11,7 @@
   --muted:#a6b2ce;
   --line:rgba(255,255,255,.15);
   --accent:#8bd5ff;
+  --pink:#ff9ec7;
   --gold:#ffd666;
   --silver:#e2e8f0;
   --bronze:#f5a673;
@@ -38,9 +39,9 @@ body{
   z-index:1;
   width:min(1060px,calc(100% - 32px));
   margin:0 auto;
-  padding:68px 0 56px;
+  padding:64px 0 56px;
 }
-.hero{text-align:center;margin-bottom:36px;animation:rise .85s cubic-bezier(.2,.8,.2,1) both}
+.hero{text-align:center;margin-bottom:32px;animation:rise .85s cubic-bezier(.2,.8,.2,1) both}
 .eyebrow{
   display:inline-flex;
   align-items:center;
@@ -69,14 +70,15 @@ h1{
 }
 .subtitle{margin:0;color:var(--muted);font-size:14px;letter-spacing:.1em}
 
+/* Liquid Glass Panel */
 .panel{
   position:relative;
-  border:1px solid rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.2);
   border-radius:24px;
-  background:rgba(12,14,20,.78);
-  backdrop-filter:blur(22px) saturate(140%);
-  -webkit-backdrop-filter:blur(22px) saturate(140%);
-  box-shadow:0 24px 80px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.18);
+  background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+  backdrop-filter:blur(26px) saturate(155%);
+  -webkit-backdrop-filter:blur(26px) saturate(155%);
+  box-shadow:0 24px 80px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.24);
   overflow:hidden;
   margin-bottom:28px;
 }
@@ -85,7 +87,7 @@ h1{
   position:absolute;
   inset:0 0 auto;
   height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);
 }
 .panel-head{
   display:flex;
@@ -103,8 +105,8 @@ h1{
   width:34px;
   height:34px;
   border-radius:11px;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
   font-size:16px;
 }
 .head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -128,6 +130,43 @@ h1{
 }
 .btn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45)}
 
+/* Navigation Tabs */
+.nav-tabs{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:0 auto 28px;
+  padding:6px;
+  width:fit-content;
+  border-radius:99px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 12px 36px rgba(0,0,0,.65);
+}
+.nav-tab{
+  padding:10px 22px;
+  border-radius:99px;
+  border:none;
+  background:transparent;
+  color:#b8c4e0;
+  font-size:14px;
+  font-weight:650;
+  letter-spacing:.05em;
+  cursor:pointer;
+  transition:all .25s ease;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.nav-tab:hover{color:#ffffff}
+.nav-tab.active{
+  background:linear-gradient(120deg,rgba(255,255,255,.92),rgba(214,232,255,.92));
+  color:#090d16;
+  box-shadow:0 6px 20px rgba(255,255,255,.22);
+}
+
 /* Gate */
 .gate-wrap{width:min(640px,100%);margin:0 auto 28px;animation:rise .85s .08s cubic-bezier(.2,.8,.2,1) both}
 .gate{padding:30px}
@@ -140,7 +179,7 @@ h1{
   padding:14px 15px;
   border:1px solid rgba(255,255,255,.22);
   border-radius:13px;
-  background:rgba(255,255,255,.05);
+  background:rgba(255,255,255,.06);
   color:#ffffff;
   font-size:15px;
   outline:none;
@@ -166,9 +205,9 @@ h1{
 .submit:hover{transform:translateY(-2px);filter:brightness(1.06)}
 .feedback{min-height:22px;margin:12px 0 0;text-align:center;font-size:13px;color:#ff9aa8}
 
-/* Content container */
-#content-area{display:none;animation:rise .65s ease both}
-#content-area.visible{display:block}
+/* Content containers */
+.section-view{display:none;animation:rise .55s ease both}
+.section-view.visible{display:block}
 .gate-hidden{display:none}
 
 /* Leaderboard */
@@ -186,29 +225,30 @@ h1{
   gap:13px;
   padding:14px 16px;
   border-radius:15px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.11);
   cursor:pointer;
   transition:transform .22s ease,background .22s ease,border-color .22s ease;
 }
 .rank-card:hover{
   transform:translateY(-2px);
-  background:rgba(255,255,255,.1);
-  border-color:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.11);
+  border-color:rgba(255,255,255,.32);
 }
 .rank-card.active{
   background:rgba(139,213,255,.16);
   border-color:#8bd5ff;
   box-shadow:0 0 20px rgba(139,213,255,.2);
 }
+.rank-card.static-card{cursor:default}
 .rank-badge{
-  width:34px;
-  height:34px;
+  width:36px;
+  height:36px;
   border-radius:10px;
   display:grid;
   place-items:center;
   font-weight:800;
-  font-size:14px;
+  font-size:15px;
   flex-shrink:0;
   background:rgba(255,255,255,.08);
   color:#dce6ff;
@@ -252,30 +292,37 @@ h1{
 .table-wrap{padding:10px 18px 20px}
 table{width:100%;border-collapse:separate;border-spacing:0 9px;table-layout:fixed}
 thead th{padding:12px 16px;color:#b9c8e8;text-align:left;font-size:12px;font-weight:600;letter-spacing:.14em}
-thead th:nth-child(1){width:16%}
-thead th:nth-child(2){width:44%}
-thead th:nth-child(3){width:40%}
-tbody tr{background:rgba(255,255,255,.05);transition:transform .24s ease,background .24s ease}
-tbody tr:hover{transform:translateY(-2px);background:rgba(255,255,255,.11)}
+.chronicle-table thead th:nth-child(1){width:16%}
+.chronicle-table thead th:nth-child(2){width:44%}
+.chronicle-table thead th:nth-child(3){width:40%}
+.gossip-table thead th:nth-child(1){width:55%}
+.gossip-table thead th:nth-child(2){width:45%}
+
+tbody tr{background:rgba(255,255,255,.055);transition:transform .24s ease,background .24s ease}
+tbody tr:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}
 tbody td{
   padding:16px;
   color:#f1f5ff;
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-top:1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.09);
   font-size:14px;
   line-height:1.6;
   overflow-wrap:anywhere;
 }
 tbody td:first-child{
-  border-left:1px solid rgba(255,255,255,.08);
+  border-left:1px solid rgba(255,255,255,.09);
   border-radius:13px 0 0 13px;
   color:#9ec5ff;
   font-weight:600;
   font-variant-numeric:tabular-nums;
 }
 tbody td:last-child{
-  border-right:1px solid rgba(255,255,255,.08);
+  border-right:1px solid rgba(255,255,255,.09);
   border-radius:0 13px 13px 0;
+}
+.gossip-table tbody td:first-child{
+  color:#ffffff;
+  font-size:15px;
 }
 .person-tag{
   display:inline-block;
@@ -286,6 +333,34 @@ tbody td:last-child{
   border:1px solid rgba(255,255,255,.15);
   color:#e2ecff;
   font-size:12.5px;
+}
+.rel-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 12px;
+  border-radius:99px;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:.04em;
+  background:rgba(255,158,199,.16);
+  border:1px solid rgba(255,158,199,.42);
+  color:#ffd1e5;
+}
+.rel-badge.rel-gay{
+  background:rgba(192,132,252,.18);
+  border-color:rgba(192,132,252,.45);
+  color:#e9d5ff;
+}
+.rel-badge.rel-guide{
+  background:rgba(125,211,252,.16);
+  border-color:rgba(125,211,252,.42);
+  color:#bae6fd;
+}
+.rel-badge.rel-improper{
+  background:rgba(251,146,60,.16);
+  border-color:rgba(251,146,60,.42);
+  color:#fed7aa;
 }
 
 .footer{text-align:center;color:#7d8ba8;font-size:11px;letter-spacing:.14em;margin-top:24px}
@@ -298,11 +373,13 @@ tbody td:last-child{
   .table-wrap{padding:6px 10px 14px}
   thead th{padding:10px 10px}
   tbody td{padding:13px 10px;font-size:13px}
-  thead th:nth-child(1){width:18%}
-  thead th:nth-child(2){width:42%}
-  thead th:nth-child(3){width:40%}
+  .chronicle-table thead th:nth-child(1){width:18%}
+  .chronicle-table thead th:nth-child(2){width:42%}
+  .chronicle-table thead th:nth-child(3){width:40%}
   .rank-body{padding:16px}
   .rank-grid{grid-template-columns:1fr}
+  .nav-tabs{width:100%;justify-content:center}
+  .nav-tab{padding:9px 14px;font-size:13px}
 }
 </style>
 </head>
@@ -316,71 +393,176 @@ tbody td:last-child{
     <p class="subtitle">记录班级时光 · 收藏共同记忆</p>
   </header>
 
-  <section class="gate-wrap" id="gate">
-    <div class="panel gate">
-      <h2 class="gate-title">测一测你是不是一个合格的二班人</h2>
-      <p class="gate-desc">请回答下面两个问题，全部答对即可进入班级大事年表。</p>
-      <form id="quiz" autocomplete="off">
-        <div class="question">
-          <label for="answer1">问题一：我们班班主任叫什么名字？</label>
-          <input id="answer1" name="answer1" type="text" placeholder="请输入答案" required>
+  <!-- 栏目切换导航 -->
+  <nav class="nav-tabs" aria-label="栏目切换">
+    <button type="button" class="nav-tab active" data-target="chronicle">📜 大事年表</button>
+    <button type="button" class="nav-tab" data-target="gossip">🔒 班级绯闻表</button>
+  </nav>
+
+  <!-- ================= 栏目一：大事年表 ================= -->
+  <div id="tab-chronicle">
+    <section class="gate-wrap" id="gate">
+      <div class="panel gate">
+        <h2 class="gate-title">测一测你是不是一个合格的二班人</h2>
+        <p class="gate-desc">请回答下面两个问题，全部答对即可进入班级大事年表。</p>
+        <form id="quiz" autocomplete="off">
+          <div class="question">
+            <label for="answer1">问题一：我们班班主任叫什么名字？</label>
+            <input id="answer1" name="answer1" type="text" placeholder="请输入答案" required>
+          </div>
+          <div class="question">
+            <label for="answer2">问题二：PJY是否认识HJY？</label>
+            <input id="answer2" name="answer2" type="text" placeholder="请输入答案" required>
+          </div>
+          <button class="submit" type="submit">验证身份 · 进入年表</button>
+          <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div id="content-area" class="section-view">
+      <!-- 排行榜系统 -->
+      <section class="panel" id="leaderboard-panel" aria-label="涉案人员排行榜">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">🏆</span> 涉案人员风云排行榜</div>
+          <div class="head-actions">
+            <span class="count" id="rank-summary">共 21 位上榜人物</span>
+            <button type="button" class="btn-ghost" id="toggle-rank-btn">展开全部 (21人)</button>
+          </div>
         </div>
-        <div class="question">
-          <label for="answer2">问题二：PJY是否认识HJY？</label>
-          <input id="answer2" name="answer2" type="text" placeholder="请输入答案" required>
+        <div class="rank-body">
+          <p class="rank-tip">
+            <span>按个人在年表中被记录的涉案次数从高到低统计（点击任意人物卡片可筛选其涉案事件）</span>
+            <span id="filter-status-hint"></span>
+          </p>
+          <div class="rank-grid" id="rank-grid"></div>
         </div>
-        <button class="submit" type="submit">验证身份 · 进入年表</button>
-        <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
-      </form>
+      </section>
+
+      <!-- 班级事件记录 -->
+      <section class="panel" id="timeline" aria-label="班级大事年表">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">✦</span> 班级事件记录</div>
+          <div class="head-actions">
+            <span class="count" id="event-count">102 条记录</span>
+          </div>
+        </div>
+
+        <div class="filter-banner" id="filter-banner">
+          <span id="filter-banner-text">当前正在查看相关事件</span>
+          <button type="button" class="btn-ghost" id="clear-filter-btn">显示全部事件</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="chronicle-table">
+            <thead>
+              <tr>
+                <th scope="col">时间</th>
+                <th scope="col">事件</th>
+                <th scope="col">涉案人员</th>
+              </tr>
+            </thead>
+            <tbody id="events-tbody"></tbody>
+          </table>
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
 
-  <div id="content-area">
-    <!-- 排行榜系统 -->
-    <section class="panel" id="leaderboard-panel" aria-label="涉案人员排行榜">
-      <div class="panel-head">
-        <div class="panel-label"><span class="icon">🏆</span> 涉案人员风云排行榜</div>
-        <div class="head-actions">
-          <span class="count" id="rank-summary">共 21 位上榜人物</span>
-          <button type="button" class="btn-ghost" id="toggle-rank-btn">展开全部 (21人)</button>
-        </div>
-      </div>
-      <div class="rank-body">
-        <p class="rank-tip">
-          <span>按个人在年表中被记录的涉案次数从高到低统计（点击任意人物卡片可筛选其涉案事件）</span>
-          <span id="filter-status-hint"></span>
-        </p>
-        <div class="rank-grid" id="rank-grid"></div>
+  <!-- ================= 栏目二：班级绯闻表 ================= -->
+  <div id="tab-gossip" style="display:none">
+    <!-- 独立密码锁 -->
+    <section class="gate-wrap" id="gossip-gate">
+      <div class="panel gate">
+        <h2 class="gate-title">🔒 班级绯闻表 · 专属加密区</h2>
+        <p class="gate-desc">此栏目已单独上锁，答对问题方可查看绯闻档案与班级串子排行榜。</p>
+        <form id="gossip-quiz" autocomplete="off">
+          <div class="question">
+            <label for="gossip-answer">问题：彭先生和杨先生给那个初一的人道歉？</label>
+            <input id="gossip-answer" name="gossip-answer" type="text" placeholder="请输入答案" required>
+          </div>
+          <button class="submit" type="submit">验证口令 · 解锁绯闻表</button>
+          <p class="feedback" id="gossip-feedback" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
-    <!-- 班级事件记录 -->
-    <section class="panel" id="timeline" aria-label="班级大事年表">
-      <div class="panel-head">
-        <div class="panel-label"><span class="icon">✦</span> 班级事件记录</div>
-        <div class="head-actions">
-          <span class="count" id="event-count">102 条记录</span>
+    <!-- 解锁后的绯闻表与串子排行榜 -->
+    <div id="gossip-content-area" class="section-view">
+      <!-- 班级串子排行榜 -->
+      <section class="panel" aria-label="班级串子排行榜">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">🤡</span> 班级串子排行榜</div>
+          <div class="head-actions">
+            <span class="count">官方钦定前三甲</span>
+          </div>
         </div>
-      </div>
+        <div class="rank-body">
+          <p class="rank-tip">
+            <span>二班公认三大串子荣誉殿堂</span>
+          </p>
+          <div class="rank-grid">
+            <div class="rank-card static-card rank-1">
+              <div class="rank-badge">🥇</div>
+              <div class="rank-info">
+                <div class="rank-top">
+                  <span class="rank-name">彭先生</span>
+                  <span class="rank-score">榜一</span>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:100%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rank-card static-card rank-2">
+              <div class="rank-badge">🥈</div>
+              <div class="rank-info">
+                <div class="rank-top">
+                  <span class="rank-name">杨先生</span>
+                  <span class="rank-score">榜二</span>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:82%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rank-card static-card rank-3">
+              <div class="rank-badge">🥉</div>
+              <div class="rank-info">
+                <div class="rank-top">
+                  <span class="rank-name">黄先生</span>
+                  <span class="rank-score">榜三</span>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="filter-banner" id="filter-banner">
-        <span id="filter-banner-text">当前正在查看相关事件</span>
-        <button type="button" class="btn-ghost" id="clear-filter-btn">显示全部事件</button>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">时间</th>
-              <th scope="col">事件</th>
-              <th scope="col">涉案人员</th>
-            </tr>
-          </thead>
-          <tbody id="events-tbody"></tbody>
-        </table>
-      </div>
-    </section>
+      <!-- 班级绯闻表 -->
+      <section class="panel" aria-label="班级绯闻表">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">💌</span> 班级绯闻表</div>
+          <div class="head-actions">
+            <span class="count" id="gossip-count">6 条绝密档案</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="gossip-table">
+            <thead>
+              <tr>
+                <th scope="col">姓名</th>
+                <th scope="col">关系</th>
+              </tr>
+            </thead>
+            <tbody id="gossip-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   </div>
 
   <footer class="footer">MADE OF OUR DAYS · CLASS 7-2</footer>
@@ -388,6 +570,27 @@ tbody td:last-child{
 
 <script>
 const EVENTS_DATA = [{"time": "七上", "event": "老班外号事件", "people": "黄先生"}, {"time": "七上", "event": "道歉事件", "people": "陈先生"}, {"time": "七上", "event": "大蒜事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "魔丸事件", "people": "陈先生，张先生，等"}, {"time": "七上", "event": "双班聚众事件", "people": "双班同学"}, {"time": "七上", "event": "彭先生僵尸事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "眼镜事件", "people": "Geography"}, {"time": "七上", "event": "召唤西施事件", "people": "Geography"}, {"time": "七上", "event": "午休锤魔丸事件", "people": "黄先生，彭先生"}, {"time": "七上", "event": "午休陷阱事件", "people": "张先生，陈先生等"}, {"time": "七上", "event": "yes sir 事件", "people": "彭先生，黄先生等"}, {"time": "七上", "event": "吸气事件", "people": "张先生，彭先生等"}, {"time": "七上", "event": "胡彭狗友事件", "people": "HJY 彭先生"}, {"time": "七上", "event": "自习课事件", "people": "全班"}, {"time": "七上", "event": "骂老师事件", "people": "秦先生"}, {"time": "七上", "event": "撕试卷时间", "people": "秦先生"}, {"time": "七上", "event": "圈画事件", "people": "全班"}, {"time": "七上", "event": "江先生烧卖事件", "people": "江先生"}, {"time": "七上", "event": "陈先生老母上树事件", "people": "陈先生"}, {"time": "七上", "event": "第一学期末记录片事件", "people": "黄先生，杨先生等"}, {"time": "七上", "event": "火鸡面事件", "people": "陈先生，彭先生"}, {"time": "七上", "event": "彭江厕所事件", "people": "彭先生，江先生"}, {"time": "七上", "event": "报告厅屏幕事件", "people": "彭先生"}, {"time": "七上", "event": "合班教室杨先生写字事件", "people": "杨先生"}, {"time": "七上", "event": "合班教室抽屉事件", "people": "彭先生"}, {"time": "七下", "event": "饮料事件", "people": "杨先生，彭先生"}, {"time": "七下", "event": "直呼老师大名事件", "people": "彭先生"}, {"time": "七下", "event": "李彭家长会事件", "people": "李先生，彭先生"}, {"time": "七下", "event": "研学事件", "people": "杨先生，彭先生，徐小姐等"}, {"time": "七下", "event": "头发事件", "people": "杨先生，黄先生，彭先生，等"}, {"time": "七下", "event": "早上补作业事件", "people": "陈先生，杨先生"}, {"time": "七下", "event": "唱歌事件", "people": "彭先生，江先生等"}, {"time": "七下", "event": "扎辫子事件", "people": "彭先生，黄先生等"}, {"time": "七下", "event": "开局一脚事件", "people": "彭先生，陈先生，江先生"}, {"time": "七下", "event": "陈先生传教事件", "people": "陈先生"}, {"time": "七下", "event": "夏先生邪教事件", "people": "夏先生"}, {"time": "七下", "event": "周末出去玩事件", "people": "杨先生，陈先生"}, {"time": "七下", "event": "晚自习碎玻璃事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生被串死事件", "people": "彭先生"}, {"time": "七下", "event": "彭黄决裂事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "叠纸炮事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "上课睡觉事件", "people": "彭先生，杨先生"}, {"time": "七下", "event": "其实事件", "people": "彭先生，江先生"}, {"time": "七下", "event": "早餐事件", "people": "彭先生"}, {"time": "七下", "event": "小说事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "跨学期事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "杨先生熬夜事件", "people": "杨先生"}, {"time": "七下", "event": "江先生事件", "people": "江先生"}, {"time": "七下", "event": "彭先生春游事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生串班事件", "people": "彭先生"}, {"time": "七下", "event": "砸水杯事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "蚊子事件", "people": "陈先生"}, {"time": "七下", "event": "家长来学校事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "晚自习抄作业事件", "people": "大部分"}, {"time": "七下", "event": "胡彭狗友事件2", "people": "HJY,彭先生"}, {"time": "七下", "event": "刘彭事件", "people": "刘SK，彭先生"}, {"time": "七下", "event": "徐小姐朋友圈骂人事件", "people": "徐小姐"}, {"time": "七下", "event": "零食事件", "people": "彭先生"}, {"time": "七下", "event": "潘邢事件", "people": "潘先生，邢小姐"}, {"time": "七下", "event": "杨毛事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "晚自习小学事件", "people": "彭先生，李先生"}, {"time": "七下", "event": "扔拖把事件", "people": "朱先生，彭先生"}, {"time": "七下", "event": "历史集体罚抄事件", "people": "全班"}, {"time": "七下", "event": "厕所搞水事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "手串事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "4.3正确率事件", "people": "陈先生"}, {"time": "七下", "event": "LJJ转钱事件", "people": "李先生"}, {"time": "七下", "event": "杨先生名刀司命事件", "people": "杨先生"}, {"time": "七下", "event": "女生宿舍午休事件", "people": "女生"}, {"time": "七下", "event": "掀桌子事件", "people": "陈先生，彭先生"}, {"time": "七下", "event": "陈先生调虎离山事件", "people": "陈先生"}, {"time": "七下", "event": "跳长绳事件", "people": "全班"}, {"time": "七下", "event": "语文课丢橡皮事件", "people": "陈先生，彭先生"}, {"time": "八上", "event": "打老师事件", "people": "彭先生"}, {"time": "八上", "event": "泼水事件", "people": "彭先生，陈先生，黄先生等"}, {"time": "八上", "event": "陈先生不写作业事件", "people": "陈先生"}, {"time": "八上", "event": "跨年级打人事件", "people": "秦先生"}, {"time": "八上", "event": "跨班打人事件", "people": "杜先生"}, {"time": "八上", "event": "体育课事件", "people": "全年级"}, {"time": "八上", "event": "何向东生病事件", "people": "杨先生2，潘先生"}, {"time": "八上", "event": "龚发火事件", "people": "龚先生"}, {"time": "八上", "event": "合唱事件", "people": "杨先生，毛先生，齐刘海"}, {"time": "八上", "event": "陈江踢腿事件", "people": "陈先生，江先生"}, {"time": "八上", "event": "徐小姐当班主任事件", "people": "徐小姐"}, {"time": "八上", "event": "监控事件", "people": "全班"}, {"time": "八上", "event": "火龙果事件", "people": "彭先生"}, {"time": "八上", "event": "厕所门口打架事件", "people": "彭先生，陈先生"}, {"time": "八上", "event": "晚自习铁棒事件", "people": "陈先生"}, {"time": "八上", "event": "轮椅事件", "people": "彭先生，江先生"}, {"time": "八上", "event": "观察语文事件", "people": "江先生，李先生等"}, {"time": "八上", "event": "心理串子事件", "people": "彭先生，李先生"}, {"time": "八上", "event": "杨先生生气事件", "people": "杨先生"}, {"time": "八上", "event": "物理成绩事件", "people": "大部分"}, {"time": "八上", "event": "陈先生初一骂人事件", "people": "陈先生"}, {"time": "八上", "event": "长江中下游事件", "people": "杨先生"}, {"time": "八上", "event": "LJJ 骑车事件", "people": "李先生"}, {"time": "八上", "event": "陈先生霸总LJJ事件", "people": "陈先生"}, {"time": "八上", "event": "晚自习下楼事件", "people": "陈先生，彭先生等"}, {"time": "八上", "event": "合班教室脱裤子事件", "people": "龚先生"}, {"time": "八上", "event": "江先生照片事件", "people": "江先生，陈先生"}, {"time": "八上", "event": "冻鸡小胸事件", "people": "陈先生，杨先生，彭先生"}, {"time": "八上", "event": "物理课鬼扯事件", "people": "彭先生"}];
+const GOSSIP_DATA = [{"names": "杨先生，毛小姐", "relation": "不正当"}, {"names": "彭先生，HJY", "relation": "恋人"}, {"names": "黄先生，马骁", "relation": "恋人"}, {"names": "潘先生，邢小姐", "relation": "不正当"}, {"names": "杨先生，WXY", "relation": "GAY"}, {"names": "彭先生，刘SK", "relation": "引导"}];
+
+// 栏目切换逻辑
+const navTabs = document.querySelectorAll('.nav-tab');
+const tabChronicle = document.getElementById('tab-chronicle');
+const tabGossip = document.getElementById('tab-gossip');
+
+navTabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navTabs.forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.dataset.target;
+    if (target === 'chronicle') {
+      tabChronicle.style.display = 'block';
+      tabGossip.style.display = 'none';
+    } else {
+      tabChronicle.style.display = 'none';
+      tabGossip.style.display = 'block';
+    }
+  });
+});
 
 // 集体或非具体个人词汇（不计入个人排行榜）
 const COLLECTIVE_LABELS = new Set(['全班', '全年级', '双班同学', '大部分', '女生', 'Geography']);
@@ -413,7 +616,6 @@ function buildRanking(data) {
   const counts = new Map();
   data.forEach(item => {
     const people = extractPeople(item.people);
-    // 同一事件若重复出现同一人去重计数
     const uniqueInEvent = new Set(people);
     uniqueInEvent.forEach(person => {
       counts.set(person, (counts.get(person) || 0) + 1);
@@ -424,7 +626,6 @@ function buildRanking(data) {
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'zh-CN'));
 
-  // 计算并列排名
   let currentRank = 1;
   sorted.forEach((item, idx) => {
     if (idx > 0 && item.count < sorted[idx - 1].count) {
@@ -525,6 +726,29 @@ function renderEvents() {
   }
 }
 
+// 渲染班级绯闻表
+function renderGossipTable() {
+  const gossipTbody = document.getElementById('gossip-tbody');
+  const gossipCount = document.getElementById('gossip-count');
+  gossipTbody.innerHTML = '';
+
+  GOSSIP_DATA.forEach(row => {
+    let badgeClass = 'rel-badge';
+    if (row.relation === 'GAY') badgeClass += ' rel-gay';
+    else if (row.relation === '引导') badgeClass += ' rel-guide';
+    else if (row.relation === '不正当') badgeClass += ' rel-improper';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.names}</td>
+      <td><span class="${badgeClass}">${row.relation}</span></td>
+    `;
+    gossipTbody.appendChild(tr);
+  });
+
+  gossipCount.textContent = `${GOSSIP_DATA.length} 条绝密档案`;
+}
+
 toggleRankBtn.addEventListener('click', () => {
   showAllRanks = !showAllRanks;
   renderRanking();
@@ -536,11 +760,12 @@ clearFilterBtn.addEventListener('click', () => {
   renderEvents();
 });
 
-// 初始化数据渲染
+// 初始化渲染
 renderRanking();
 renderEvents();
+renderGossipTable();
 
-// 身份验证逻辑（保留原有逻辑）
+// 锁1：大事年表身份验证逻辑（完全不变）
 const form = document.getElementById('quiz');
 const gate = document.getElementById('gate');
 const contentArea = document.getElementById('content-area');
@@ -562,7 +787,28 @@ form.addEventListener('submit', function(event) {
   }
 });
 
-// 高辨识度纯黑背景白色粒子动效
+// 锁2：班级绯闻表独立验证逻辑
+const gossipForm = document.getElementById('gossip-quiz');
+const gossipGate = document.getElementById('gossip-gate');
+const gossipContentArea = document.getElementById('gossip-content-area');
+const gossipFeedback = document.getElementById('gossip-feedback');
+
+gossipForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const ans = document.getElementById('gossip-answer').value.trim().replace(/\s+/g, '');
+
+  if (ans === '朱研') {
+    gossipGate.classList.add('gate-hidden');
+    gossipContentArea.classList.add('visible');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  } else {
+    gossipFeedback.textContent = '回答错误，无权查看班级绯闻表！';
+    gossipContentArea.classList.remove('visible');
+    gossipGate.classList.remove('gate-hidden');
+  }
+});
+
+// 纯黑背景白色发光粒子动效
 (function initParticles() {
   const canvas = document.getElementById('particles-canvas');
   const ctx = canvas.getContext('2d');
@@ -593,14 +839,14 @@ form.addEventListener('submit', function(event) {
     const count = Math.min(130, Math.max(65, Math.floor((width * height) / 11000)));
     particles = [];
     for (let i = 0; i < count; i++) {
-      const radius = Math.random() * 2.6 + 1.4; // 1.4px ~ 4.0px 明显大小
+      const radius = Math.random() * 2.6 + 1.4;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 1.15,
         vy: (Math.random() - 0.5) * 1.15,
         radius: radius,
-        alpha: Math.random() * 0.45 + 0.55 // 0.55 ~ 1.0 高亮度
+        alpha: Math.random() * 0.45 + 0.55
       });
     }
   }
@@ -618,7 +864,6 @@ form.addEventListener('submit', function(event) {
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
-      // 鼠标排斥/互动微调
       if (mouse.x !== null && mouse.y !== null) {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
@@ -630,7 +875,6 @@ form.addEventListener('submit', function(event) {
         }
       }
 
-      // 绘制发光白色粒子
       ctx.save();
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -640,7 +884,6 @@ form.addEventListener('submit', function(event) {
       ctx.fill();
       ctx.restore();
 
-      // 粒子间白色连线增强动效层次
       for (let j = i + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
