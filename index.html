@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000000">
-<title>2025届七年级二班班级档案</title>
+<title>2025届七年级二班信息档案</title>
 <style>
 :root{
   --ink:#f8faff;
   --muted:#b4c0dc;
-  --line:rgba(255,255,255,.22);
+  --line:rgba(255,255,255,.2);
   --accent:#8bd5ff;
   --pink:#ff9ec7;
   --gold:#ffd666;
@@ -25,43 +25,46 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Inter,"Microsoft YaHei","PingFang SC",sans-serif;
   background:#000000;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* iOS 26 液态玻璃折射动态背景光晕（极暗环境下的微光折射层，配合纯黑背景） */
+/* iOS 26 液态玻璃折射动态背景光晕（极低不透明度折射光斑，确保纯黑底色下玻璃透光层次） */
 .ambient-refraction{
   position:fixed;
   inset:0;
   z-index:0;
   pointer-events:none;
   overflow:hidden;
+  will-change:transform;
 }
 .ambient-refraction:before,
 .ambient-refraction:after{
   content:"";
   position:absolute;
   border-radius:50%;
-  filter:blur(90px);
-  opacity:.32;
-  animation:driftOrb 18s ease-in-out infinite alternate;
+  filter:blur(95px);
+  opacity:.28;
+  will-change:transform;
+  animation:driftOrb 20s cubic-bezier(.45,.05,.55,.95) infinite alternate;
 }
 .ambient-refraction:before{
-  width:520px;
-  height:520px;
-  top:-140px;
-  left:12%;
-  background:radial-gradient(circle,rgba(140,205,255,.45),rgba(120,140,255,.12) 60%,transparent 75%);
+  width:540px;
+  height:540px;
+  top:-150px;
+  left:10%;
+  background:radial-gradient(circle,rgba(140,210,255,.42),rgba(120,145,255,.1) 60%,transparent 75%);
 }
 .ambient-refraction:after{
-  width:560px;
-  height:560px;
-  bottom:-160px;
-  right:10%;
-  background:radial-gradient(circle,rgba(210,175,255,.38),rgba(130,220,255,.1) 60%,transparent 75%);
-  animation-delay:-9s;
+  width:580px;
+  height:580px;
+  bottom:-170px;
+  right:8%;
+  background:radial-gradient(circle,rgba(215,180,255,.35),rgba(130,225,255,.09) 60%,transparent 75%);
+  animation-delay:-10s;
 }
 @keyframes driftOrb{
   0%{transform:translate3d(0,0,0) scale(1)}
-  100%{transform:translate3d(45px,35px,0) scale(1.12)}
+  100%{transform:translate3d(42px,32px,0) scale(1.1)}
 }
 
 #particles-canvas{
@@ -71,28 +74,29 @@ body{
   height:100%;
   z-index:1;
   pointer-events:none;
+  transform:translateZ(0);
 }
 .wrap{
   position:relative;
   z-index:2;
   width:min(1060px,calc(100% - 32px));
   margin:0 auto;
-  padding:64px 0 56px;
+  padding:60px 0 56px;
 }
-.hero{text-align:center;margin-bottom:32px;animation:rise .85s cubic-bezier(.2,.8,.2,1) both}
+.hero{text-align:center;margin-bottom:30px;animation:rise .75s cubic-bezier(.22,1,.36,1) both}
 
-/* iOS 26 Liquid Glass Pill */
+/* iOS 26 Ultra-Transparent Liquid Glass Pill */
 .eyebrow{
   position:relative;
   display:inline-flex;
   align-items:center;
   gap:9px;
-  padding:9px 18px;
-  border:1px solid rgba(255,255,255,.38);
+  padding:8px 18px;
+  border:1px solid rgba(255,255,255,.42);
   border-radius:999px;
-  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.06) 50%,rgba(255,255,255,.14) 100%);
-  backdrop-filter:blur(32px) saturate(190%) contrast(108%);
-  -webkit-backdrop-filter:blur(32px) saturate(190%) contrast(108%);
+  background:linear-gradient(135deg,rgba(255,255,255,.11) 0%,rgba(255,255,255,.02) 50%,rgba(255,255,255,.08) 100%);
+  backdrop-filter:blur(28px) saturate(210%) contrast(106%);
+  -webkit-backdrop-filter:blur(28px) saturate(210%) contrast(106%);
   color:#f2f6ff;
   font-size:12px;
   font-weight:600;
@@ -100,8 +104,8 @@ body{
   text-transform:uppercase;
   box-shadow:
     0 12px 32px rgba(0,0,0,.75),
-    inset 0 1.5px 1px rgba(255,255,255,.55),
-    inset 0 -1px 1px rgba(255,255,255,.16);
+    inset 0 1.5px 1px rgba(255,255,255,.65),
+    inset 0 -1px 1px rgba(255,255,255,.18);
 }
 .dot{width:7px;height:7px;border-radius:50%;background:#ffffff;box-shadow:0 0 12px #ffffff,0 0 22px #8bd5ff}
 h1{
@@ -114,33 +118,49 @@ h1{
   text-shadow:0 4px 32px rgba(255,255,255,.28);
 }
 .subtitle{margin:0;color:var(--muted);font-size:14px;letter-spacing:.1em}
+.contact-note{
+  display:inline-block;
+  margin:14px auto 0;
+  padding:8px 18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.26);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  backdrop-filter:blur(22px) saturate(190%);
+  -webkit-backdrop-filter:blur(22px) saturate(190%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 6px 20px rgba(0,0,0,.5);
+  color:#dbe6ff;
+  font-size:13px;
+  letter-spacing:.03em;
+  line-height:1.6;
+}
 
-/* iOS 26 Liquid Glass Panel (Enhanced Specular Edge, Deep Refraction & Inner Rim) */
+/* iOS 26 Ultra-Transparent Liquid Glass Panel */
 .panel{
   position:relative;
-  border:1px solid rgba(255,255,255,.34);
+  border:1px solid rgba(255,255,255,.38);
   border-radius:28px;
   background:
-    radial-gradient(120% 80% at 10% 0%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.04) 48%,rgba(255,255,255,.02) 100%),
-    linear-gradient(155deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 45%,rgba(255,255,255,.11) 100%);
-  backdrop-filter:blur(38px) saturate(210%) brightness(1.06);
-  -webkit-backdrop-filter:blur(38px) saturate(210%) brightness(1.06);
+    radial-gradient(130% 90% at 8% 0%,rgba(255,255,255,.14) 0%,rgba(255,255,255,.02) 48%,rgba(255,255,255,.01) 100%),
+    linear-gradient(155deg,rgba(255,255,255,.09) 0%,rgba(255,255,255,.02) 46%,rgba(255,255,255,.06) 100%);
+  backdrop-filter:blur(28px) saturate(220%) brightness(1.05);
+  -webkit-backdrop-filter:blur(28px) saturate(220%) brightness(1.05);
   box-shadow:
-    0 28px 80px rgba(0,0,0,.88),
-    0 4px 20px rgba(0,0,0,.55),
-    inset 0 1.5px 1.5px rgba(255,255,255,.62),
-    inset 0 -1.5px 2px rgba(255,255,255,.18),
-    inset 1.5px 0 1.5px rgba(255,255,255,.26),
-    inset -1.5px 0 1.5px rgba(255,255,255,.22);
+    0 24px 72px rgba(0,0,0,.82),
+    0 4px 18px rgba(0,0,0,.45),
+    inset 0 1.5px 1.5px rgba(255,255,255,.72),
+    inset 0 -1.5px 2px rgba(255,255,255,.22),
+    inset 1.5px 0 1.5px rgba(255,255,255,.34),
+    inset -1.5px 0 1.5px rgba(255,255,255,.28);
   overflow:hidden;
   margin-bottom:28px;
+  transform:translateZ(0);
 }
 .panel:before{
   content:"";
   position:absolute;
   inset:0 0 auto;
   height:2px;
-  background:linear-gradient(90deg,transparent 4%,rgba(255,255,255,.85) 30%,rgba(210,238,255,.95) 50%,rgba(255,255,255,.85) 70%,transparent 96%);
+  background:linear-gradient(90deg,transparent 3%,rgba(255,255,255,.9) 28%,rgba(215,242,255,1) 50%,rgba(255,255,255,.9) 72%,transparent 97%);
   pointer-events:none;
 }
 .panel:after{
@@ -148,7 +168,7 @@ h1{
   position:absolute;
   inset:0;
   border-radius:28px;
-  background:linear-gradient(125deg,rgba(255,255,255,.14) 0%,transparent 36%,transparent 68%,rgba(255,255,255,.08) 100%);
+  background:linear-gradient(125deg,rgba(255,255,255,.11) 0%,transparent 34%,transparent 68%,rgba(255,255,255,.06) 100%);
   pointer-events:none;
 }
 .panel-head{
@@ -160,8 +180,8 @@ h1{
   flex-wrap:wrap;
   gap:14px;
   padding:20px 26px;
-  border-bottom:1px solid rgba(255,255,255,.2);
-  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,0));
+  border-bottom:1px solid rgba(255,255,255,.22);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0));
 }
 .panel-label{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 .icon{
@@ -170,9 +190,9 @@ h1{
   width:36px;
   height:36px;
   border-radius:12px;
-  background:linear-gradient(145deg,rgba(255,255,255,.26),rgba(255,255,255,.08));
-  border:1px solid rgba(255,255,255,.36);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 4px 12px rgba(0,0,0,.35);
+  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.4);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.65),0 4px 12px rgba(0,0,0,.3);
   font-size:16px;
 }
 .head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -182,31 +202,31 @@ h1{
   color:#eef4ff;
   padding:7px 13px;
   border-radius:999px;
-  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.28);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+  background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
 }
 .btn-ghost{
   padding:7px 14px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.36);
-  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07));
+  border:1px solid rgba(255,255,255,.4);
+  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
   backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);
   color:#ffffff;
   font-size:12px;
   font-weight:600;
   cursor:pointer;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 12px rgba(0,0,0,.3);
-  transition:all .22s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 4px 12px rgba(0,0,0,.3);
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s ease,border-color .22s ease;
 }
 .btn-ghost:hover{
-  background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.14));
-  border-color:rgba(255,255,255,.65);
+  background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(255,255,255,.09));
+  border-color:rgba(255,255,255,.72);
   transform:translateY(-1px);
 }
 
-/* iOS 26 Liquid Glass Segmented Control (Navigation Tabs) */
+/* iOS 26 Ultra-Transparent Liquid Glass Segmented Control */
 .nav-tabs{
   position:relative;
   display:flex;
@@ -217,37 +237,37 @@ h1{
   padding:7px;
   width:fit-content;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.36);
-  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
-  backdrop-filter:blur(36px) saturate(210%);
-  -webkit-backdrop-filter:blur(36px) saturate(210%);
+  border:1px solid rgba(255,255,255,.4);
+  background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.025));
+  backdrop-filter:blur(30px) saturate(220%);
+  -webkit-backdrop-filter:blur(30px) saturate(220%);
   box-shadow:
-    0 16px 40px rgba(0,0,0,.8),
-    inset 0 1.5px 1px rgba(255,255,255,.55),
-    inset 0 -1px 1px rgba(255,255,255,.18);
+    0 16px 40px rgba(0,0,0,.78),
+    inset 0 1.5px 1px rgba(255,255,255,.65),
+    inset 0 -1px 1px rgba(255,255,255,.22);
 }
 .nav-tab{
-  padding:10px 22px;
+  padding:10px 20px;
   border-radius:999px;
   border:1px solid transparent;
   background:transparent;
-  color:#d0dcf5;
+  color:#d6e1f8;
   font-size:14px;
   font-weight:650;
-  letter-spacing:.05em;
+  letter-spacing:.04em;
   cursor:pointer;
-  transition:all .28s cubic-bezier(.2,.8,.2,1);
+  transition:all .26s cubic-bezier(.22,1,.36,1);
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:6px;
 }
 .nav-tab:hover{
   color:#ffffff;
   background:rgba(255,255,255,.08);
 }
 .nav-tab.active{
-  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(225,240,255,.88));
-  border:1px solid rgba(255,255,255,.9);
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(225,242,255,.84));
+  border:1px solid rgba(255,255,255,.95);
   color:#080c14;
   box-shadow:
     0 8px 24px rgba(255,255,255,.32),
@@ -255,7 +275,7 @@ h1{
 }
 
 /* Gate */
-.gate-wrap{width:min(640px,100%);margin:0 auto 28px;animation:rise .85s .08s cubic-bezier(.2,.8,.2,1) both}
+.gate-wrap{width:min(640px,100%);margin:0 auto 28px;animation:rise .75s .06s cubic-bezier(.22,1,.36,1) both}
 .gate{padding:32px}
 .gate-title{text-align:center;margin:0 0 8px;font-size:clamp(22px,4vw,29px);letter-spacing:.02em;color:#fff}
 .gate-desc{text-align:center;color:var(--muted);font-size:13px;margin:0 0 24px;line-height:1.7}
@@ -264,22 +284,22 @@ h1{
 .question input{
   width:100%;
   padding:14px 16px;
-  border:1px solid rgba(255,255,255,.32);
+  border:1px solid rgba(255,255,255,.36);
   border-radius:16px;
-  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
   color:#ffffff;
   font-size:15px;
   outline:none;
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.35),0 6px 18px rgba(0,0,0,.35);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.45),0 6px 18px rgba(0,0,0,.3);
   transition:border .2s,box-shadow .2s,background .2s;
 }
 .question input::placeholder{color:#8e9bb8}
 .question input:focus{
-  border-color:rgba(255,255,255,.85);
-  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.07));
-  box-shadow:0 0 0 3px rgba(255,255,255,.2),inset 0 1px 1px rgba(255,255,255,.6);
+  border-color:rgba(255,255,255,.88);
+  background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
+  box-shadow:0 0 0 3px rgba(255,255,255,.22),inset 0 1px 1px rgba(255,255,255,.7);
 }
 .submit{
   position:relative;
@@ -287,18 +307,18 @@ h1{
   width:100%;
   margin-top:12px;
   padding:15px 18px;
-  border:1px solid rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.82);
   border-radius:16px;
   color:#080c14;
   font-size:15px;
   font-weight:750;
   letter-spacing:.08em;
   cursor:pointer;
-  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(218,236,255,.9) 55%,rgba(236,224,255,.94));
+  background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(218,236,255,.88) 55%,rgba(236,224,255,.92));
   box-shadow:
     0 12px 30px rgba(255,255,255,.24),
     inset 0 1.5px 1px rgba(255,255,255,1);
-  transition:transform .2s,filter .2s,box-shadow .2s;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),filter .22s,box-shadow .22s;
 }
 .submit:hover{
   transform:translateY(-2px);
@@ -308,11 +328,11 @@ h1{
 .feedback{min-height:22px;margin:12px 0 0;text-align:center;font-size:13px;color:#ff9aa8;position:relative;z-index:1}
 
 /* Content containers */
-.section-view{display:none;animation:rise .55s ease both}
+.section-view{display:none;animation:rise .5s cubic-bezier(.22,1,.36,1) both}
 .section-view.visible{display:block}
 .gate-hidden{display:none}
 
-/* Leaderboard - iOS 26 Glass Tiles */
+/* Leaderboard & Class Info - iOS 26 Ultra-Transparent Glass Tiles */
 .rank-body{position:relative;z-index:1;padding:20px 24px 24px}
 .rank-tip{font-size:12px;color:var(--muted);margin:0 0 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .rank-grid{
@@ -327,29 +347,29 @@ h1{
   gap:13px;
   padding:15px 17px;
   border-radius:18px;
-  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.04));
-  border:1px solid rgba(255,255,255,.24);
-  backdrop-filter:blur(22px) saturate(180%);
-  -webkit-backdrop-filter:blur(22px) saturate(180%);
+  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(20px) saturate(190%);
+  -webkit-backdrop-filter:blur(20px) saturate(190%);
   box-shadow:
-    0 10px 26px rgba(0,0,0,.45),
-    inset 0 1px 1px rgba(255,255,255,.42),
-    inset 0 -1px 1px rgba(255,255,255,.1);
+    0 10px 26px rgba(0,0,0,.42),
+    inset 0 1px 1px rgba(255,255,255,.5),
+    inset 0 -1px 1px rgba(255,255,255,.12);
   cursor:pointer;
-  transition:transform .24s cubic-bezier(.2,.8,.2,1),background .24s ease,border-color .24s ease,box-shadow .24s ease;
+  transition:transform .24s cubic-bezier(.22,1,.36,1),background .24s ease,border-color .24s ease,box-shadow .24s ease;
 }
 .rank-card:hover{
   transform:translateY(-3px);
-  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
-  border-color:rgba(255,255,255,.52);
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+  border-color:rgba(255,255,255,.58);
   box-shadow:
-    0 16px 34px rgba(0,0,0,.6),
-    inset 0 1.5px 1px rgba(255,255,255,.65);
+    0 16px 34px rgba(0,0,0,.55),
+    inset 0 1.5px 1px rgba(255,255,255,.72);
 }
 .rank-card.active{
-  background:linear-gradient(145deg,rgba(139,213,255,.28),rgba(139,213,255,.1));
+  background:linear-gradient(145deg,rgba(139,213,255,.22),rgba(139,213,255,.07));
   border-color:#9be0ff;
-  box-shadow:0 0 26px rgba(139,213,255,.32),inset 0 1px 1px rgba(255,255,255,.65);
+  box-shadow:0 0 26px rgba(139,213,255,.32),inset 0 1px 1px rgba(255,255,255,.72);
 }
 .rank-card.static-card{cursor:default}
 .rank-badge{
@@ -361,14 +381,14 @@ h1{
   font-weight:800;
   font-size:15px;
   flex-shrink:0;
-  background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.06));
+  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.04));
   color:#eef4ff;
-  border:1px solid rgba(255,255,255,.28);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.32);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.5);
 }
-.rank-1 .rank-badge{background:linear-gradient(135deg,#fff0a6,#faad14);color:#2b1d00;border:1px solid rgba(255,255,255,.75);box-shadow:0 0 20px rgba(250,173,20,.55),inset 0 1px 1px #fff}
-.rank-2 .rank-badge{background:linear-gradient(135deg,#ffffff,#94a3b8);color:#0f172a;border:1px solid rgba(255,255,255,.8);box-shadow:0 0 18px rgba(226,232,240,.45),inset 0 1px 1px #fff}
-.rank-3 .rank-badge{background:linear-gradient(135deg,#ffe2cc,#d46b08);color:#2b1100;border:1px solid rgba(255,255,255,.7);box-shadow:0 0 18px rgba(212,107,8,.45),inset 0 1px 1px #fff}
+.rank-1 .rank-badge{background:linear-gradient(135deg,#fff0a6,#faad14);color:#2b1d00;border:1px solid rgba(255,255,255,.8);box-shadow:0 0 20px rgba(250,173,20,.55),inset 0 1px 1px #fff}
+.rank-2 .rank-badge{background:linear-gradient(135deg,#ffffff,#94a3b8);color:#0f172a;border:1px solid rgba(255,255,255,.85);box-shadow:0 0 18px rgba(226,232,240,.45),inset 0 1px 1px #fff}
+.rank-3 .rank-badge{background:linear-gradient(135deg,#ffe2cc,#d46b08);color:#2b1100;border:1px solid rgba(255,255,255,.75);box-shadow:0 0 18px rgba(212,107,8,.45),inset 0 1px 1px #fff}
 
 .rank-info{flex:1;min-width:0}
 .rank-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:7px}
@@ -378,11 +398,58 @@ h1{
 .rank-2 .rank-score{color:var(--silver)}
 .rank-3 .rank-score{color:var(--bronze)}
 
-.bar-track{width:100%;height:7px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);overflow:hidden}
-.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7dd3fc,#ffffff);box-shadow:0 0 10px rgba(255,255,255,.5);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.bar-track{width:100%;height:7px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7dd3fc,#ffffff);box-shadow:0 0 10px rgba(255,255,255,.5);transition:width .55s cubic-bezier(.22,1,.36,1)}
 .rank-1 .bar-fill{background:linear-gradient(90deg,#faad14,#fff5c2)}
 .rank-2 .bar-fill{background:linear-gradient(90deg,#94a3b8,#ffffff)}
 .rank-3 .bar-fill{background:linear-gradient(90deg,#d46b08,#ffe2cc)}
+
+/* Class Info Grid */
+.info-group-title{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.12em;
+  color:#a8ceff;
+  margin:6px 0 14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.info-group-title:not(:first-child){margin-top:24px}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(265px,1fr));
+  gap:12px;
+}
+.info-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.018));
+  border:1px solid rgba(255,255,255,.26);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.45),0 8px 20px rgba(0,0,0,.35);
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s ease,border-color .22s ease;
+}
+.info-card:hover{
+  transform:translateY(-2px);
+  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.04));
+  border-color:rgba(255,255,255,.55);
+}
+.info-role{
+  font-size:13px;
+  font-weight:650;
+  color:#a8ceff;
+  flex-shrink:0;
+}
+.info-person{
+  font-size:14px;
+  font-weight:700;
+  color:#ffffff;
+  text-align:right;
+}
 
 /* Filter bar */
 .filter-banner{
@@ -395,7 +462,7 @@ h1{
   padding:12px 20px;
   margin:14px 18px 0;
   border-radius:16px;
-  background:linear-gradient(135deg,rgba(139,213,255,.22),rgba(139,213,255,.08));
+  background:linear-gradient(135deg,rgba(139,213,255,.16),rgba(139,213,255,.05));
   border:1px solid rgba(139,213,255,.5);
   box-shadow:inset 0 1px 1px rgba(255,255,255,.45);
   font-size:13px;
@@ -403,7 +470,7 @@ h1{
 }
 .filter-banner.show{display:flex}
 
-/* Table - iOS 26 Glass Rows */
+/* Table - iOS 26 Ultra-Transparent Glass Rows */
 .table-wrap{position:relative;z-index:1;padding:10px 18px 20px}
 table{width:100%;border-collapse:separate;border-spacing:0 10px;table-layout:fixed}
 thead th{padding:12px 16px;color:#c7d4f0;text-align:left;font-size:12px;font-weight:650;letter-spacing:.14em}
@@ -416,33 +483,33 @@ thead th{padding:12px 16px;color:#c7d4f0;text-align:left;font-size:12px;font-wei
 .grades-table thead th:nth-child(2){width:65%}
 
 tbody tr{
-  background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
-  box-shadow:0 6px 18px rgba(0,0,0,.35);
-  transition:transform .24s ease,background .24s ease,box-shadow .24s ease;
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+  box-shadow:0 6px 18px rgba(0,0,0,.32);
+  transition:transform .24s cubic-bezier(.22,1,.36,1),background .24s ease,box-shadow .24s ease;
 }
 tbody tr:hover{
   transform:translateY(-2px);
-  background:linear-gradient(135deg,rgba(255,255,255,.19),rgba(255,255,255,.07));
-  box-shadow:0 12px 26px rgba(0,0,0,.5);
+  background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.045));
+  box-shadow:0 12px 26px rgba(0,0,0,.45);
 }
 tbody td{
   padding:16px;
   color:#f5f8ff;
-  border-top:1px solid rgba(255,255,255,.2);
-  border-bottom:1px solid rgba(255,255,255,.14);
+  border-top:1px solid rgba(255,255,255,.24);
+  border-bottom:1px solid rgba(255,255,255,.16);
   font-size:14px;
   line-height:1.6;
   overflow-wrap:anywhere;
 }
 tbody td:first-child{
-  border-left:1px solid rgba(255,255,255,.22);
+  border-left:1px solid rgba(255,255,255,.26);
   border-radius:16px 0 0 16px;
   color:#a8ceff;
   font-weight:650;
   font-variant-numeric:tabular-nums;
 }
 tbody td:last-child{
-  border-right:1px solid rgba(255,255,255,.18);
+  border-right:1px solid rgba(255,255,255,.22);
   border-radius:0 16px 16px 0;
 }
 .gossip-table tbody td:first-child,
@@ -456,9 +523,9 @@ tbody td:last-child{
   padding:3px 10px;
   margin:2px 4px 2px 0;
   border-radius:9px;
-  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.25);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
   color:#eef4ff;
   font-size:12.5px;
 }
@@ -471,30 +538,30 @@ tbody td:last-child{
   font-size:12.5px;
   font-weight:700;
   letter-spacing:.04em;
-  background:linear-gradient(135deg,rgba(255,158,199,.28),rgba(255,158,199,.1));
-  border:1px solid rgba(255,158,199,.55);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.45);
+  background:linear-gradient(135deg,rgba(255,158,199,.24),rgba(255,158,199,.08));
+  border:1px solid rgba(255,158,199,.58);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.5);
   color:#ffd9ea;
 }
 .rel-badge.rel-gay{
-  background:linear-gradient(135deg,rgba(192,132,252,.28),rgba(192,132,252,.1));
-  border-color:rgba(192,132,252,.58);
+  background:linear-gradient(135deg,rgba(192,132,252,.24),rgba(192,132,252,.08));
+  border-color:rgba(192,132,252,.6);
   color:#efe0ff;
 }
 .rel-badge.rel-guide{
-  background:linear-gradient(135deg,rgba(125,211,252,.26),rgba(125,211,252,.09));
-  border-color:rgba(125,211,252,.55);
+  background:linear-gradient(135deg,rgba(125,211,252,.22),rgba(125,211,252,.07));
+  border-color:rgba(125,211,252,.58);
   color:#cceeff;
 }
 .rel-badge.rel-improper{
-  background:linear-gradient(135deg,rgba(251,146,60,.26),rgba(251,146,60,.09));
-  border-color:rgba(251,146,60,.55);
+  background:linear-gradient(135deg,rgba(251,146,60,.22),rgba(251,146,60,.07));
+  border-color:rgba(251,146,60,.58);
   color:#ffe0c2;
 }
 
 .footer{position:relative;z-index:2;text-align:center;color:#8b99b8;font-size:11px;letter-spacing:.14em;margin-top:24px}
 
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @media(max-width:680px){
   .wrap{padding:44px 0 36px}
   .panel{border-radius:22px}
@@ -506,9 +573,10 @@ tbody td:last-child{
   .chronicle-table thead th:nth-child(2){width:42%}
   .chronicle-table thead th:nth-child(3){width:40%}
   .rank-body{padding:16px}
-  .rank-grid{grid-template-columns:1fr}
+  .rank-grid,.info-grid{grid-template-columns:1fr}
   .nav-tabs{width:100%;justify-content:center;border-radius:22px}
-  .nav-tab{padding:9px 14px;font-size:13px}
+  .nav-tab{padding:9px 13px;font-size:13px}
+  .contact-note{border-radius:16px;padding:10px 14px;font-size:12px}
 }
 </style>
 </head>
@@ -518,9 +586,10 @@ tbody td:last-child{
 
 <main class="wrap">
   <header class="hero">
-    <div class="eyebrow"><span class="dot"></span> CLASS CHRONICLE · 2025</div>
-    <h1>2025届七年级二班大事年表</h1>
+    <div class="eyebrow"><span class="dot"></span> CLASS ARCHIVE · 2025</div>
+    <h1>2025届七年级二班信息档案</h1>
     <p class="subtitle">记录班级时光 · 收藏共同记忆</p>
+    <div class="contact-note">如有补充和纠错，请联系作者，联系方式：QQ：2730765221 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 微信：YanyuanP-7891</div>
   </header>
 
   <!-- 栏目切换导航 -->
@@ -528,6 +597,7 @@ tbody td:last-child{
     <button type="button" class="nav-tab active" data-target="chronicle">📜 大事年表</button>
     <button type="button" class="nav-tab" data-target="gossip">🔒 班级绯闻表</button>
     <button type="button" class="nav-tab" data-target="grades">📊 班级成绩排名</button>
+    <button type="button" class="nav-tab" data-target="classinfo">🏫 班级信息</button>
   </nav>
 
   <!-- ================= 栏目一：大事年表 ================= -->
@@ -755,6 +825,38 @@ tbody td:last-child{
     </div>
   </div>
 
+  <!-- ================= 栏目四：班级信息 ================= -->
+  <div id="tab-classinfo" style="display:none">
+    <!-- 独立密码锁 -->
+    <section class="gate-wrap" id="classinfo-gate">
+      <div class="panel gate">
+        <h2 class="gate-title">🔒 班级信息 · 专属加密区</h2>
+        <p class="gate-desc">此栏目已单独上锁，答对问题方可查看七年级二班师资与班委档案。</p>
+        <form id="classinfo-quiz" autocomplete="off">
+          <div class="question">
+            <label for="classinfo-answer">问题：PJY帅不帅？</label>
+            <input id="classinfo-answer" name="classinfo-answer" type="text" placeholder="请输入答案" required>
+          </div>
+          <button class="submit" type="submit">验证口令 · 解锁班级信息</button>
+          <p class="feedback" id="classinfo-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- 解锁后的班级信息展示 -->
+    <div id="classinfo-content-area" class="section-view">
+      <section class="panel" aria-label="班级信息档案">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">🏫</span> 七年级二班 · 师资与班委名录</div>
+          <div class="head-actions">
+            <span class="count" id="classinfo-count">共 28 项职务档案</span>
+          </div>
+        </div>
+        <div class="rank-body" id="classinfo-body"></div>
+      </section>
+    </div>
+  </div>
+
   <footer class="footer">MADE OF OUR DAYS · CLASS 7-2</footer>
 </main>
 
@@ -762,12 +864,14 @@ tbody td:last-child{
 const EVENTS_DATA = [{"time": "七上", "event": "老班外号事件", "people": "黄先生"}, {"time": "七上", "event": "道歉事件", "people": "陈先生"}, {"time": "七上", "event": "大蒜事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "魔丸事件", "people": "陈先生，张先生，等"}, {"time": "七上", "event": "双班聚众事件", "people": "双班同学"}, {"time": "七上", "event": "彭先生僵尸事件", "people": "彭先生，陈先生等"}, {"time": "七上", "event": "眼镜事件", "people": "Geography"}, {"time": "七上", "event": "召唤西施事件", "people": "Geography"}, {"time": "七上", "event": "午休锤魔丸事件", "people": "黄先生，彭先生"}, {"time": "七上", "event": "午休陷阱事件", "people": "张先生，陈先生等"}, {"time": "七上", "event": "yes sir 事件", "people": "彭先生，黄先生等"}, {"time": "七上", "event": "吸气事件", "people": "张先生，彭先生等"}, {"time": "七上", "event": "胡彭狗友事件", "people": "HJY 彭先生"}, {"time": "七上", "event": "自习课事件", "people": "全班"}, {"time": "七上", "event": "骂老师事件", "people": "秦先生"}, {"time": "七上", "event": "撕试卷时间", "people": "秦先生"}, {"time": "七上", "event": "圈画事件", "people": "全班"}, {"time": "七上", "event": "江先生烧卖事件", "people": "江先生"}, {"time": "七上", "event": "陈先生老母上树事件", "people": "陈先生"}, {"time": "七上", "event": "第一学期末记录片事件", "people": "黄先生，杨先生等"}, {"time": "七上", "event": "火鸡面事件", "people": "陈先生，彭先生"}, {"time": "七上", "event": "彭江厕所事件", "people": "彭先生，江先生"}, {"time": "七上", "event": "报告厅屏幕事件", "people": "彭先生"}, {"time": "七上", "event": "合班教室杨先生写字事件", "people": "杨先生"}, {"time": "七上", "event": "合班教室抽屉事件", "people": "彭先生"}, {"time": "七下", "event": "饮料事件", "people": "杨先生，彭先生"}, {"time": "七下", "event": "直呼老师大名事件", "people": "彭先生"}, {"time": "七下", "event": "李彭家长会事件", "people": "李先生，彭先生"}, {"time": "七下", "event": "研学事件", "people": "杨先生，彭先生，徐小姐等"}, {"time": "七下", "event": "头发事件", "people": "杨先生，黄先生，彭先生，等"}, {"time": "七下", "event": "早上补作业事件", "people": "陈先生，杨先生"}, {"time": "七下", "event": "唱歌事件", "people": "彭先生，江先生等"}, {"time": "七下", "event": "扎辫子事件", "people": "彭先生，黄先生等"}, {"time": "七下", "event": "开局一脚事件", "people": "彭先生，陈先生，江先生"}, {"time": "七下", "event": "陈先生传教事件", "people": "陈先生"}, {"time": "七下", "event": "夏先生邪教事件", "people": "夏先生"}, {"time": "七下", "event": "周末出去玩事件", "people": "杨先生，陈先生"}, {"time": "七下", "event": "晚自习碎玻璃事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生被串死事件", "people": "彭先生"}, {"time": "七下", "event": "彭黄决裂事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "叠纸炮事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "上课睡觉事件", "people": "彭先生，杨先生"}, {"time": "七下", "event": "其实事件", "people": "彭先生，江先生"}, {"time": "七下", "event": "早餐事件", "people": "彭先生"}, {"time": "七下", "event": "小说事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "跨学期事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "杨先生熬夜事件", "people": "杨先生"}, {"time": "七下", "event": "江先生事件", "people": "江先生"}, {"time": "七下", "event": "彭先生春游事件", "people": "彭先生"}, {"time": "七下", "event": "彭先生串班事件", "people": "彭先生"}, {"time": "七下", "event": "砸水杯事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "蚊子事件", "people": "陈先生"}, {"time": "七下", "event": "家长来学校事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "晚自习抄作业事件", "people": "大部分"}, {"time": "七下", "event": "胡彭狗友事件2", "people": "HJY,彭先生"}, {"time": "七下", "event": "刘彭事件", "people": "刘SK，彭先生"}, {"time": "七下", "event": "徐小姐朋友圈骂人事件", "people": "徐小姐"}, {"time": "七下", "event": "零食事件", "people": "彭先生"}, {"time": "七下", "event": "潘邢事件", "people": "潘先生，邢小姐"}, {"time": "七下", "event": "杨毛事件", "people": "杨先生，毛小姐"}, {"time": "七下", "event": "晚自习小学事件", "people": "彭先生，李先生"}, {"time": "七下", "event": "扔拖把事件", "people": "朱先生，彭先生"}, {"time": "七下", "event": "历史集体罚抄事件", "people": "全班"}, {"time": "七下", "event": "厕所搞水事件", "people": "彭先生，陈先生"}, {"time": "七下", "event": "手串事件", "people": "彭先生，黄先生"}, {"time": "七下", "event": "4.3正确率事件", "people": "陈先生"}, {"time": "七下", "event": "LJJ转钱事件", "people": "李先生"}, {"time": "七下", "event": "杨先生名刀司命事件", "people": "杨先生"}, {"time": "七下", "event": "女生宿舍午休事件", "people": "女生"}, {"time": "七下", "event": "掀桌子事件", "people": "陈先生，彭先生"}, {"time": "七下", "event": "陈先生调虎离山事件", "people": "陈先生"}, {"time": "七下", "event": "跳长绳事件", "people": "全班"}, {"time": "七下", "event": "语文课丢橡皮事件", "people": "陈先生，彭先生"}, {"time": "八上", "event": "打老师事件", "people": "彭先生"}, {"time": "八上", "event": "泼水事件", "people": "彭先生，陈先生，黄先生等"}, {"time": "八上", "event": "陈先生不写作业事件", "people": "陈先生"}, {"time": "八上", "event": "跨年级打人事件", "people": "秦先生"}, {"time": "八上", "event": "跨班打人事件", "people": "杜先生"}, {"time": "八上", "event": "体育课事件", "people": "全年级"}, {"time": "八上", "event": "何向东生病事件", "people": "杨先生2，潘先生"}, {"time": "八上", "event": "龚发火事件", "people": "龚先生"}, {"time": "八上", "event": "合唱事件", "people": "杨先生，毛先生，齐刘海"}, {"time": "八上", "event": "陈江踢腿事件", "people": "陈先生，江先生"}, {"time": "八上", "event": "徐小姐当班主任事件", "people": "徐小姐"}, {"time": "八上", "event": "监控事件", "people": "全班"}, {"time": "八上", "event": "火龙果事件", "people": "彭先生"}, {"time": "八上", "event": "厕所门口打架事件", "people": "彭先生，陈先生"}, {"time": "八上", "event": "晚自习铁棒事件", "people": "陈先生"}, {"time": "八上", "event": "轮椅事件", "people": "彭先生，江先生"}, {"time": "八上", "event": "观察语文事件", "people": "江先生，李先生等"}, {"time": "八上", "event": "心理串子事件", "people": "彭先生，李先生"}, {"time": "八上", "event": "杨先生生气事件", "people": "杨先生"}, {"time": "八上", "event": "物理成绩事件", "people": "大部分"}, {"time": "八上", "event": "陈先生初一骂人事件", "people": "陈先生"}, {"time": "八上", "event": "长江中下游事件", "people": "杨先生"}, {"time": "八上", "event": "LJJ 骑车事件", "people": "李先生"}, {"time": "八上", "event": "陈先生霸总LJJ事件", "people": "陈先生"}, {"time": "八上", "event": "晚自习下楼事件", "people": "陈先生，彭先生等"}, {"time": "八上", "event": "合班教室脱裤子事件", "people": "龚先生"}, {"time": "八上", "event": "江先生照片事件", "people": "江先生，陈先生"}, {"time": "八上", "event": "冻鸡小胸事件", "people": "陈先生，杨先生，彭先生"}, {"time": "八上", "event": "物理课鬼扯事件", "people": "彭先生"}];
 const GOSSIP_DATA = [{"names": "杨先生，毛小姐", "relation": "不正当"}, {"names": "彭先生，HJY", "relation": "恋人"}, {"names": "黄先生，马骁", "relation": "恋人"}, {"names": "潘先生，邢小姐", "relation": "不正当"}, {"names": "杨先生，WXY", "relation": "GAY"}, {"names": "彭先生，刘SK", "relation": "引导"}];
 const GRADES_DATA = [{"rank": 1, "name": "李乐"}, {"rank": 2, "name": "杨汶哲"}, {"rank": 3, "name": "何向东"}, {"rank": 4, "name": "缪洪萌"}, {"rank": 5, "name": "汲瑞希"}, {"rank": 6, "name": "邢文琦"}, {"rank": 7, "name": "彭隽逸"}, {"rank": 8, "name": "杨明宇"}, {"rank": 9, "name": "潘柯文"}, {"rank": 10, "name": "江天瑜"}];
+const CLASS_INFO_DATA = [{"role": "班长", "person": "杨汶哲"}, {"role": "副班长", "person": "李乐"}, {"role": "班主任", "person": "王璐"}, {"role": "副班主任", "person": "李珺妍"}, {"role": "语文老师", "person": "张荣"}, {"role": "数学老师", "person": "刘亚亚"}, {"role": "英语老师", "person": "王璐"}, {"role": "物理老师", "person": "董芳"}, {"role": "政治老师", "person": "汤理想"}, {"role": "历史老师", "person": "穆雅岚"}, {"role": "生物老师", "person": "沈智怡"}, {"role": "地理老师", "person": "张添欣"}, {"role": "音乐老师", "person": "沈玥汝"}, {"role": "信息老师", "person": "李珺妍"}, {"role": "心理老师", "person": "余雪梅"}, {"role": "美术老师", "person": "王琪"}, {"role": "体育老师", "person": "张礼庭"}, {"role": "语文课代表", "person": "李乐，马骁"}, {"role": "数学课代表", "person": "嵇辰钦，缪洪萌"}, {"role": "英语课代表", "person": "邢文琦，杨汶哲，杨明宇"}, {"role": "物理课代表", "person": "王恩赫，杨盛涵"}, {"role": "政治课代表", "person": "汲瑞希，王子依"}, {"role": "历史课代表", "person": "江天瑜，尹伊一"}, {"role": "生物课代表", "person": "江天瑜，张梓辰"}, {"role": "地理课代表", "person": "秦俊迪，毛馨怡"}, {"role": "信息课代表", "person": "杜浩阳"}, {"role": "体育委员", "person": "李嘉炜"}, {"role": "劳动委员", "person": "杨明宇"}];
 
 // 栏目切换逻辑
 const navTabs = document.querySelectorAll('.nav-tab');
 const tabChronicle = document.getElementById('tab-chronicle');
 const tabGossip = document.getElementById('tab-gossip');
 const tabGrades = document.getElementById('tab-grades');
+const tabClassInfo = document.getElementById('tab-classinfo');
 
 navTabs.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -777,6 +881,7 @@ navTabs.forEach(btn => {
     tabChronicle.style.display = target === 'chronicle' ? 'block' : 'none';
     tabGossip.style.display = target === 'gossip' ? 'block' : 'none';
     tabGrades.style.display = target === 'grades' ? 'block' : 'none';
+    tabClassInfo.style.display = target === 'classinfo' ? 'block' : 'none';
   });
 });
 
@@ -985,6 +1090,46 @@ function renderGradesSection() {
   gradesTableCount.textContent = `共 ${total} 人上榜`;
 }
 
+// 渲染班级信息栏目
+function renderClassInfo() {
+  const container = document.getElementById('classinfo-body');
+  const countEl = document.getElementById('classinfo-count');
+
+  const coreRoles = CLASS_INFO_DATA.filter(item => ['班主任', '副班主任', '班长', '副班长'].includes(item.role));
+  const teachers = CLASS_INFO_DATA.filter(item => item.role.endsWith('老师') && !['班主任', '副班主任'].includes(item.role));
+  const reps = CLASS_INFO_DATA.filter(item => item.role.endsWith('课代表') || item.role.endsWith('委员'));
+
+  const sections = [
+    { title: '🌟 核心班导与班长', items: coreRoles },
+    { title: '📚 各科任课教师', items: teachers },
+    { title: '🎖️ 课代表与班委', items: reps }
+  ];
+
+  container.innerHTML = '';
+  sections.forEach(sec => {
+    if (!sec.items.length) return;
+    const header = document.createElement('div');
+    header.className = 'info-group-title';
+    header.textContent = sec.title;
+    container.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'info-grid';
+    sec.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'info-card';
+      card.innerHTML = `
+        <span class="info-role">${item.role}</span>
+        <span class="info-person">${item.person}</span>
+      `;
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+  });
+
+  countEl.textContent = `共 ${CLASS_INFO_DATA.length} 项职务档案`;
+}
+
 toggleRankBtn.addEventListener('click', () => {
   showAllRanks = !showAllRanks;
   renderRanking();
@@ -1001,6 +1146,7 @@ renderRanking();
 renderEvents();
 renderGossipTable();
 renderGradesSection();
+renderClassInfo();
 
 // 锁1：大事年表身份验证逻辑（完全不变）
 const form = document.getElementById('quiz');
@@ -1045,7 +1191,7 @@ gossipForm.addEventListener('submit', function(event) {
   }
 });
 
-// 锁3：班级成绩排名独立验证逻辑
+// 锁3：班级成绩排名独立验证逻辑（完全不变）
 const gradesForm = document.getElementById('grades-quiz');
 const gradesGate = document.getElementById('grades-gate');
 const gradesContentArea = document.getElementById('grades-content-area');
@@ -1066,101 +1212,184 @@ gradesForm.addEventListener('submit', function(event) {
   }
 });
 
-// 纯黑背景白色发光粒子动效
+// 锁4：班级信息独立验证逻辑
+const classInfoForm = document.getElementById('classinfo-quiz');
+const classInfoGate = document.getElementById('classinfo-gate');
+const classInfoContentArea = document.getElementById('classinfo-content-area');
+const classInfoFeedback = document.getElementById('classinfo-feedback');
+
+classInfoForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const ans = document.getElementById('classinfo-answer').value.trim().replace(/\s+/g, '');
+
+  if (ans === '帅') {
+    classInfoGate.classList.add('gate-hidden');
+    classInfoContentArea.classList.add('visible');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  } else {
+    classInfoFeedback.textContent = '回答错误，请说实话再试一次！';
+    classInfoContentArea.classList.remove('visible');
+    classInfoGate.classList.remove('gate-hidden');
+  }
+});
+
+// 高帧率丝滑纯黑背景白色发光粒子动效（支持高刷屏 delta-time 物理插值与离屏光晕缓存优化）
 (function initParticles() {
   const canvas = document.getElementById('particles-canvas');
-  const ctx = canvas.getContext('2d');
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d', { alpha: true });
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
 
-  const mouse = { x: null, y: null, radius: 150 };
+  // 预渲染发光白色粒子精灵图，避免每帧重复计算 shadowBlur，大幅提升高刷屏（120Hz/144Hz）帧率与丝滑度
+  const spriteSize = 32;
+  const spriteCanvas = document.createElement('canvas');
+  spriteCanvas.width = spriteSize;
+  spriteCanvas.height = spriteSize;
+  const sCtx = spriteCanvas.getContext('2d');
+  const half = spriteSize / 2;
+  const grad = sCtx.createRadialGradient(half, half, 0, half, half, half);
+  grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  grad.addColorStop(0.28, 'rgba(255, 255, 255, 0.92)');
+  grad.addColorStop(0.55, 'rgba(235, 245, 255, 0.35)');
+  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  sCtx.fillStyle = grad;
+  sCtx.fillRect(0, 0, spriteSize, spriteSize);
 
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    createParticles();
-  });
+  const mouse = { x: null, y: null, targetX: null, targetY: null, radius: 155 };
 
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+  function resizeCanvas() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
 
   let particles = [];
 
   function createParticles() {
-    const count = Math.min(130, Math.max(65, Math.floor((width * height) / 11000)));
+    const count = Math.min(135, Math.max(70, Math.floor((width * height) / 10500)));
     particles = [];
     for (let i = 0; i < count; i++) {
-      const radius = Math.random() * 2.6 + 1.4;
+      const radius = Math.random() * 2.5 + 1.5;
+      const speed = (Math.random() * 0.45 + 0.35) * 60; // px/sec 标准化速度
+      const angle = Math.random() * Math.PI * 2;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 1.15,
-        vy: (Math.random() - 0.5) * 1.15,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
         radius: radius,
-        alpha: Math.random() * 0.45 + 0.55
+        alpha: Math.random() * 0.4 + 0.6
       });
     }
   }
 
+  resizeCanvas();
   createParticles();
 
-  function animate() {
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+      createParticles();
+    }, 100);
+  }, { passive: true });
+
+  window.addEventListener('mousemove', e => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
+    if (mouse.x === null) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.targetX = null;
+    mouse.targetY = null;
+    mouse.x = null;
+    mouse.y = null;
+  }, { passive: true });
+
+  let lastTime = performance.now();
+  const maxDist = 135;
+  const maxDistSq = maxDist * maxDist;
+
+  function animate(now) {
+    const dt = Math.min((now - lastTime) / 1000, 0.05); // 防止切后台后跳帧
+    lastTime = now;
+
+    // 鼠标位置阻尼插值，使交互更顺滑
+    if (mouse.targetX !== null && mouse.targetY !== null) {
+      mouse.x += (mouse.targetX - mouse.x) * Math.min(1, dt * 18);
+      mouse.y += (mouse.targetY - mouse.y) * Math.min(1, dt * 18);
+    }
+
     ctx.clearRect(0, 0, width, height);
 
-    for (let i = 0; i < particles.length; i++) {
+    const len = particles.length;
+    for (let i = 0; i < len; i++) {
       const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
 
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
+      if (p.x < 0) { p.x = 0; p.vx = Math.abs(p.vx); }
+      else if (p.x > width) { p.x = width; p.vx = -Math.abs(p.vx); }
+
+      if (p.y < 0) { p.y = 0; p.vy = Math.abs(p.vy); }
+      else if (p.y > height) { p.y = height; p.vy = -Math.abs(p.vy); }
 
       if (mouse.x !== null && mouse.y !== null) {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < mouse.radius && dist > 0) {
+        const distSq = dx * dx + dy * dy;
+        if (distSq < mouse.radius * mouse.radius && distSq > 0.001) {
+          const dist = Math.sqrt(distSq);
           const force = (mouse.radius - dist) / mouse.radius;
-          p.x += (dx / dist) * force * 2.2;
-          p.y += (dy / dist) * force * 2.2;
+          const push = force * 140 * dt;
+          p.x += (dx / dist) * push;
+          p.y += (dy / dist) * push;
         }
       }
 
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-      ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
-      ctx.shadowBlur = 10;
-      ctx.fill();
-      ctx.restore();
+      // 使用缓存发光贴图绘制粒子
+      const drawSize = p.radius * 5.2;
+      ctx.globalAlpha = p.alpha;
+      ctx.drawImage(spriteCanvas, p.x - drawSize * 0.5, p.y - drawSize * 0.5, drawSize, drawSize);
+    }
 
-      for (let j = i + 1; j < particles.length; j++) {
+    // 批量绘制粒子连线
+    ctx.lineWidth = 0.85;
+    for (let i = 0; i < len; i++) {
+      const p = particles[i];
+      for (let j = i + 1; j < len; j++) {
         const p2 = particles[j];
-        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-        if (dist < 135) {
-          const lineAlpha = (1 - dist / 135) * 0.28;
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < maxDistSq) {
+          const lineAlpha = (1 - Math.sqrt(distSq) / maxDist) * 0.28;
+          ctx.globalAlpha = lineAlpha;
+          ctx.strokeStyle = '#ffffff';
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
-          ctx.lineWidth = 0.9;
           ctx.stroke();
         }
       }
     }
+    ctx.globalAlpha = 1;
 
     requestAnimationFrame(animate);
   }
 
-  animate();
+  requestAnimationFrame(animate);
 })();
 </script>
 </body>
