@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#10182d">
 <title>2025届七年级二班大事年表</title>
 <style>
-:root{--ink:#f5f7ff;--muted:#b8c2dc;--line:rgba(255,255,255,.16);--glass:rgba(255,255,255,.105)}
+:root{--ink:#f5f7ff;--muted:#b8c2dc;--line:rgba(255,255,255,.16)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;color:var(--ink);font-family:Inter,"Microsoft YaHei","PingFang SC",sans-serif;background:#10182d;overflow-x:hidden}
@@ -20,7 +20,7 @@ body:after{width:650px;height:650px;right:-190px;bottom:-260px;background:radial
 .dot{width:7px;height:7px;border-radius:50%;background:#8bd5ff;box-shadow:0 0 14px #8bd5ff}
 h1{font-size:clamp(30px,5vw,54px);line-height:1.18;letter-spacing:.025em;margin:22px 0 12px;font-weight:750;text-shadow:0 8px 35px #0005}
 .subtitle{margin:0;color:var(--muted);font-size:14px;letter-spacing:.08em}
-.panel{position:relative;border:1px solid rgba(255,255,255,.2);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.055));backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);box-shadow:0 24px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);overflow:hidden;animation:rise 1s .12s cubic-bezier(.2,.8,.2,1) both}
+.panel{position:relative;border:1px solid rgba(255,255,255,.2);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.055));backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);box-shadow:0 24px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);overflow:hidden}
 .panel:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent)}
 .panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line)}
 .panel-label{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:650;letter-spacing:.08em}
@@ -35,15 +35,26 @@ tbody tr:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);box-s
 tbody td{padding:18px;color:#edf2ff;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.65;overflow-wrap:anywhere}
 tbody td:first-child{border-left:1px solid rgba(255,255,255,.08);border-radius:13px 0 0 13px;color:#c9dcff;font-variant-numeric:tabular-nums}
 tbody td:last-child{border-right:1px solid rgba(255,255,255,.08);border-radius:0 13px 13px 0}
-.empty{padding:62px 20px 70px;text-align:center;color:var(--muted)}
-.empty-symbol{width:54px;height:54px;margin:0 auto 17px;border-radius:18px;display:grid;place-items:center;font-size:23px;background:rgba(255,255,255,.09);border:1px solid var(--line);box-shadow:inset 0 1px 0 #ffffff25}
-.empty strong{display:block;color:#edf3ff;font-size:15px;font-weight:600;margin-bottom:7px}
-.empty p{margin:0;font-size:13px;line-height:1.8}
 .footer{text-align:center;color:#8291b2;font-size:11px;letter-spacing:.12em;margin-top:22px}
+.gate-wrap{width:min(650px,100%);margin:0 auto 28px;animation:rise .85s .08s cubic-bezier(.2,.8,.2,1) both}
+.gate{padding:28px}
+.gate-title{text-align:center;margin:0 0 8px;font-size:clamp(22px,4vw,30px);letter-spacing:.02em}
+.gate-desc{text-align:center;color:var(--muted);font-size:13px;margin:0 0 25px;line-height:1.7}
+.question{margin:18px 0}
+.question label{display:block;font-size:14px;font-weight:600;margin-bottom:9px;color:#edf2ff}
+.question input{width:100%;padding:14px 15px;border:1px solid rgba(255,255,255,.2);border-radius:13px;background:rgba(8,17,37,.38);color:white;font-size:15px;outline:none;transition:border .2s,box-shadow .2s}
+.question input::placeholder{color:#8796b6}
+.question input:focus{border-color:#8bd5ff;box-shadow:0 0 0 3px rgba(139,213,255,.12)}
+.submit{width:100%;margin-top:8px;padding:14px 18px;border:1px solid rgba(255,255,255,.3);border-radius:14px;color:#10203b;font-size:15px;font-weight:750;letter-spacing:.08em;cursor:pointer;background:linear-gradient(120deg,#d7f0ff,#a8caff 55%,#d9c7ff);box-shadow:0 10px 28px rgba(95,147,255,.2);transition:transform .2s,filter .2s}
+.submit:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.feedback{min-height:22px;margin:12px 0 0;text-align:center;font-size:13px;color:#ffb9c2}
+#timeline{display:none;animation:rise .65s ease both}
+#timeline.visible{display:block}
+.gate-hidden{display:none}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes floatA{to{transform:translate(100px,80px) scale(1.15)}}
 @keyframes floatB{to{transform:translate(-90px,-70px) scale(1.12)}}
-@media(max-width:600px){.wrap{padding:48px 0 36px}.panel{border-radius:20px}.panel-head{padding:17px 18px}.table-wrap{padding:7px 10px 14px}thead th{padding:10px 12px}tbody td{padding:14px 12px;font-size:13px}thead th:first-child{width:31%}.empty{padding:48px 12px 54px}}
+@media(max-width:600px){.wrap{padding:48px 0 36px}.panel{border-radius:20px}.panel-head{padding:17px 18px}.table-wrap{padding:7px 10px 14px}thead th{padding:10px 12px}tbody td{padding:14px 12px;font-size:13px}thead th:first-child{width:31%}.gate{padding:22px 18px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -55,27 +66,164 @@ tbody td:last-child{border-right:1px solid rgba(255,255,255,.08);border-radius:0
     <h1>2025届七年级二班大事年表</h1>
     <p class="subtitle">记录班级时光 · 收藏共同记忆</p>
   </header>
-  <section class="panel" aria-label="班级大事年表">
+
+  <section class="gate-wrap" id="gate">
+    <div class="panel gate">
+      <h2 class="gate-title">测一测你是不是一个合格的二班人</h2>
+      <p class="gate-desc">请回答下面两个问题，全部答对即可进入班级大事年表。</p>
+      <form id="quiz" autocomplete="off">
+        <div class="question">
+          <label for="answer1">问题一：我们班班主任叫什么名字？</label>
+          <input id="answer1" name="answer1" type="text" placeholder="请输入答案" required>
+        </div>
+        <div class="question">
+          <label for="answer2">问题二：PJY是否认识HJY？</label>
+          <input id="answer2" name="answer2" type="text" placeholder="请输入答案" required>
+        </div>
+        <button class="submit" type="submit">验证身份 · 进入年表</button>
+        <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel" id="timeline" aria-label="班级大事年表">
     <div class="panel-head">
       <div class="panel-label"><span class="icon">✦</span> 班级事件记录</div>
-      <span class="count" id="event-count">等待添加事件</span>
+      <span class="count">102 条记录</span>
     </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th scope="col">时间</th><th scope="col">事件</th></tr></thead>
-        <tbody id="events">
-          <tr id="empty-row"><td colspan="2">
-            <div class="empty">
-              <div class="empty-symbol">✧</div>
-              <strong>精彩故事，即将载入</strong>
-              <p>目前还没有添加事件<br>待补充内容发送后，这里就会成为属于七年级二班的时光档案。</p>
-            </div>
-          </td></tr>
+        <tbody>
+          <tr><td>七上</td><td>老班外号事件</td></tr>
+<tr><td>七上</td><td>道歉事件</td></tr>
+<tr><td>七上</td><td>大蒜事件</td></tr>
+<tr><td>七上</td><td>魔丸事件</td></tr>
+<tr><td>七上</td><td>双班聚众事件</td></tr>
+<tr><td>七上</td><td>彭先生僵尸事件</td></tr>
+<tr><td>七上</td><td>眼镜事件</td></tr>
+<tr><td>七上</td><td>召唤西施事件</td></tr>
+<tr><td>七上</td><td>午休锤魔丸事件</td></tr>
+<tr><td>七上</td><td>午休陷阱事件</td></tr>
+<tr><td>七上</td><td>yes sir 事件</td></tr>
+<tr><td>七上</td><td>大蒜事件</td></tr>
+<tr><td>七上</td><td>胡彭狗友事件</td></tr>
+<tr><td>七上</td><td>自习课事件</td></tr>
+<tr><td>七上</td><td>骂老师事件</td></tr>
+<tr><td>七上</td><td>撕试卷时间</td></tr>
+<tr><td>七上</td><td>圈画事件</td></tr>
+<tr><td>七上</td><td>江先生烧卖事件</td></tr>
+<tr><td>七上</td><td>陈先生老母上树事件</td></tr>
+<tr><td>七上</td><td>第一学期末记录片事件</td></tr>
+<tr><td>七上</td><td>火鸡面事件</td></tr>
+<tr><td>七上</td><td>彭江厕所事件</td></tr>
+<tr><td>七上</td><td>报告厅屏幕事件</td></tr>
+<tr><td>七上</td><td>合班教室杨先生写字事件</td></tr>
+<tr><td>七上</td><td>合班教室抽屉事件</td></tr>
+<tr><td>七下</td><td>饮料事件</td></tr>
+<tr><td>七下</td><td>直呼老师大名事件</td></tr>
+<tr><td>七下</td><td>李彭家长会事件</td></tr>
+<tr><td>七下</td><td>研学事件</td></tr>
+<tr><td>七下</td><td>头发事件</td></tr>
+<tr><td>七下</td><td>早上补作业事件</td></tr>
+<tr><td>七下</td><td>唱歌事件</td></tr>
+<tr><td>七下</td><td>扎辫子事件</td></tr>
+<tr><td>七下</td><td>开局一脚事件</td></tr>
+<tr><td>七下</td><td>陈先生传教事件</td></tr>
+<tr><td>七下</td><td>夏先生邪教事件</td></tr>
+<tr><td>七下</td><td>周末出去玩事件</td></tr>
+<tr><td>七下</td><td>晚自习碎玻璃事件</td></tr>
+<tr><td>七下</td><td>彭先生被串死事件</td></tr>
+<tr><td>七下</td><td>彭黄决裂事件</td></tr>
+<tr><td>七下</td><td>叠纸抛事件</td></tr>
+<tr><td>七下</td><td>上课睡觉事件</td></tr>
+<tr><td>七下</td><td>其实事件</td></tr>
+<tr><td>七下</td><td>早餐事件</td></tr>
+<tr><td>七下</td><td>小说事件</td></tr>
+<tr><td>七下</td><td>跨学期事件</td></tr>
+<tr><td>七下</td><td>杨先生熬夜事件</td></tr>
+<tr><td>七下</td><td>江先生事件</td></tr>
+<tr><td>七下</td><td>彭先生春游事件</td></tr>
+<tr><td>七下</td><td>彭先生串班事件</td></tr>
+<tr><td>七下</td><td>砸水杯事件</td></tr>
+<tr><td>七下</td><td>蚊子事件</td></tr>
+<tr><td>七下</td><td>家长来学校事件</td></tr>
+<tr><td>七下</td><td>晚自习抄作业事件</td></tr>
+<tr><td>七下</td><td>胡彭狗友事件2</td></tr>
+<tr><td>七下</td><td>刘彭事件</td></tr>
+<tr><td>七下</td><td>徐小姐朋友圈骂人事件</td></tr>
+<tr><td>七下</td><td>零食事件</td></tr>
+<tr><td>七下</td><td>潘邢事件</td></tr>
+<tr><td>七下</td><td>杨毛事件</td></tr>
+<tr><td>七下</td><td>晚自习小学事件</td></tr>
+<tr><td>七下</td><td>扔拖把事件</td></tr>
+<tr><td>七下</td><td>历史集体罚抄事件</td></tr>
+<tr><td>七下</td><td>厕所搞水事件</td></tr>
+<tr><td>七下</td><td>手串事件</td></tr>
+<tr><td>七下</td><td>4.3正确率事件</td></tr>
+<tr><td>七下</td><td>LJJ转钱事件</td></tr>
+<tr><td>七下</td><td>杨先生名刀司命事件</td></tr>
+<tr><td>七下</td><td>女生宿舍午休事件</td></tr>
+<tr><td>七下</td><td>掀桌子事件</td></tr>
+<tr><td>七下</td><td>陈先生调虎离山事件</td></tr>
+<tr><td>七下</td><td>跳长绳事件</td></tr>
+<tr><td>七下</td><td>语文课丢橡皮事件</td></tr>
+<tr><td>八上</td><td>打老师事件</td></tr>
+<tr><td>八上</td><td>泼水事件</td></tr>
+<tr><td>八上</td><td>陈先生不写作业事件</td></tr>
+<tr><td>八上</td><td>跨年级打入事件</td></tr>
+<tr><td>八上</td><td>跨班打人事件</td></tr>
+<tr><td>八上</td><td>体育课事件</td></tr>
+<tr><td>八上</td><td>何向东生病事件</td></tr>
+<tr><td>八上</td><td>龚发火事件</td></tr>
+<tr><td>八上</td><td>合唱事件</td></tr>
+<tr><td>八上</td><td>陈江踢腿事件</td></tr>
+<tr><td>八上</td><td>徐小姐当班主任事件</td></tr>
+<tr><td>八上</td><td>监控事件</td></tr>
+<tr><td>八上</td><td>火龙果事件</td></tr>
+<tr><td>八上</td><td>厕所门口打架事件</td></tr>
+<tr><td>八上</td><td>晚自习铁棒事件</td></tr>
+<tr><td>八上</td><td>轮椅事件</td></tr>
+<tr><td>八上</td><td>观察语文事件</td></tr>
+<tr><td>八上</td><td>心理串子事件</td></tr>
+<tr><td>八上</td><td>杨先生生气事件</td></tr>
+<tr><td>八上</td><td>物理成绩事件</td></tr>
+<tr><td>八上</td><td>陈先生初一骂人事件</td></tr>
+<tr><td>八上</td><td>长江中下游事件</td></tr>
+<tr><td>八上</td><td>LJJ 骑车事件</td></tr>
+<tr><td>八上</td><td>陈先生霸总LJJ事件</td></tr>
+<tr><td>八上</td><td>晚自习下楼事件</td></tr>
+<tr><td>八上</td><td>合班教室脱裤子事件</td></tr>
+<tr><td>八上</td><td>江先生照片事件</td></tr>
+<tr><td>八上</td><td>冻鸡小胸事件</td></tr>
+<tr><td>八上</td><td>物理课鬼扯事件</td></tr>
         </tbody>
       </table>
     </div>
   </section>
   <footer class="footer">MADE OF OUR DAYS · CLASS 7-2</footer>
 </main>
+<script>
+const form = document.getElementById('quiz');
+const gate = document.getElementById('gate');
+const timeline = document.getElementById('timeline');
+const feedback = document.getElementById('feedback');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const first = document.getElementById('answer1').value.trim().replace(/\s+/g, '');
+  const second = document.getElementById('answer2').value.trim().replace(/\s+/g, '');
+
+  if (first === '王璐' && second === '否') {
+    gate.classList.add('gate-hidden');
+    timeline.classList.add('visible');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  } else {
+    feedback.textContent = '答案不正确，请重新检查后再试。';
+    timeline.classList.remove('visible');
+    gate.classList.remove('gate-hidden');
+  }
+});
+</script>
 </body>
 </html>
