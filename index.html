@@ -598,6 +598,7 @@ tbody td:last-child{
     <button type="button" class="nav-tab" data-target="gossip">🔒 班级绯闻表</button>
     <button type="button" class="nav-tab" data-target="grades">📊 班级成绩排名</button>
     <button type="button" class="nav-tab" data-target="classinfo">🏫 班级信息</button>
+    <button type="button" class="nav-tab" data-target="author">✨ 作者</button>
   </nav>
 
   <!-- ================= 栏目一：大事年表 ================= -->
@@ -679,7 +680,7 @@ tbody td:last-child{
         <p class="gate-desc">此栏目已单独上锁，答对问题方可查看绯闻档案与班级串子排行榜。</p>
         <form id="gossip-quiz" autocomplete="off">
           <div class="question">
-            <label for="gossip-answer">问题：彭先生和杨先生给哪个初一的人道歉？</label>
+            <label for="gossip-answer">问题：彭先生和杨先生给那个初一的人道歉？</label>
             <input id="gossip-answer" name="gossip-answer" type="text" placeholder="请输入答案" required>
           </div>
           <button class="submit" type="submit">验证口令 · 解锁绯闻表</button>
@@ -857,7 +858,20 @@ tbody td:last-child{
     </div>
   </div>
 
-  <footer class="footer">MADE OF OUR DAYS · CLASS 7-2</footer>
+
+  <!-- ================= 栏目五：作者 ================= -->
+  <div id="tab-author" style="display:none">
+    <section class="panel" aria-label="作者">
+      <div class="panel-head">
+        <div class="panel-label"><span class="icon">✨</span> 作者</div>
+      </div>
+      <div class="rank-body" style="padding:28px 26px;font-size:16px;line-height:2;color:#ffffff;letter-spacing:.04em;">
+        风度翩翩、眉清目秀、卓尔不群、英俊潇洒、从容不迫、丰神俊朗、大方得体、玉树临风、神采飞扬、温文尔雅、俊逸非凡、一表人才、落落大方、气宇轩昂、品貌非凡、彬彬有礼、风流倜傥、光彩照人、清新俊逸、举止不凡、才貌双全、俊朗不凡、谈吐不俗、英姿飒爽、面如冠玉、风采卓然、仪表堂堂、气度不凡、神采奕奕、端庄大气、风华正茂、超凡脱俗、仪态万方、英姿勃发、雅人深致、俊美绝伦、举止优雅、风华绝代、神清骨秀、鹤立鸡群、潇洒倜傥、才貌出众、玉貌英姿、魅力四射、器宇轩昂、颜如舜华、风姿绰约、举世无双、风度不凡、气质非凡的彭隽逸先生。
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">MADE OF OUR DAYS · CLASS 7-2<div style="margin-top:10px;"><a href="https://pjy.ccwu.cc/" target="_blank" rel="noopener noreferrer" style="color:#a8ceff;text-decoration:none;letter-spacing:.08em;font-size:12px;">https://pjy.ccwu.cc/</a></div></footer>
 </main>
 
 <script>
@@ -872,6 +886,7 @@ const tabChronicle = document.getElementById('tab-chronicle');
 const tabGossip = document.getElementById('tab-gossip');
 const tabGrades = document.getElementById('tab-grades');
 const tabClassInfo = document.getElementById('tab-classinfo');
+const tabAuthor = document.getElementById('tab-author');
 
 navTabs.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -882,6 +897,7 @@ navTabs.forEach(btn => {
     tabGossip.style.display = target === 'gossip' ? 'block' : 'none';
     tabGrades.style.display = target === 'grades' ? 'block' : 'none';
     tabClassInfo.style.display = target === 'classinfo' ? 'block' : 'none';
+    tabAuthor.style.display = target === 'author' ? 'block' : 'none';
   });
 });
 
