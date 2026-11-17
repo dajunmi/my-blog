@@ -28,7 +28,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* iOS 26 液态玻璃折射动态背景光晕（极低不透明度折射光斑，确保纯黑底色下玻璃透光层次） */
+/* iOS 26 液态玻璃折射动态背景光晕 */
 .ambient-refraction{
   position:fixed;
   inset:0;
@@ -858,17 +858,35 @@ tbody td:last-child{
     </div>
   </div>
 
-
   <!-- ================= 栏目五：作者 ================= -->
   <div id="tab-author" style="display:none">
-    <section class="panel" aria-label="作者">
-      <div class="panel-head">
-        <div class="panel-label"><span class="icon">✨</span> 作者</div>
-      </div>
-      <div class="rank-body" style="padding:28px 26px;font-size:16px;line-height:2;color:#ffffff;letter-spacing:.04em;">
-        风度翩翩、眉清目秀、卓尔不群、英俊潇洒、从容不迫、丰神俊朗、大方得体、玉树临风、神采飞扬、温文尔雅、俊逸非凡、一表人才、落落大方、气宇轩昂、品貌非凡、彬彬有礼、风流倜傥、光彩照人、清新俊逸、举止不凡、才貌双全、俊朗不凡、谈吐不俗、英姿飒爽、面如冠玉、风采卓然、仪表堂堂、气度不凡、神采奕奕、端庄大气、风华正茂、超凡脱俗、仪态万方、英姿勃发、雅人深致、俊美绝伦、举止优雅、风华绝代、神清骨秀、鹤立鸡群、潇洒倜傥、才貌出众、玉貌英姿、魅力四射、器宇轩昂、颜如舜华、风姿绰约、举世无双、风度不凡、气质非凡的彭隽逸先生。
+    <!-- 独立密码锁 -->
+    <section class="gate-wrap" id="author-gate">
+      <div class="panel gate">
+        <h2 class="gate-title">🔒 作者 · 专属加密区</h2>
+        <p class="gate-desc">此栏目已单独上锁，答对问题方可查看作者档案。</p>
+        <form id="author-quiz" autocomplete="off">
+          <div class="question">
+            <label for="author-answer">问题：我们班谁是 yaG？</label>
+            <input id="author-answer" name="author-answer" type="text" placeholder="请输入答案" required>
+          </div>
+          <button class="submit" type="submit">验证口令 · 解锁作者栏目</button>
+          <p class="feedback" id="author-feedback" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
+
+    <!-- 解锁后的作者内容 -->
+    <div id="author-content-area" class="section-view">
+      <section class="panel" aria-label="作者">
+        <div class="panel-head">
+          <div class="panel-label"><span class="icon">✨</span> 作者</div>
+        </div>
+        <div class="rank-body" style="padding:28px 26px;font-size:16px;line-height:2;color:#ffffff;letter-spacing:.04em;">
+          风度翩翩、眉清目秀、卓尔不群、英俊潇洒、从容不迫、丰神俊朗、大方得体、玉树临风、神采飞扬、温文尔雅、俊逸非凡、一表人才、落落大方、气宇轩昂、品貌非凡、彬彬有礼、风流倜傥、光彩照人、清新俊逸、举止不凡、才貌双全、俊朗不凡、谈吐不俗、英姿飒爽、面如冠玉、风采卓然、仪表堂堂、气度不凡、神采奕奕、端庄大气、风华正茂、超凡脱俗、仪态万方、英姿勃发、雅人深致、俊美绝伦、举止优雅、风华绝代、神清骨秀、鹤立鸡群、潇洒倜傥、才貌出众、玉貌英姿、魅力四射、器宇轩昂、颜如舜华、风姿绰约、举世无双、风度不凡、气质非凡的彭隽逸先生。
+        </div>
+      </section>
+    </div>
   </div>
 
   <footer class="footer">MADE OF OUR DAYS · CLASS 7-2<div style="margin-top:10px;"><a href="https://pjy.ccwu.cc/" target="_blank" rel="noopener noreferrer" style="color:#a8ceff;text-decoration:none;letter-spacing:.08em;font-size:12px;">https://pjy.ccwu.cc/</a></div></footer>
@@ -1164,7 +1182,7 @@ renderGossipTable();
 renderGradesSection();
 renderClassInfo();
 
-// 锁1：大事年表身份验证逻辑（完全不变）
+// 锁1：大事年表身份验证逻辑
 const form = document.getElementById('quiz');
 const gate = document.getElementById('gate');
 const contentArea = document.getElementById('content-area');
@@ -1186,7 +1204,7 @@ form.addEventListener('submit', function(event) {
   }
 });
 
-// 锁2：班级绯闻表独立验证逻辑（完全不变）
+// 锁2：班级绯闻表独立验证逻辑
 const gossipForm = document.getElementById('gossip-quiz');
 const gossipGate = document.getElementById('gossip-gate');
 const gossipContentArea = document.getElementById('gossip-content-area');
@@ -1207,7 +1225,7 @@ gossipForm.addEventListener('submit', function(event) {
   }
 });
 
-// 锁3：班级成绩排名独立验证逻辑（完全不变）
+// 锁3：班级成绩排名独立验证逻辑
 const gradesForm = document.getElementById('grades-quiz');
 const gradesGate = document.getElementById('grades-gate');
 const gradesContentArea = document.getElementById('grades-content-area');
@@ -1249,7 +1267,28 @@ classInfoForm.addEventListener('submit', function(event) {
   }
 });
 
-// 高帧率丝滑纯黑背景白色发光粒子动效（支持高刷屏 delta-time 物理插值与离屏光晕缓存优化）
+// 锁5：作者栏目独立验证逻辑
+const authorForm = document.getElementById('author-quiz');
+const authorGate = document.getElementById('author-gate');
+const authorContentArea = document.getElementById('author-content-area');
+const authorFeedback = document.getElementById('author-feedback');
+
+authorForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const ans = document.getElementById('author-answer').value.trim().replace(/\s+/g, '');
+
+  if (ans === '杨先生') {
+    authorGate.classList.add('gate-hidden');
+    authorContentArea.classList.add('visible');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  } else {
+    authorFeedback.textContent = '回答错误，无权查看作者栏目！';
+    authorContentArea.classList.remove('visible');
+    authorGate.classList.remove('gate-hidden');
+  }
+});
+
+// 高帧率丝滑纯黑背景白色发光粒子动效
 (function initParticles() {
   const canvas = document.getElementById('particles-canvas');
   const ctx = canvas.getContext('2d', { alpha: true });
@@ -1257,7 +1296,6 @@ classInfoForm.addEventListener('submit', function(event) {
   let height = 0;
   let dpr = 1;
 
-  // 预渲染发光白色粒子精灵图，避免每帧重复计算 shadowBlur，大幅提升高刷屏（120Hz/144Hz）帧率与丝滑度
   const spriteSize = 32;
   const spriteCanvas = document.createElement('canvas');
   spriteCanvas.width = spriteSize;
@@ -1292,7 +1330,7 @@ classInfoForm.addEventListener('submit', function(event) {
     particles = [];
     for (let i = 0; i < count; i++) {
       const radius = Math.random() * 2.5 + 1.5;
-      const speed = (Math.random() * 0.45 + 0.35) * 60; // px/sec 标准化速度
+      const speed = (Math.random() * 0.45 + 0.35) * 60;
       const angle = Math.random() * Math.PI * 2;
       particles.push({
         x: Math.random() * width,
@@ -1338,10 +1376,9 @@ classInfoForm.addEventListener('submit', function(event) {
   const maxDistSq = maxDist * maxDist;
 
   function animate(now) {
-    const dt = Math.min((now - lastTime) / 1000, 0.05); // 防止切后台后跳帧
+    const dt = Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
 
-    // 鼠标位置阻尼插值，使交互更顺滑
     if (mouse.targetX !== null && mouse.targetY !== null) {
       mouse.x += (mouse.targetX - mouse.x) * Math.min(1, dt * 18);
       mouse.y += (mouse.targetY - mouse.y) * Math.min(1, dt * 18);
@@ -1374,13 +1411,11 @@ classInfoForm.addEventListener('submit', function(event) {
         }
       }
 
-      // 使用缓存发光贴图绘制粒子
       const drawSize = p.radius * 5.2;
       ctx.globalAlpha = p.alpha;
       ctx.drawImage(spriteCanvas, p.x - drawSize * 0.5, p.y - drawSize * 0.5, drawSize, drawSize);
     }
 
-    // 批量绘制粒子连线
     ctx.lineWidth = 0.85;
     for (let i = 0; i < len; i++) {
       const p = particles[i];
